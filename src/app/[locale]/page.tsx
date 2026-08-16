@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale } from "@/i18n/locales";
-import { ResumePreviewDocument } from "@/modules/components/resume-preview-document";
-import { edwinResume } from "@/modules/fixtures/edwin-resume";
+import { ResumePreviewDocument } from "@/modules/resume/components/resume-preview-document";
+import { edwinResume } from "@/modules/resume/fixtures/edwin-resume";
 
 type LocalePageProps = Readonly<{
   params: Promise<{ locale: string }>;

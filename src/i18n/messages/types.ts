@@ -62,6 +62,41 @@ export type Messages = {
     };
     invalidFileLabel: string;
   };
+  jobOffer: {
+    stepLabel: string;
+    heading: string;
+    supportText: string;
+    urlLabel: string;
+    urlPlaceholder: string;
+    fetchLabel: string;
+    urlHint: string;
+    separatorLabel: string;
+    descriptionLabel: string;
+    descriptionPlaceholder: string;
+    previewLabel: string;
+    autoExtractedLabel: string;
+    roleLabel: string;
+    roleValue: string;
+    companyLabel: string;
+    companyValue: string;
+    requirementsLabel: string;
+    requirementsValue: string;
+    previewNote: string;
+  };
+  analysisBenefits: {
+    heading: string;
+    description: string;
+    sectionRecommendationsTitle: string;
+    sectionRecommendationsDescription: string;
+    skillsGapTitle: string;
+    skillsGapDescription: string;
+    projectPrioritizationTitle: string;
+    projectPrioritizationDescription: string;
+    atsOptimizationTitle: string;
+    atsOptimizationDescription: string;
+    privacyTitle: string;
+    privacyDescription: string;
+  };
   resumeExport: {
     downloadLabel: string;
     errorLabel: string;

@@ -77,7 +77,7 @@ export function ResumeUploadPanel({
   };
 
   return (
-    <div className="w-full max-w-(--rt-upload-column-width)">
+    <div className="w-full">
       <div className="rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
         <div className="flex items-center gap-(--rt-space-3)">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-sm font-bold text-white shadow-brand">

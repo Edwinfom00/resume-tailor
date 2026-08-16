@@ -67,6 +67,50 @@ export const messages = {
     },
     invalidFileLabel: "Wählen Sie eine PDF- oder DOCX-Datei unter 10 MB.",
   },
+  jobOffer: {
+    stepLabel: "2",
+    heading: "Stellenangebot hinzufügen",
+    supportText:
+      "Fügen Sie die Stellenanzeige per URL hinzu oder fügen Sie die vollständige Beschreibung ein.",
+    urlLabel: "URL des Stellenangebots einfügen",
+    urlPlaceholder: "https://unternehmen.de/karriere/12345",
+    fetchLabel: "Abrufen",
+    urlHint: "Wir extrahieren die Stellendetails automatisch.",
+    separatorLabel: "oder",
+    descriptionLabel: "Stellenbeschreibung einfügen",
+    descriptionPlaceholder: "Fügen Sie hier die vollständige Stellenbeschreibung ein...",
+    previewLabel: "Analysierte Vorschau (Beispiel)",
+    autoExtractedLabel: "Automatisch extrahiert",
+    roleLabel: "Position",
+    roleValue: "Senior Full-Stack Engineer",
+    companyLabel: "Unternehmen",
+    companyValue: "Acme Inc.",
+    requirementsLabel: "Wichtige Anforderungen",
+    requirementsValue:
+      "TypeScript, React, Node.js, PostgreSQL, AWS, Docker, CI/CD, REST-APIs, Kommunikation.",
+    previewNote:
+      "Die Vorschau ist ein Beispiel. Klicken Sie auf „Übereinstimmung analysieren“, um alle extrahierten Details zu sehen.",
+  },
+  analysisBenefits: {
+    heading: "Das erhalten Sie",
+    description:
+      "Unsere KI analysiert Ihren Lebenslauf und das Stellenangebot für konkrete Erkenntnisse.",
+    sectionRecommendationsTitle: "Empfehlungen für jeden Abschnitt",
+    sectionRecommendationsDescription:
+      "Verbessern Sie jeden Teil Ihres Lebenslaufs anhand der Stellenanforderungen.",
+    skillsGapTitle: "Erkennung von Kompetenzlücken",
+    skillsGapDescription:
+      "Erkennen Sie fehlende Fähigkeiten und erhalten Sie passende Vorschläge.",
+    projectPrioritizationTitle: "Projektpriorisierung",
+    projectPrioritizationDescription:
+      "Heben Sie die relevantesten Projekte für diese Position hervor.",
+    atsOptimizationTitle: "ATS-freundliche Optimierung",
+    atsOptimizationDescription:
+      "Strukturieren Sie Ihren Lebenslauf so, dass ATS-Scans ihn problemlos lesen können.",
+    privacyTitle: "Von Fachleuten geschätzt",
+    privacyDescription:
+      "Ihre Daten bleiben vertraulich und werden nur zur Verbesserung Ihres Lebenslaufs verwendet.",
+  },
   resumeExport: {
     downloadLabel: "PDF herunterladen",
     errorLabel: "Das PDF konnte nicht exportiert werden. Bitte erneut versuchen.",

@@ -16,6 +16,7 @@
   --color-line: var(--rt-color-border-default);
   --color-line-subtle: var(--rt-color-border-subtle);
   --color-positive: var(--rt-color-success-500);
+  --color-caution-subtle: var(--rt-color-warning-50);
   --color-caution: var(--rt-color-warning-500);
   --color-negative: var(--rt-color-danger-500);
   --color-negative-subtle: var(--rt-color-danger-50);

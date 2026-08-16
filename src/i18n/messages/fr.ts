@@ -67,6 +67,50 @@ export const messages = {
     },
     invalidFileLabel: "Choisissez un fichier PDF ou DOCX inférieur à 10 Mo.",
   },
+  jobOffer: {
+    stepLabel: "2",
+    heading: "Ajouter l’offre d’emploi",
+    supportText:
+      "Ajoutez l’offre avec une URL ou collez la description complète du poste.",
+    urlLabel: "Coller l’URL de l’offre",
+    urlPlaceholder: "https://entreprise.com/carrieres/12345",
+    fetchLabel: "Récupérer",
+    urlHint: "Nous extrairons automatiquement les détails du poste.",
+    separatorLabel: "ou",
+    descriptionLabel: "Coller la description du poste",
+    descriptionPlaceholder: "Collez ici la description complète du poste...",
+    previewLabel: "Aperçu analysé (exemple)",
+    autoExtractedLabel: "Extrait automatiquement",
+    roleLabel: "Poste",
+    roleValue: "Ingénieur full-stack senior",
+    companyLabel: "Entreprise",
+    companyValue: "Acme Inc.",
+    requirementsLabel: "Exigences clés",
+    requirementsValue:
+      "TypeScript, React, Node.js, PostgreSQL, AWS, Docker, CI/CD, API REST, communication.",
+    previewNote:
+      "Cet aperçu est un exemple. Cliquez sur « Analyser la correspondance » pour voir tous les détails extraits.",
+  },
+  analysisBenefits: {
+    heading: "Ce que vous obtiendrez",
+    description:
+      "Notre IA analyse votre CV et l’offre pour fournir des recommandations concrètes.",
+    sectionRecommendationsTitle: "Recommandations par section",
+    sectionRecommendationsDescription:
+      "Améliorez chaque partie de votre CV selon les exigences du poste.",
+    skillsGapTitle: "Détection des lacunes",
+    skillsGapDescription:
+      "Identifiez les compétences manquantes et obtenez des suggestions adaptées.",
+    projectPrioritizationTitle: "Priorisation des projets",
+    projectPrioritizationDescription:
+      "Mettez en avant les projets les plus pertinents pour ce poste.",
+    atsOptimizationTitle: "Optimisation pour les ATS",
+    atsOptimizationDescription:
+      "Structurez votre CV pour réussir les analyses des ATS.",
+    privacyTitle: "Approuvé par les professionnels",
+    privacyDescription:
+      "Vos données sont confidentielles et utilisées uniquement pour améliorer votre CV.",
+  },
   resumeExport: {
     downloadLabel: "Télécharger le PDF",
     errorLabel: "Le PDF n’a pas pu être exporté. Veuillez réessayer.",

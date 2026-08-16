@@ -32,7 +32,11 @@ export default async function UploadResume({ params }: LocalePageProps) {
             {dictionary.upload.description}
           </p>
         </div>
-        <UploadAnalysisWorkspace messages={dictionary.upload} />
+        <UploadAnalysisWorkspace
+          analysisBenefitsMessages={dictionary.analysisBenefits}
+          jobOfferMessages={dictionary.jobOffer}
+          messages={dictionary.upload}
+        />
       </div>
     </main>
   );

@@ -66,6 +66,49 @@ export const messages = {
     },
     invalidFileLabel: "Choose a PDF or DOCX file smaller than 10MB.",
   },
+  jobOffer: {
+    stepLabel: "2",
+    heading: "Add job offer",
+    supportText: "Add the job posting using a URL or paste the full job description.",
+    urlLabel: "Paste job offer URL",
+    urlPlaceholder: "https://company.com/careers/12345",
+    fetchLabel: "Fetch",
+    urlHint: "We'll extract the job details automatically.",
+    separatorLabel: "or",
+    descriptionLabel: "Paste job description",
+    descriptionPlaceholder: "Paste the full job description here...",
+    previewLabel: "Parsed preview (sample)",
+    autoExtractedLabel: "Auto-extracted",
+    roleLabel: "Role",
+    roleValue: "Senior Full-Stack Engineer",
+    companyLabel: "Company",
+    companyValue: "Acme Inc.",
+    requirementsLabel: "Key requirements",
+    requirementsValue:
+      "TypeScript, React, Node.js, PostgreSQL, AWS, Docker, CI/CD, REST APIs, communication.",
+    previewNote:
+      "Preview is a sample. Click “Analyze match” to see full extracted details.",
+  },
+  analysisBenefits: {
+    heading: "What you'll get",
+    description:
+      "Our AI analyzes your resume and the job offer to deliver actionable insights.",
+    sectionRecommendationsTitle: "Section-by-section recommendations",
+    sectionRecommendationsDescription:
+      "Improve each part of your resume based on the job requirements.",
+    skillsGapTitle: "Skills gap detection",
+    skillsGapDescription:
+      "Identify missing skills and get suggestions to strengthen your fit.",
+    projectPrioritizationTitle: "Project prioritization",
+    projectPrioritizationDescription:
+      "Highlight the projects that matter most for this role.",
+    atsOptimizationTitle: "ATS-friendly optimization",
+    atsOptimizationDescription:
+      "Ensure your resume is structured to pass ATS scans with ease.",
+    privacyTitle: "Trusted by professionals",
+    privacyDescription:
+      "Your data is confidential and used only to improve your resume.",
+  },
   resumeExport: {
     downloadLabel: "Download PDF",
     errorLabel: "The PDF could not be exported. Please try again.",

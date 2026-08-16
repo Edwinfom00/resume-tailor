@@ -29,5 +29,8 @@ export type Messages = {
     education: {
       title: string;
     };
+    skills: {
+      title: string;
+    };
   };
 };

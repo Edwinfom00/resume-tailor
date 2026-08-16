@@ -32,5 +32,8 @@ export const messages = {
     education: {
       title: "Ausbildung",
     },
+    skills: {
+      title: "Kenntnisse und Fähigkeiten",
+    },
   },
 } satisfies Messages;

@@ -10,6 +10,10 @@ import type {
 import type { ResumeWarningCode } from "@/modules/resume/validation/validate-resume";
 import type { BackgroundJobState } from "@/modules/session/domain/background-job";
 import type { ResumeHistory } from "@/modules/session/domain/resume-history";
+import type {
+  ResumeHighlight,
+  ResumeSelection,
+} from "@/modules/session/domain/resume-selection";
 import type { DomainError } from "@/modules/shared/domain/domain-error";
 
 export interface ResumeSlice {
@@ -36,6 +40,7 @@ export interface JobSlice {
 export interface AnalysisSlice {
   readonly data?: ResumeJobAnalysis;
   readonly running: boolean;
+  readonly previousScore?: number;
   readonly error?: DomainError;
   readonly cache: Readonly<
     Record<
@@ -57,6 +62,9 @@ export interface TailorSessionState {
   readonly copilot: CopilotState;
   readonly history: ResumeHistory;
   readonly jobs: readonly BackgroundJobState[];
+  readonly selection?: ResumeSelection;
+  readonly highlight?: ResumeHighlight;
+  readonly applyingSuggestionId?: string;
   readonly createdAt: string;
   readonly updatedAt: string;
 }

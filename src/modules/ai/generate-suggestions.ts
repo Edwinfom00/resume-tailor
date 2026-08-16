@@ -4,6 +4,7 @@ import type { ResumeData } from "@/@types/resume-data";
 import type { JobOffer } from "@/modules/job/domain/job-offer";
 import type { ResumeSuggestion } from "@/modules/analysis/domain/suggestion-types";
 import { checkRewriteAgainstResume } from "@/modules/analysis/suggestions/anti-hallucination";
+import { buildRewriteAction } from "@/modules/analysis/suggestions/rewrite-action";
 import { generateStructured } from "@/modules/ai/generate-structured";
 import { truncateText } from "@/modules/shared/text/normalize-text";
 
@@ -157,38 +158,4 @@ export async function enrichSuggestionsWithRewrites(
       action: buildRewriteAction(suggestion, after),
     };
   });
-}
-
-function buildRewriteAction(
-  suggestion: ResumeSuggestion,
-  after: string | readonly string[],
-): ResumeSuggestion["action"] {
-  if (suggestion.target.section === "profile") {
-    return {
-      type: "profile.update",
-      summary: Array.isArray(after) ? after.join(" ") : (after as string),
-    };
-  }
-
-  if (suggestion.target.section === "experience" && suggestion.target.itemId) {
-    return {
-      type: "experience.update",
-      itemId: suggestion.target.itemId,
-      changes: Array.isArray(after)
-        ? { achievements: after }
-        : { summary: after as string },
-    };
-  }
-
-  if (suggestion.target.section === "projects" && suggestion.target.itemId) {
-    return {
-      type: "project.update",
-      itemId: suggestion.target.itemId,
-      changes: Array.isArray(after)
-        ? { highlights: after }
-        : { description: after as string },
-    };
-  }
-
-  return undefined;
 }

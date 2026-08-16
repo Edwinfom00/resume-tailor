@@ -17,6 +17,9 @@ import {
 import type { ResumeAction } from "@/modules/resume/domain/resume-actions";
 import { applyResumeAction } from "@/modules/resume/services/apply-resume-action";
 import { normalizeResumeData } from "@/modules/resume/normalization/normalize-resume";
+import { validateResumeFile } from "@/modules/resume/parsers/file-validation";
+import { validateJobUrl } from "@/modules/job/extraction/validate-job-url";
+import { createJobError } from "@/modules/job/domain/job-errors";
 import {
   canRedo,
   canUndo,
@@ -31,6 +34,10 @@ import {
   type BackgroundJobState,
   type BackgroundJobType,
 } from "@/modules/session/domain/background-job";
+import {
+  selectionForAction,
+  type ResumeSelection,
+} from "@/modules/session/domain/resume-selection";
 import {
   deriveWorkflowState,
   type WorkflowState,
@@ -52,6 +59,11 @@ import { createIdentifier } from "@/modules/shared/domain/identifier";
 import { stableHash } from "@/modules/shared/domain/stable-hash";
 import type { DomainError } from "@/modules/shared/domain/domain-error";
 
+export interface ApplyActionOptions {
+  readonly suggestionId?: string;
+  readonly proposalId?: string;
+}
+
 interface SessionActions {
   uploadResume: (file: File) => Promise<void>;
   clearResume: () => void;
@@ -63,18 +75,24 @@ interface SessionActions {
 
   runAnalysis: () => Promise<void>;
 
-  acceptSuggestion: (suggestionId: string) => void;
+  acceptSuggestion: (suggestionId: string) => Promise<void>;
   ignoreSuggestion: (suggestionId: string) => void;
+  restoreSuggestion: (suggestionId: string) => void;
   editSuggestion: (suggestionId: string, payload: Partial<ResumeSuggestion>) => void;
 
-  applyAction: (action: ResumeAction, suggestionId?: string) => void;
-  undoLastChange: () => void;
-  redoLastChange: () => void;
+  applyAction: (action: ResumeAction, options?: ApplyActionOptions) => Promise<void>;
+  undoLastChange: () => Promise<void>;
+  redoLastChange: () => Promise<void>;
 
   sendCopilotMessage: (message: string) => Promise<void>;
-  applyCopilotProposal: (proposalId: string) => void;
+  retryCopilotMessage: () => Promise<void>;
+  dismissCopilotError: () => void;
+  applyCopilotProposal: (proposalId: string) => Promise<void>;
   ignoreCopilotProposal: (proposalId: string) => void;
   editCopilotProposal: (proposalId: string, action: ResumeAction) => void;
+
+  selectResumeSection: (selection: ResumeSelection | undefined) => void;
+  dismissHighlight: (highlightId: string) => void;
 
   resetSession: () => void;
 }
@@ -150,12 +168,10 @@ function boundAnalysisCache(
   );
 }
 
-function markAnalysisStale(state: TailorSessionState) {
-  if (!state.analysis.data || !state.resume.data || !state.job.data) {
-    return state.analysis;
-  }
+function highlightForAction(action: ResumeAction) {
+  const selection = selectionForAction(action);
 
-  return { ...state.analysis };
+  return selection ? { ...selection, id: createIdentifier("hlt") } : undefined;
 }
 
 export const useSessionStore = create<SessionStore>()(
@@ -164,6 +180,25 @@ export const useSessionStore = create<SessionStore>()(
       ...createInitialState(),
 
       uploadResume: async (file) => {
+        const validation = validateResumeFile({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+        });
+
+        if (!validation.ok) {
+          set((state) => ({
+            resume: {
+              ...state.resume,
+              status: "failed",
+              error: validation.error,
+            },
+            updatedAt: now(),
+          }));
+
+          return;
+        }
+
         const inputHash = stableHash({
           name: file.name,
           size: file.size,
@@ -176,10 +211,11 @@ export const useSessionStore = create<SessionStore>()(
             ...state.resume,
             status: "extracting",
             error: undefined,
+            warnings: [],
             originalFile: {
-              name: file.name,
-              mimeType: file.type,
-              size: file.size,
+              name: validation.value.name,
+              mimeType: validation.value.mimeType,
+              size: validation.value.size,
               uploadedAt: now(),
             },
           },
@@ -217,6 +253,8 @@ export const useSessionStore = create<SessionStore>()(
           analysis: initialAnalysisSlice,
           suggestions: [],
           history: emptyResumeHistory,
+          selection: undefined,
+          highlight: undefined,
           jobs: upsertJob(state.jobs, completeJob(job)),
           updatedAt: now(),
         }));
@@ -228,6 +266,8 @@ export const useSessionStore = create<SessionStore>()(
           analysis: initialAnalysisSlice,
           suggestions: [],
           history: emptyResumeHistory,
+          selection: undefined,
+          highlight: undefined,
           updatedAt: now(),
         }),
 
@@ -248,19 +288,33 @@ export const useSessionStore = create<SessionStore>()(
           analysis: initialAnalysisSlice,
           suggestions: [],
           history: emptyResumeHistory,
+          selection: undefined,
+          highlight: undefined,
           updatedAt: now(),
         });
       },
 
       setJobUrl: (url) =>
         set((state) => ({
-          job: { ...state.job, url, inputType: "url" },
+          job: {
+            ...state.job,
+            url,
+            inputType: "url",
+            error: undefined,
+            status: state.job.status === "failed" ? "idle" : state.job.status,
+          },
           updatedAt: now(),
         })),
 
       setJobDescription: (description) =>
         set((state) => ({
-          job: { ...state.job, description, inputType: "text" },
+          job: {
+            ...state.job,
+            description,
+            inputType: "text",
+            error: undefined,
+            status: state.job.status === "failed" ? "idle" : state.job.status,
+          },
           updatedAt: now(),
         })),
 
@@ -268,6 +322,42 @@ export const useSessionStore = create<SessionStore>()(
         const { job: jobSlice } = get();
         const useUrl = jobSlice.url.trim().length > 0;
         const input = useUrl ? jobSlice.url.trim() : jobSlice.description.trim();
+
+        if (!input) {
+          set((state) => ({
+            job: {
+              ...state.job,
+              status: "failed",
+              error: createJobError("EMPTY_DESCRIPTION"),
+            },
+            updatedAt: now(),
+          }));
+
+          return;
+        }
+
+        if (useUrl) {
+          set((state) => ({
+            job: { ...state.job, status: "validating", error: undefined },
+            updatedAt: now(),
+          }));
+
+          const urlValidation = validateJobUrl(input);
+
+          if (!urlValidation.ok) {
+            set((state) => ({
+              job: {
+                ...state.job,
+                status: "failed",
+                error: urlValidation.error,
+              },
+              updatedAt: now(),
+            }));
+
+            return;
+          }
+        }
+
         const inputHash = stableHash({ useUrl, input });
         const backgroundJob = createJob("job-extraction", inputHash);
 
@@ -304,7 +394,7 @@ export const useSessionStore = create<SessionStore>()(
             status: "completed",
             error: undefined,
           },
-          analysis: { ...state.analysis, data: undefined },
+          analysis: { ...state.analysis, data: undefined, previousScore: undefined },
           suggestions: [],
           jobs: upsertJob(state.jobs, completeJob(backgroundJob)),
           updatedAt: now(),
@@ -321,11 +411,17 @@ export const useSessionStore = create<SessionStore>()(
         }
 
         const analysisKey = buildAnalysisKey(resume, job);
+        const previousScore = state.analysis.data?.score.overall;
         const cached = state.analysis.cache[analysisKey];
 
         if (cached) {
           set({
-            analysis: { ...state.analysis, data: cached.analysis, error: undefined },
+            analysis: {
+              ...state.analysis,
+              data: cached.analysis,
+              previousScore,
+              error: undefined,
+            },
             suggestions: cached.suggestions,
             updatedAt: now(),
           });
@@ -341,6 +437,7 @@ export const useSessionStore = create<SessionStore>()(
             ...current.analysis,
             running: true,
             data: local.analysis,
+            previousScore,
             error: undefined,
           },
           suggestions: local.suggestions,
@@ -372,6 +469,7 @@ export const useSessionStore = create<SessionStore>()(
             ...current.analysis,
             running: false,
             data: result.value.analysis,
+            previousScore,
             error: undefined,
             cache: boundAnalysisCache(
               {
@@ -390,7 +488,7 @@ export const useSessionStore = create<SessionStore>()(
         }));
       },
 
-      applyAction: (action, suggestionId) => {
+      applyAction: async (action, options) => {
         const state = get();
         const resume = state.resume.data;
 
@@ -407,34 +505,45 @@ export const useSessionStore = create<SessionStore>()(
             previousResume: resume,
             nextResume,
             timestamp: now(),
-            suggestionId,
+            suggestionId: options?.suggestionId,
+            proposalId: options?.proposalId,
           }),
-          analysis: markAnalysisStale(state),
+          highlight: highlightForAction(action),
           updatedAt: now(),
         });
 
-        void get().runAnalysis();
+        await get().runAnalysis();
       },
 
-      acceptSuggestion: (suggestionId) => {
+      acceptSuggestion: async (suggestionId) => {
         const state = get();
         const suggestion = state.suggestions.find(
           (item) => item.id === suggestionId,
         );
 
-        if (!suggestion || suggestion.status === "accepted") {
+        if (
+          !suggestion ||
+          suggestion.status === "accepted" ||
+          state.applyingSuggestionId
+        ) {
           return;
         }
 
-        set({
-          suggestions: state.suggestions.map((item) =>
-            item.id === suggestionId ? { ...item, status: "accepted" } : item,
-          ),
-          updatedAt: now(),
-        });
+        set({ applyingSuggestionId: suggestionId, updatedAt: now() });
 
-        if (suggestion.action) {
-          get().applyAction(suggestion.action, suggestionId);
+        try {
+          if (suggestion.action) {
+            await get().applyAction(suggestion.action, { suggestionId });
+          }
+
+          set((current) => ({
+            suggestions: current.suggestions.map((item) =>
+              item.id === suggestionId ? { ...item, status: "accepted" } : item,
+            ),
+            updatedAt: now(),
+          }));
+        } finally {
+          set({ applyingSuggestionId: undefined });
         }
       },
 
@@ -442,6 +551,14 @@ export const useSessionStore = create<SessionStore>()(
         set((state) => ({
           suggestions: state.suggestions.map((item) =>
             item.id === suggestionId ? { ...item, status: "ignored" } : item,
+          ),
+          updatedAt: now(),
+        })),
+
+      restoreSuggestion: (suggestionId) =>
+        set((state) => ({
+          suggestions: state.suggestions.map((item) =>
+            item.id === suggestionId ? { ...item, status: "pending" } : item,
           ),
           updatedAt: now(),
         })),
@@ -456,7 +573,7 @@ export const useSessionStore = create<SessionStore>()(
           updatedAt: now(),
         })),
 
-      undoLastChange: () => {
+      undoLastChange: async () => {
         const state = get();
         const outcome = undoHistory(state.history);
 
@@ -474,13 +591,24 @@ export const useSessionStore = create<SessionStore>()(
                   : item,
               )
             : state.suggestions,
+          copilot: outcome.entry.proposalId
+            ? {
+                ...state.copilot,
+                proposals: state.copilot.proposals.map((item) =>
+                  item.id === outcome.entry.proposalId
+                    ? { ...item, status: "pending" }
+                    : item,
+                ),
+              }
+            : state.copilot,
+          highlight: highlightForAction(outcome.entry.action),
           updatedAt: now(),
         });
 
-        void get().runAnalysis();
+        await get().runAnalysis();
       },
 
-      redoLastChange: () => {
+      redoLastChange: async () => {
         const state = get();
         const outcome = redoHistory(state.history);
 
@@ -491,17 +619,35 @@ export const useSessionStore = create<SessionStore>()(
         set({
           resume: { ...state.resume, data: outcome.resume },
           history: outcome.history,
+          suggestions: outcome.entry.suggestionId
+            ? state.suggestions.map((item) =>
+                item.id === outcome.entry.suggestionId
+                  ? { ...item, status: "accepted" }
+                  : item,
+              )
+            : state.suggestions,
+          copilot: outcome.entry.proposalId
+            ? {
+                ...state.copilot,
+                proposals: state.copilot.proposals.map((item) =>
+                  item.id === outcome.entry.proposalId
+                    ? { ...item, status: "applied" }
+                    : item,
+                ),
+              }
+            : state.copilot,
+          highlight: highlightForAction(outcome.entry.action),
           updatedAt: now(),
         });
 
-        void get().runAnalysis();
+        await get().runAnalysis();
       },
 
       sendCopilotMessage: async (message) => {
         const state = get();
         const resume = state.resume.data;
 
-        if (!resume) {
+        if (!resume || state.copilot.pending) {
           return;
         }
 
@@ -517,6 +663,8 @@ export const useSessionStore = create<SessionStore>()(
             ...current.copilot,
             messages: boundMessages([...current.copilot.messages, userMessage]),
             pending: true,
+            error: undefined,
+            retryMessage: undefined,
           },
           updatedAt: now(),
         }));
@@ -536,16 +684,9 @@ export const useSessionStore = create<SessionStore>()(
           set((current) => ({
             copilot: {
               ...current.copilot,
-              messages: boundMessages([
-                ...current.copilot.messages,
-                {
-                  id: createIdentifier("msg"),
-                  role: "assistant",
-                  content: result.error.message,
-                  createdAt: now(),
-                },
-              ]),
               pending: false,
+              error: result.error,
+              retryMessage: message,
             },
             updatedAt: now(),
           }));
@@ -563,6 +704,7 @@ export const useSessionStore = create<SessionStore>()(
 
         set((current) => ({
           copilot: {
+            ...current.copilot,
             messages: boundMessages([
               ...current.copilot.messages,
               {
@@ -577,34 +719,84 @@ export const useSessionStore = create<SessionStore>()(
               ? [...current.copilot.proposals, proposal].slice(-10)
               : current.copilot.proposals,
             pending: false,
+            error: undefined,
+            retryMessage: undefined,
           },
           updatedAt: now(),
         }));
       },
 
-      applyCopilotProposal: (proposalId) => {
+      retryCopilotMessage: async () => {
+        const { copilot } = get();
+
+        if (!copilot.retryMessage || copilot.pending) {
+          return;
+        }
+
+        const message = copilot.retryMessage;
+
+        set((current) => ({
+          copilot: {
+            ...current.copilot,
+            messages: current.copilot.messages.filter(
+              (entry, index) =>
+                !(
+                  index === current.copilot.messages.length - 1 &&
+                  entry.role === "user" &&
+                  entry.content === message
+                ),
+            ),
+            error: undefined,
+            retryMessage: undefined,
+          },
+        }));
+
+        await get().sendCopilotMessage(message);
+      },
+
+      dismissCopilotError: () =>
+        set((state) => ({
+          copilot: { ...state.copilot, error: undefined, retryMessage: undefined },
+        })),
+
+      applyCopilotProposal: async (proposalId) => {
         const state = get();
         const proposal = state.copilot.proposals.find(
           (item) => item.id === proposalId,
         );
 
-        if (!proposal || proposal.status !== "pending") {
+        if (
+          !proposal ||
+          (proposal.status !== "pending" && proposal.status !== "edited") ||
+          state.copilot.applyingProposalId
+        ) {
           return;
         }
 
-        set({
-          copilot: {
-            ...state.copilot,
-            proposals: state.copilot.proposals.map((item) =>
-              item.id === proposalId
-                ? ({ ...item, status: "applied" } satisfies CopilotActionProposal)
-                : item,
-            ),
-          },
+        set((current) => ({
+          copilot: { ...current.copilot, applyingProposalId: proposalId },
           updatedAt: now(),
-        });
+        }));
 
-        get().applyAction(proposal.action);
+        try {
+          await get().applyAction(proposal.action, { proposalId });
+
+          set((current) => ({
+            copilot: {
+              ...current.copilot,
+              proposals: current.copilot.proposals.map((item) =>
+                item.id === proposalId
+                  ? ({ ...item, status: "applied" } satisfies CopilotActionProposal)
+                  : item,
+              ),
+            },
+            updatedAt: now(),
+          }));
+        } finally {
+          set((current) => ({
+            copilot: { ...current.copilot, applyingProposalId: undefined },
+          }));
+        }
       },
 
       ignoreCopilotProposal: (proposalId) =>
@@ -631,11 +823,19 @@ export const useSessionStore = create<SessionStore>()(
           updatedAt: now(),
         })),
 
+      selectResumeSection: (selection) =>
+        set({ selection, updatedAt: now() }),
+
+      dismissHighlight: (highlightId) =>
+        set((state) =>
+          state.highlight?.id === highlightId ? { highlight: undefined } : {},
+        ),
+
       resetSession: () => set(createInitialState()),
     }),
     {
       name: "resume-tailor-session",
-      version: 1,
+      version: 2,
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         id: state.id,
@@ -669,6 +869,7 @@ export const useSessionStore = create<SessionStore>()(
         },
         history: state.history,
         jobs: state.jobs,
+        selection: state.selection,
         createdAt: state.createdAt,
         updatedAt: state.updatedAt,
       }),
@@ -709,13 +910,19 @@ export const useSessionStore = create<SessionStore>()(
             ...initialAnalysisSlice,
             ...restored.analysis,
             running: false,
+            previousScore: undefined,
             error: undefined,
           },
           copilot: {
             ...emptyCopilotState,
             ...restored.copilot,
             pending: false,
+            error: undefined,
+            retryMessage: undefined,
+            applyingProposalId: undefined,
           },
+          highlight: undefined,
+          applyingSuggestionId: undefined,
           jobs: (restored.jobs ?? []).map((job) =>
             isResumable(job)
               ? { ...job, status: "cancelled" as const, updatedAt: now() }

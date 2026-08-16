@@ -23,7 +23,7 @@ function ResumeExperienceItem({
   const location = formatResumeLocation(experience.location);
 
   return (
-    <article>
+    <article data-resume-item={experience.id}>
       <div className="flex items-baseline justify-between gap-4">
         <h3 className="m-0 text-sm leading-tight font-bold text-(--rt-color-resume-copy)">
           {experience.role}
@@ -55,7 +55,7 @@ export function ResumeExperience({
   presentLabel,
 }: ResumeExperienceProps) {
   return (
-    <section>
+    <section data-resume-section="experience">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-(--rt-resume-entry-gap)">
         {resume.experiences.map((experience) => (

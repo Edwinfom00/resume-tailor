@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { FiDownload, FiSearch } from "react-icons/fi";
+import { FiCornerUpLeft, FiCornerUpRight, FiDownload, FiSearch } from "react-icons/fi";
 import { Logo } from "@/components/brand/logo";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { MatchIndicator } from "@/components/navigation/match-indicator";
 import { useResumePdfExport } from "@/modules/resume/hooks/use-resume-pdf-export";
-import { useSessionStore } from "@/modules/session/state/session-store";
-import { useSessionHydrated } from "@/modules/session/state/use-session-hydrated";
+import {
+  selectCanRedo,
+  selectCanUndo,
+  useSessionStore,
+} from "@/modules/session/state/session-store";
 import type { Locale } from "@/i18n/locales";
 import type { Messages } from "@/i18n/messages/types";
 
@@ -25,10 +29,10 @@ export function WorkspaceHeader({
   exportMessages,
 }: WorkspaceHeaderProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const isHydrated = useSessionHydrated();
-  const overallScore = useSessionStore(
-    (state) => state.analysis.data?.score.overall,
-  );
+  const canUndo = useSessionStore(selectCanUndo);
+  const canRedo = useSessionStore(selectCanRedo);
+  const undoLastChange = useSessionStore((state) => state.undoLastChange);
+  const redoLastChange = useSessionStore((state) => state.redoLastChange);
   const { exportPdf, isExporting } = useResumePdfExport();
 
   useEffect(() => {
@@ -78,17 +82,27 @@ export function WorkspaceHeader({
         </form>
 
         <div className="ml-auto flex items-center gap-(--rt-space-3)">
-          <div className="hidden h-(--rt-control-height-md) items-center gap-(--rt-space-2) rounded-lg border border-line-subtle bg-surface px-(--rt-space-3) text-sm font-semibold text-ink shadow-xs sm:flex">
-            <span>{messages.matchLabel}</span>
-            <span
-              aria-hidden="true"
-              className="h-6 w-6 rounded-full border-2 border-brand border-l-brand-subtle"
-            />
-            <span className="text-ink-muted">
-              {isHydrated && overallScore !== undefined
-                ? `${overallScore}%`
-                : messages.matchValue}
-            </span>
+          <MatchIndicator messages={messages} />
+
+          <div className="hidden items-center rounded-lg border border-line-subtle bg-surface shadow-xs sm:flex">
+            <button
+              type="button"
+              aria-label={messages.undoLabel}
+              disabled={!canUndo}
+              onClick={() => void undoLastChange()}
+              className="inline-flex h-(--rt-control-height-md) w-(--rt-control-height-md) items-center justify-center rounded-l-lg text-ink-muted transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <FiCornerUpLeft aria-hidden="true" className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              aria-label={messages.redoLabel}
+              disabled={!canRedo}
+              onClick={() => void redoLastChange()}
+              className="inline-flex h-(--rt-control-height-md) w-(--rt-control-height-md) items-center justify-center rounded-r-lg text-ink-muted transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <FiCornerUpRight aria-hidden="true" className="h-4 w-4" />
+            </button>
           </div>
 
           <button

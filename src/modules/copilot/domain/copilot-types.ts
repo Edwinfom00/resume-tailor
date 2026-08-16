@@ -1,4 +1,5 @@
 import type { ResumeAction } from "@/modules/resume/domain/resume-actions";
+import type { DomainError } from "@/modules/shared/domain/domain-error";
 
 export type CopilotIntent =
   | "profile.rewrite"
@@ -62,6 +63,9 @@ export interface CopilotState {
   readonly messages: readonly CopilotMessage[];
   readonly proposals: readonly CopilotActionProposal[];
   readonly pending: boolean;
+  readonly error?: DomainError;
+  readonly retryMessage?: string;
+  readonly applyingProposalId?: string;
 }
 
 export const emptyCopilotState: CopilotState = {
@@ -69,6 +73,15 @@ export const emptyCopilotState: CopilotState = {
   proposals: [],
   pending: false,
 };
+
+export function proposalForMessage(
+  state: CopilotState,
+  message: CopilotMessage,
+) {
+  return message.actionProposalId
+    ? state.proposals.find((proposal) => proposal.id === message.actionProposalId)
+    : undefined;
+}
 
 export const maximumConversationMessages = 40;
 

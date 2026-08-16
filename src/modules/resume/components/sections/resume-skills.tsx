@@ -21,7 +21,7 @@ function ResumeSkillGroupItem({ group }: ResumeSkillGroupProps) {
 
 export function ResumeSkills({ resume, title }: ResumeSkillsProps) {
   return (
-    <section>
+    <section data-resume-section="skills">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-1">
         {resume.skills.map((group) => (

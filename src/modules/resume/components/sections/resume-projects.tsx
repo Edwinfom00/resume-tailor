@@ -23,7 +23,7 @@ function ResumeProjectItem({
   const [overview, ...outcomes] = project.highlights;
 
   return (
-    <article>
+    <article data-resume-item={project.id}>
       <h3 className="m-0 text-sm leading-tight font-bold text-(--rt-color-resume-copy)">
         {project.name} – {project.description}
       </h3>
@@ -59,7 +59,7 @@ export function ResumeProjects({
   technologiesLabel,
 }: ResumeProjectsProps) {
   return (
-    <section>
+    <section data-resume-section="projects">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-(--rt-resume-entry-gap)">
         {resume.projects.map((project) => (

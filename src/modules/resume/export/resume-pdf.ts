@@ -1,6 +1,7 @@
 const A4_WIDTH_MM = 210;
 const A4_HEIGHT_MM = 297;
 const RESUME_PAGE_SELECTOR = "[data-resume-page]";
+const MEASUREMENT_COPY_SELECTOR = "[aria-hidden='true']";
 
 export type ResumePdfExportResult = Readonly<{
   linkCount: number;
@@ -21,17 +22,68 @@ function waitForAnimationFrame() {
   });
 }
 
-function isVisible(element: HTMLElement) {
-  const styles = window.getComputedStyle(element);
+// The paginated document also renders an off-screen measurement copy holding
+// every block on a single page. It must never be captured.
+function getExportablePages() {
+  return Array.from(
+    document.querySelectorAll<HTMLElement>(RESUME_PAGE_SELECTOR),
+  ).filter((page) => !page.closest(MEASUREMENT_COPY_SELECTOR));
+}
 
-  return styles.display !== "none" && styles.visibility !== "hidden";
+interface CapturedStyles {
+  readonly display: string;
+  readonly transform: string;
+}
+
+// Two things about the on-screen preview break a faithful capture:
+// it hides every page except the one being viewed, and it applies a zoom
+// transform on an ancestor. Under a scaled ancestor html2canvas positions text
+// runs with the scaled geometry but paints glyphs at their unscaled size, so
+// every word creeps left and swallows the space before it. Both are undone for
+// the duration of the capture and restored afterwards.
+function createCaptureScope() {
+  const previousStyles = new Map<HTMLElement, CapturedStyles>();
+
+  const remember = (element: HTMLElement) => {
+    if (!previousStyles.has(element)) {
+      previousStyles.set(element, {
+        display: element.style.display,
+        transform: element.style.transform,
+      });
+    }
+  };
+
+  return {
+    prepare(pages: readonly HTMLElement[]) {
+      pages.forEach((page) => {
+        remember(page);
+        page.style.display = "";
+
+        for (
+          let ancestor = page.parentElement;
+          ancestor !== null && ancestor !== document.body;
+          ancestor = ancestor.parentElement
+        ) {
+          if (window.getComputedStyle(ancestor).transform !== "none") {
+            remember(ancestor);
+            ancestor.style.transform = "none";
+          }
+        }
+      });
+    },
+    restore() {
+      previousStyles.forEach((styles, element) => {
+        element.style.display = styles.display;
+        element.style.transform = styles.transform;
+      });
+      previousStyles.clear();
+    },
+  };
 }
 
 async function getResumePages() {
   for (let attempt = 0; attempt < 20; attempt += 1) {
-    const pages = Array.from(
-      document.querySelectorAll<HTMLElement>(RESUME_PAGE_SELECTOR),
-    ).filter(isVisible);
+    const pages = getExportablePages();
 
     if (pages.length) {
       return pages;
@@ -40,7 +92,7 @@ async function getResumePages() {
     await waitForAnimationFrame();
   }
 
-  throw new Error("No visible resume pages are available for export.");
+  throw new Error("No resume pages are available for export.");
 }
 
 async function waitForImage(image: HTMLImageElement) {
@@ -161,6 +213,14 @@ function applyCanvasTextSpacingCompensation(documentClone: Document) {
     [data-resume-page] h2 + * {
       margin-top: var(--rt-space-1) !important;
     }
+
+    [data-resume-page] [data-resume-highlight],
+    [data-resume-page] [data-resume-selected] {
+      animation: none !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
   `;
 
   documentClone.head.append(style);
@@ -169,51 +229,61 @@ function applyCanvasTextSpacingCompensation(documentClone: Document) {
 export async function exportResumePdf(
   fileName = "resume.pdf",
 ): Promise<ResumePdfExportResult> {
-  const pages = await getSettledResumePages();
+  const capture = createCaptureScope();
 
-  const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
-    import("html2canvas"),
-    import("jspdf"),
-  ]);
-  const pdf = new jsPDF({
-    compress: true,
-    format: "a4",
-    orientation: "portrait",
-    unit: "mm",
-  });
-  const captureScale = Math.min(3, Math.max(2, window.devicePixelRatio));
-  let linkCount = 0;
+  try {
+    capture.prepare(await getResumePages());
 
-  for (const [pageIndex, page] of pages.entries()) {
-    if (pageIndex > 0) {
-      pdf.addPage("a4", "portrait");
+    const pages = await getSettledResumePages();
+
+    capture.prepare(pages);
+
+    const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+      import("html2canvas"),
+      import("jspdf"),
+    ]);
+    const pdf = new jsPDF({
+      compress: true,
+      format: "a4",
+      orientation: "portrait",
+      unit: "mm",
+    });
+    const captureScale = Math.min(3, Math.max(2, window.devicePixelRatio));
+    let linkCount = 0;
+
+    for (const [pageIndex, page] of pages.entries()) {
+      if (pageIndex > 0) {
+        pdf.addPage("a4", "portrait");
+      }
+
+      const canvas = await html2canvas(page, {
+        allowTaint: false,
+        backgroundColor: null,
+        logging: false,
+        onclone: applyCanvasTextSpacingCompensation,
+        scale: captureScale,
+        useCORS: true,
+      });
+
+      pdf.addImage(canvas, "PNG", 0, 0, A4_WIDTH_MM, A4_HEIGHT_MM);
+
+      page.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((anchor) => {
+        getLinkTargets(page, anchor).forEach((target) => {
+          pdf.link(target.x, target.y, target.width, target.height, {
+            url: target.url,
+          });
+          linkCount += 1;
+        });
+      });
     }
 
-    const canvas = await html2canvas(page, {
-      allowTaint: false,
-      backgroundColor: null,
-      logging: false,
-      onclone: applyCanvasTextSpacingCompensation,
-      scale: captureScale,
-      useCORS: true,
-    });
+    downloadPdf(pdf.output("blob"), fileName);
 
-    pdf.addImage(canvas, "PNG", 0, 0, A4_WIDTH_MM, A4_HEIGHT_MM);
-
-    page.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((anchor) => {
-      getLinkTargets(page, anchor).forEach((target) => {
-        pdf.link(target.x, target.y, target.width, target.height, {
-          url: target.url,
-        });
-        linkCount += 1;
-      });
-    });
+    return {
+      linkCount,
+      pageCount: pages.length,
+    };
+  } finally {
+    capture.restore();
   }
-
-  downloadPdf(pdf.output("blob"), fileName);
-
-  return {
-    linkCount,
-    pageCount: pages.length,
-  };
 }

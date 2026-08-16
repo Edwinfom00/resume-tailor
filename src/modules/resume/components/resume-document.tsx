@@ -115,13 +115,18 @@ export function ResumeDocument<TData>({
       }
 
       const styles = window.getComputedStyle(measurementElement);
+      // offsetHeight is untransformed layout height. getBoundingClientRect would
+      // be scaled by any preview zoom applied above this subtree, while the
+      // computed padding and gap below never are, so mixing them would make
+      // pagination depend on the on-screen zoom level.
       const availableHeight =
-        pageElement.getBoundingClientRect().height -
+        pageElement.offsetHeight -
         Number.parseFloat(styles.paddingTop) -
         Number.parseFloat(styles.paddingBottom);
       const gap = Number.parseFloat(styles.rowGap);
-      const blockHeights = Array.from(measurementElement.children, (element) =>
-        element.getBoundingClientRect().height,
+      const blockHeights = Array.from(
+        measurementElement.children,
+        (element) => (element as HTMLElement).offsetHeight,
       );
       const nextPageBlockIds = paginateBlockIds(
         blocks.map((block) => block.id),

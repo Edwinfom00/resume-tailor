@@ -7,6 +7,7 @@ export interface ResumeHistoryEntry {
   readonly nextResume: ResumeData;
   readonly timestamp: string;
   readonly suggestionId?: string;
+  readonly proposalId?: string;
 }
 
 export interface ResumeHistory {

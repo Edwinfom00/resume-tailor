@@ -99,8 +99,14 @@
   --rt-duration-fast: 150ms;
   --rt-duration-normal: 200ms;
   --rt-duration-slow: 300ms;
+  --rt-duration-panel: 220ms;
+  --rt-duration-overlay: 260ms;
+  --rt-duration-highlight: 1100ms;
   --rt-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --rt-easing-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --rt-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --rt-highlight-ring: 0 0 0 2px rgb(40 85 246 / 0.45);
+  --rt-highlight-surface: rgb(40 85 246 / 0.08);
   --rt-container-max: 76rem;
   --rt-page-gutter: clamp(1rem, 4vw, 2.5rem);
   --rt-workspace-page-gutter: clamp(1.25rem, 3vw, 3.25rem);

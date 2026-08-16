@@ -16,5 +16,5 @@ export default async function StudioPage({ params }: StudioPageProps) {
 
   const dictionary = await getDictionary(locale);
 
-  return <StudioPageContent dictionary={dictionary} />;
+  return <StudioPageContent dictionary={dictionary} locale={locale} />;
 }

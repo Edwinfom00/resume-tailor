@@ -8,7 +8,7 @@ type ResumeProfileProps = Readonly<{
 
 export function ResumeProfile({ resume, title }: ResumeProfileProps) {
   return (
-    <section>
+    <section data-resume-section="profile">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <p className="mt-3 mb-0 text-sm leading-tight text-(--rt-color-resume-copy)">
         {resume.profile.summary}

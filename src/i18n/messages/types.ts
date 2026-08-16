@@ -1,3 +1,12 @@
+import type { SuggestionType } from "@/modules/analysis/domain/suggestion-types";
+import type { CopilotQuickActionId } from "@/modules/copilot/domain/quick-actions";
+import type { ResumeSectionId } from "@/modules/session/domain/resume-selection";
+
+type LabelledEntry = {
+  title: string;
+  description: string;
+};
+
 export type Messages = {
   metadata: {
     title: string;
@@ -23,6 +32,11 @@ export type Messages = {
     searchShortcutLabel: string;
     matchLabel: string;
     matchValue: string;
+    matchGainLabel: string;
+    matchLossLabel: string;
+    recalculatingLabel: string;
+    undoLabel: string;
+    redoLabel: string;
     exportLabel: string;
   };
   upload: {
@@ -37,17 +51,40 @@ export type Messages = {
     chooseFileLabel: string;
     fileTypesLabel: string;
     uploadedFileLabel: string;
-    mockFileName: string;
-    mockFileMetadata: string;
     uploadedJustNowLabel: string;
-    fileTypeLabel: string;
     changeFileLabel: string;
     removeFileLabel: string;
     emptyFileLabel: string;
     privacyLabel: string;
+    validatingLabel: string;
+    parsingLabel: string;
+    parsingHint: string;
+    parsedLabel: string;
+    retryLabel: string;
+    warningsLabel: string;
+    warnings: {
+      MISSING_EMAIL: string;
+      MISSING_HEADLINE: string;
+      MISSING_SUMMARY: string;
+      NO_EXPERIENCE: string;
+      NO_SKILLS: string;
+      NO_PROJECTS: string;
+      NO_EDUCATION: string;
+      SPARSE_ACHIEVEMENTS: string;
+    };
     analyzeLabel: string;
     analyzingLabel: string;
     analyzeDescription: string;
+    reanalyzeLabel: string;
+    openWorkspaceLabel: string;
+    needsResumeLabel: string;
+    needsJobLabel: string;
+    stageValidatingJob: string;
+    stageFetchingJob: string;
+    stageStructuringJob: string;
+    stageReadingResume: string;
+    stageGeneratingRecommendations: string;
+    analysisFailedLabel: string;
     sampleLabel: string;
     sampleDescription: string;
     clearLabel: string;
@@ -60,7 +97,6 @@ export type Messages = {
       recommendationsTitle: string;
       recommendationsDescription: string;
     };
-    invalidFileLabel: string;
   };
   jobOffer: {
     stepLabel: string;
@@ -69,6 +105,12 @@ export type Messages = {
     urlLabel: string;
     urlPlaceholder: string;
     fetchLabel: string;
+    parseDescriptionLabel: string;
+    validatingLabel: string;
+    fetchingLabel: string;
+    structuringLabel: string;
+    readyLabel: string;
+    retryLabel: string;
     urlHint: string;
     separatorLabel: string;
     descriptionLabel: string;
@@ -76,11 +118,10 @@ export type Messages = {
     previewLabel: string;
     autoExtractedLabel: string;
     roleLabel: string;
-    roleValue: string;
     companyLabel: string;
-    companyValue: string;
     requirementsLabel: string;
-    requirementsValue: string;
+    requirementsCountLabel: string;
+    notDetectedLabel: string;
     previewNote: string;
   };
   analysisBenefits: {
@@ -98,6 +139,9 @@ export type Messages = {
     privacyDescription: string;
   };
   studio: {
+    emptyTitle: string;
+    emptyDescription: string;
+    emptyActionLabel: string;
     jobOffer: {
       title: string;
       optionsLabel: string;
@@ -108,6 +152,11 @@ export type Messages = {
       fullDescriptionLabel: string;
       priorityKeywordsLabel: string;
       priorityKeywordsHint: string;
+      emptyLabel: string;
+      noRequirementsLabel: string;
+      noKeywordsLabel: string;
+      notDetectedLabel: string;
+      extractedOnLabel: string;
     };
     cv: {
       title: string;
@@ -126,6 +175,7 @@ export type Messages = {
       previousPageLabel: string;
       nextPageLabel: string;
       pageIndicatorLabel: string;
+      emptyLabel: string;
     };
     recommendations: {
       title: string;
@@ -136,79 +186,91 @@ export type Messages = {
       suggestedImprovementLabel: string;
       relevanceLabel: string;
       acceptLabel: string;
+      applyingLabel: string;
       editLabel: string;
       ignoreLabel: string;
       acceptedLabel: string;
+      ignoredLabel: string;
+      restoreLabel: string;
+      undoLabel: string;
+      sectionUpdatedLabel: string;
+      scoreChangeLabel: string;
+      sectionScoreLabel: string;
+      issuesLabel: string;
+      strengthsLabel: string;
+      proposedChangeLabel: string;
+      impactLabel: string;
+      priorityHighLabel: string;
+      priorityMediumLabel: string;
+      priorityLowLabel: string;
+      alignedLabel: string;
+      emptyLabel: string;
       highImpactTitle: string;
       highImpactDescription: string;
       highImpactBadge: string;
-      items: {
-        profile: {
-          title: string;
-          description: string;
-        };
-        experience: {
-          title: string;
-          description: string;
-        };
-        projects: {
-          title: string;
-          description: string;
-        };
-        skills: {
-          title: string;
-          description: string;
-        };
-      };
-      improvements: {
-        rewriteProfile: {
-          title: string;
-          description: string;
-        };
-        reorderProjects: {
-          title: string;
-          description: string;
-        };
-        highlightPostgres: {
-          title: string;
-          description: string;
-        };
-      };
+      noHighImpactLabel: string;
+      confirmTitle: string;
+      confirmDescription: string;
+      confirmAcknowledgeLabel: string;
+      editTitle: string;
+      originalLabel: string;
+      proposedLabel: string;
+      editHint: string;
+      saveChangesLabel: string;
+      cancelLabel: string;
+      noProposedContentLabel: string;
+      items: Record<ResumeSectionId, LabelledEntry>;
+      suggestionTypes: Record<SuggestionType, string>;
     };
     copilot: {
       title: string;
+      openLabel: string;
       closeLabel: string;
       workingWithLabel: string;
+      noJobContextLabel: string;
+      focusedOnLabel: string;
+      clearFocusLabel: string;
       chatLabel: string;
       actionsLabel: string;
       assistantLabel: string;
       userLabel: string;
       greeting: string;
       greetingPrompt: string;
-      sampleUserMessage: string;
-      improvementsFoundLabel: string;
-      suggestedChangeTitle: string;
+      thinkingLabel: string;
+      errorTitle: string;
+      retryLabel: string;
+      dismissLabel: string;
+      needsResumeLabel: string;
+      proposalTitle: string;
       changedBulletsLabel: string;
-      impactLabel: string;
-      changeBullets: readonly string[];
+      impactEstimateLabel: string;
       detailedChangesLabel: string;
       applyChangesLabel: string;
+      applyingLabel: string;
       appliedLabel: string;
+      undoLabel: string;
       editLabel: string;
       ignoreLabel: string;
+      ignoredLabel: string;
+      restoreLabel: string;
+      confirmFactsTitle: string;
+      confirmFactsDescription: string;
+      confirmFactsAcknowledgeLabel: string;
+      newExperienceLabel: string;
+      newProjectLabel: string;
+      companyLabel: string;
+      roleLabel: string;
+      datesLabel: string;
+      locationLabel: string;
+      bulletsLabel: string;
       quickActionsLabel: string;
-      improveProfileLabel: string;
-      reorderProjectsLabel: string;
-      addExperienceLabel: string;
-      addSkillsLabel: string;
-      optimizeForJobLabel: string;
       moreActionsLabel: string;
+      noActionsLabel: string;
+      quickActions: Record<CopilotQuickActionId, { label: string; prompt: string }>;
       composerPlaceholder: string;
       attachLabel: string;
       sendLabel: string;
       reviewNotice: string;
-      responseMessage: string;
-      noActionsLabel: string;
     };
   };
   resumeExport: {
@@ -232,6 +294,8 @@ export type Messages = {
     NO_JOB_CONTENT: string;
     EMPTY_DESCRIPTION: string;
     INVALID_JOB_OFFER: string;
+    INVALID_ANALYSIS_INPUT: string;
+    INVALID_COPILOT_REQUEST: string;
     NETWORK_ERROR: string;
     REQUEST_FAILED: string;
     UNKNOWN: string;

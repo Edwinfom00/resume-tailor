@@ -8,48 +8,59 @@ import {
   FiInfo,
   FiLink2,
   FiList,
+  FiLoader,
+  FiRefreshCw,
 } from "react-icons/fi";
+import { useJobInput } from "@/modules/upload/hooks/use-job-input";
+import { formatTemplate } from "@/modules/shared/ui/format-template";
 import type { Messages } from "@/i18n/messages/types";
 
-export type JobOfferDraft = Readonly<{
-  description: string;
-  url: string;
-}>;
-
-export type JobOfferPreview = Readonly<{
-  role?: string;
-  company?: string;
-  requirements?: string;
-}>;
-
 type JobOfferPanelProps = Readonly<{
-  isParsed: boolean;
-  jobOffer: JobOfferDraft;
+  domainErrorMessages: Messages["domainErrors"];
   messages: Messages["jobOffer"];
-  onJobOfferChange: (jobOffer: JobOfferDraft) => void;
-  onParse: () => void;
-  errorMessage?: string | null;
-  isParsing?: boolean;
-  preview?: JobOfferPreview;
 }>;
+
+const descriptionLimit = 8000;
 
 export function JobOfferPanel({
-  isParsed,
-  jobOffer,
+  domainErrorMessages,
   messages,
-  onJobOfferChange,
-  onParse,
-  errorMessage = null,
-  isParsing = false,
-  preview,
 }: JobOfferPanelProps) {
+  const {
+    canSubmit,
+    description,
+    errorMessage,
+    isExtracting,
+    preview,
+    setJobDescription,
+    setJobUrl,
+    stage,
+    stageLabel,
+    submit,
+    submitLabel,
+    url,
+  } = useJobInput({ domainErrorMessages, messages });
+
   const handleUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onJobOfferChange({ ...jobOffer, url: event.target.value });
+    setJobUrl(event.target.value);
   };
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    onJobOfferChange({ ...jobOffer, description: event.target.value });
+    setJobDescription(event.target.value);
   };
+
+  const hintClassName = errorMessage
+    ? "text-negative"
+    : stage === "ready"
+      ? "text-positive"
+      : "text-ink-muted";
+  const hintMessage = errorMessage
+    ? errorMessage
+    : stageLabel
+      ? stageLabel
+      : stage === "ready"
+        ? messages.readyLabel
+        : messages.urlHint;
 
   return (
     <section className="rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
@@ -73,28 +84,43 @@ export function JobOfferPanel({
             <FiLink2 aria-hidden="true" className="h-4 w-4 shrink-0" />
             <input
               id="job-offer-url"
-              value={jobOffer.url}
+              value={url}
               onChange={handleUrlChange}
+              disabled={isExtracting}
               placeholder={messages.urlPlaceholder}
-              className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-tertiary"
+              className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-tertiary disabled:cursor-not-allowed"
               type="url"
             />
           </div>
           <button
             type="button"
-            onClick={onParse}
-            disabled={isParsing}
-            className="h-(--rt-control-height-md) rounded-md border border-line-subtle bg-surface px-(--rt-space-5) text-sm font-semibold text-ink shadow-xs transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand disabled:cursor-not-allowed disabled:opacity-60"
+            onClick={submit}
+            disabled={!canSubmit}
+            className="inline-flex h-(--rt-control-height-md) items-center gap-(--rt-space-2) rounded-md border border-line-subtle bg-surface px-(--rt-space-5) text-sm font-semibold text-ink shadow-xs transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {messages.fetchLabel}
+            {isExtracting ? (
+              <FiLoader aria-hidden="true" className="h-4 w-4 animate-spin" />
+            ) : stage === "ready" ? (
+              <FiCheckCircle aria-hidden="true" className="h-4 w-4 text-positive" />
+            ) : stage === "error" ? (
+              <FiRefreshCw aria-hidden="true" className="h-4 w-4" />
+            ) : null}
+            {stage === "error" ? messages.retryLabel : submitLabel}
           </button>
         </div>
         <p
-          className={`mt-(--rt-space-2) text-xs ${errorMessage ? "text-negative" : "text-ink-muted"}`}
+          aria-live="polite"
+          className={`mt-(--rt-space-2) text-xs ${hintClassName}`}
           role={errorMessage ? "alert" : undefined}
         >
-          {errorMessage ?? messages.urlHint}
+          {hintMessage}
         </p>
+        {isExtracting ? (
+          <span
+            aria-hidden="true"
+            className="rt-sweep mt-(--rt-space-2) block h-0.5 w-full rounded-pill bg-brand-subtle"
+          />
+        ) : null}
       </div>
 
       <div className="my-(--rt-space-5) flex items-center gap-(--rt-space-3) text-xs font-medium text-ink-muted before:h-px before:flex-1 before:bg-line-subtle after:h-px after:flex-1 after:bg-line-subtle">
@@ -108,20 +134,21 @@ export function JobOfferPanel({
         <div className="relative mt-(--rt-space-2)">
           <textarea
             id="job-offer-description"
-            value={jobOffer.description}
+            value={description}
             onChange={handleDescriptionChange}
-            maxLength={8000}
+            disabled={isExtracting}
+            maxLength={descriptionLimit}
             placeholder={messages.descriptionPlaceholder}
-            className="min-h-28 w-full resize-none rounded-lg border border-line-subtle bg-surface p-(--rt-space-3) pb-(--rt-space-6) text-sm text-ink outline-none placeholder:text-ink-tertiary focus:border-brand"
+            className="min-h-28 w-full resize-none rounded-lg border border-line-subtle bg-surface p-(--rt-space-3) pb-(--rt-space-6) text-sm text-ink outline-none placeholder:text-ink-tertiary focus:border-brand disabled:cursor-not-allowed"
           />
           <span className="absolute bottom-(--rt-space-3) right-(--rt-space-3) text-xs text-ink-tertiary">
-            {jobOffer.description.length} / 8000
+            {description.length} / {descriptionLimit}
           </span>
         </div>
       </div>
 
-      {isParsed ? (
-        <div className="mt-(--rt-space-4) rounded-xl border border-line-subtle bg-canvas p-(--rt-space-4) shadow-xs">
+      {preview ? (
+        <div className="rt-animate-rise mt-(--rt-space-4) rounded-xl border border-line-subtle bg-canvas p-(--rt-space-4) shadow-xs">
           <div className="flex items-center justify-between gap-(--rt-space-3)">
             <h3 className="text-sm font-bold text-ink">{messages.previewLabel}</h3>
             <span className="inline-flex items-center gap-1 rounded-pill bg-success-50 px-(--rt-space-2) py-0.5 text-xs font-medium text-positive">
@@ -136,7 +163,7 @@ export function JobOfferPanel({
               <div>
                 <dt className="font-semibold text-ink">{messages.roleLabel}</dt>
                 <dd className="text-ink-muted">
-                  {preview?.role || messages.roleValue}
+                  {preview.role || messages.notDetectedLabel}
                 </dd>
               </div>
             </div>
@@ -145,17 +172,28 @@ export function JobOfferPanel({
               <div>
                 <dt className="font-semibold text-ink">{messages.companyLabel}</dt>
                 <dd className="text-ink-muted">
-                  {preview?.company || messages.companyValue}
+                  {preview.company || messages.notDetectedLabel}
                 </dd>
               </div>
             </div>
             <div className="flex gap-(--rt-space-2)">
               <FiList aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
               <div>
-                <dt className="font-semibold text-ink">{messages.requirementsLabel}</dt>
+                <dt className="font-semibold text-ink">
+                  {messages.requirementsLabel}
+                </dt>
                 <dd className="text-ink-muted">
-                  {preview?.requirements || messages.requirementsValue}
+                  {preview.requirements.length > 0
+                    ? preview.requirements.join(", ")
+                    : messages.notDetectedLabel}
                 </dd>
+                {preview.requirementCount > 0 ? (
+                  <dd className="mt-0.5 text-xs text-ink-tertiary">
+                    {formatTemplate(messages.requirementsCountLabel, {
+                      count: preview.requirementCount,
+                    })}
+                  </dd>
+                ) : null}
               </div>
             </div>
           </dl>

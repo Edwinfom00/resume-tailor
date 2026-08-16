@@ -6,6 +6,11 @@ export type Messages = {
   languageSwitcher: {
     label: string;
   };
+  resumeExport: {
+    downloadLabel: string;
+    errorLabel: string;
+    exportingLabel: string;
+  };
   home: {
     eyebrow: string;
     title: string;

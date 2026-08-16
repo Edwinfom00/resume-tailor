@@ -160,7 +160,7 @@ export function ResumeDocument<TData>({
   );
 
   return (
-    <section className="flex w-full flex-col items-center gap-6 overflow-auto p-4">
+    <section className="flex min-h-full w-full flex-col items-center gap-6 overflow-auto p-(--rt-page-gutter)">
       {paginatedBlocks?.map((pageBlocks, pageIndex) => (
         <ResumePage
           key={`${pageIndex}-${pageBlocks.map((block) => block.id).join("-")}`}

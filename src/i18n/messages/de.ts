@@ -8,6 +8,11 @@ export const messages = {
   languageSwitcher: {
     label: "Sprache auswählen",
   },
+  resumeExport: {
+    downloadLabel: "PDF herunterladen",
+    errorLabel: "Das PDF konnte nicht exportiert werden. Bitte erneut versuchen.",
+    exportingLabel: "PDF wird erstellt…",
+  },
   home: {
     eyebrow: "Resume Tailor",
     title: "Passen Sie jeden Lebenslauf an die Stelle an, die zählt.",

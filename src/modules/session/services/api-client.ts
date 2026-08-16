@@ -3,6 +3,7 @@ import type { JobOffer } from "@/modules/job/domain/job-offer";
 import type { ResumeJobAnalysis } from "@/modules/analysis/domain/analysis-types";
 import type { ResumeSuggestion } from "@/modules/analysis/domain/suggestion-types";
 import type { CopilotMessage, CopilotResult } from "@/modules/copilot/domain/copilot-types";
+import type { ResumeSectionId } from "@/modules/session/domain/resume-selection";
 import type { FileMetadata } from "@/modules/resume/domain/resume-status";
 import type { ResumeWarningCode } from "@/modules/resume/validation/validate-resume";
 import {
@@ -128,6 +129,7 @@ export function requestCopilot(
     pendingSuggestions: readonly ResumeSuggestion[];
     message: string;
     history: readonly CopilotMessage[];
+    fillSection?: ResumeSectionId;
   }>,
   signal?: AbortSignal,
 ) {

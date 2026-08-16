@@ -285,6 +285,14 @@ export type Messages = {
       attachLabel: string;
       sendLabel: string;
       reviewNotice: string;
+      fillTitle: string;
+      fillDescription: string;
+      fillSectionLabel: string;
+      fillDetailsLabel: string;
+      fillDetailsPlaceholder: string;
+      fillProjectHint: string;
+      fillConfirmationHint: string;
+      fillSubmitLabel: string;
     };
   };
   resumeExport: {

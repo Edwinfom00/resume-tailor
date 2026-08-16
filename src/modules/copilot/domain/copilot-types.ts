@@ -1,4 +1,5 @@
 import type { ResumeAction } from "@/modules/resume/domain/resume-actions";
+import type { ResumeSectionId } from "@/modules/session/domain/resume-selection";
 import type { ApplicationPhase } from "@/modules/session/domain/application-phase";
 import type { DomainError } from "@/modules/shared/domain/domain-error";
 
@@ -66,6 +67,7 @@ export interface CopilotState {
   readonly pending: boolean;
   readonly error?: DomainError;
   readonly retryMessage?: string;
+  readonly retryFillSection?: ResumeSectionId;
   readonly applyingProposalId?: string;
   readonly applicationPhase?: ApplicationPhase;
 }

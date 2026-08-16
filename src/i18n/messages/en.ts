@@ -360,6 +360,18 @@ export const messages = {
       attachLabel: "Attach a file",
       sendLabel: "Send message",
       reviewNotice: "Copilot can make mistakes. Review before applying.",
+      fillTitle: "Fill with AI",
+      fillDescription:
+        "Choose a section, describe the facts, and get a draft you can review.",
+      fillSectionLabel: "Section",
+      fillDetailsLabel: "What should be added?",
+      fillDetailsPlaceholder:
+        "Describe the details you want in your CV, including technologies, outcomes, and links when available...",
+      fillProjectHint:
+        "For a personal project, include its name, purpose, technologies, results, and any public links.",
+      fillConfirmationHint:
+        "Copilot will prepare a proposal for you to review and confirm before it changes your CV.",
+      fillSubmitLabel: "Generate a draft",
     },
   },
   resumeExport: {

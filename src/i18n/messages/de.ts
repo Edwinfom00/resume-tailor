@@ -377,6 +377,18 @@ export const messages = {
       sendLabel: "Nachricht senden",
       reviewNotice:
         "Der Copilot kann Fehler machen. Prüfen Sie die Vorschläge vor dem Anwenden.",
+      fillTitle: "Mit KI ausfüllen",
+      fillDescription:
+        "Wählen Sie einen Abschnitt, beschreiben Sie die Fakten und erhalten Sie einen Entwurf zur Prüfung.",
+      fillSectionLabel: "Abschnitt",
+      fillDetailsLabel: "Was soll hinzugefügt werden?",
+      fillDetailsPlaceholder:
+        "Beschreiben Sie die Details für Ihren Lebenslauf, einschließlich Technologien, Ergebnissen und Links, falls vorhanden...",
+      fillProjectHint:
+        "Nennen Sie für ein persönliches Projekt den Namen, Zweck, Technologien, Ergebnisse und öffentliche Links.",
+      fillConfirmationHint:
+        "Der Copilot erstellt einen Vorschlag, den Sie vor einer Änderung Ihres Lebenslaufs prüfen und bestätigen.",
+      fillSubmitLabel: "Entwurf erstellen",
     },
   },
   resumeExport: {

@@ -19,6 +19,9 @@ const requestSchema = z.object({
   analysis: z.unknown().optional(),
   pendingSuggestions: z.array(z.unknown()).max(20).default([]),
   message: z.string().min(1).max(4000),
+  fillSection: z
+    .enum(["profile", "experience", "projects", "skills"])
+    .optional(),
   history: z
     .array(
       z.object({
@@ -56,6 +59,7 @@ export async function POST(request: Request) {
       analysis: payload.data.analysis as ResumeJobAnalysis | undefined,
       pendingSuggestions: payload.data
         .pendingSuggestions as readonly ResumeSuggestion[],
+      fillSection: payload.data.fillSection,
     },
     payload.data.message,
     payload.data.history,

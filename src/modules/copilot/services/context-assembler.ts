@@ -6,6 +6,7 @@ import type {
   CopilotIntent,
   CopilotMessage,
 } from "@/modules/copilot/domain/copilot-types";
+import type { ResumeSectionId } from "@/modules/session/domain/resume-selection";
 import { containsLooseTerm, truncateText } from "@/modules/shared/text/normalize-text";
 import { overlapRatio } from "@/modules/shared/text/similarity";
 
@@ -13,6 +14,7 @@ export interface CopilotContext {
   readonly resume: ResumeData;
   readonly job?: JobOffer;
   readonly analysis?: ResumeJobAnalysis;
+  readonly fillSection?: ResumeSectionId;
   readonly pendingSuggestions: readonly ResumeSuggestion[];
 }
 
@@ -222,6 +224,12 @@ export function assembleCopilotPrompt(
     `Resume language sample (preserve this language in resume text): "${truncateText(context.resume.profile.summary || context.resume.identity.headline, 200)}"`,
   ];
 
+  if (context.fillSection) {
+    blocks.push(
+      `Fill with AI target section: ${context.fillSection}. The user supplied new information for this section. Produce one action proposal only for this section when the details are sufficient. For the projects section, create a new personal project with project.create. Use only facts supplied by the user in this request or already present in the resume. Do not invent dates, metrics, technologies, or links. If required details are missing, ask a focused question instead of proposing a change.`,
+    );
+  }
+
   if (context.job) {
     blocks.push(
       `Target job: ${context.job.title ?? "unknown role"}${context.job.company ? ` at ${context.job.company}` : ""}${context.job.seniority ? ` (${context.job.seniority})` : ""}`,
@@ -230,6 +238,7 @@ export function assembleCopilotPrompt(
 
   if (
     intent === "profile.rewrite" ||
+    context.fillSection === "profile" ||
     intent === "resume.optimizeForJob" ||
     intent === "general"
   ) {
@@ -241,6 +250,7 @@ export function assembleCopilotPrompt(
 
   if (
     intent.startsWith("experience") ||
+    context.fillSection === "experience" ||
     intent === "resume.optimizeForJob" ||
     intent === "resume.findWeaknesses" ||
     intent === "resume.findStrengths" ||
@@ -253,6 +263,7 @@ export function assembleCopilotPrompt(
 
   if (
     intent.startsWith("project") ||
+    context.fillSection === "projects" ||
     intent === "resume.optimizeForJob" ||
     projectIds.length > 0
   ) {
@@ -261,6 +272,7 @@ export function assembleCopilotPrompt(
 
   if (
     intent.startsWith("skill") ||
+    context.fillSection === "skills" ||
     intent === "resume.optimizeForJob" ||
     intent === "resume.explainMatch"
   ) {

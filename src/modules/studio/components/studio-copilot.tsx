@@ -16,6 +16,7 @@ import {
 } from "react-icons/fi";
 import { HiMiniSparkles } from "react-icons/hi2";
 import type { ResumeSectionId } from "@/modules/session/domain/resume-selection";
+import { AiSectionFillForm } from "@/modules/studio/components/ai-section-fill-form";
 import { CopilotConversation } from "@/modules/studio/components/copilot-conversation";
 import { useCopilot } from "@/modules/studio/hooks/use-copilot";
 import type { Messages } from "@/i18n/messages/types";
@@ -80,6 +81,15 @@ export function StudioCopilot({
         {messages.quickActionsLabel}
       </p>
       <div className="mt-(--rt-space-2) flex flex-wrap gap-(--rt-space-2)">
+        <button
+          type="button"
+          disabled={!copilot.canSend}
+          onClick={() => setActiveTab("actions")}
+          className="inline-flex items-center gap-1 rounded-sm bg-brand px-(--rt-space-3) py-(--rt-space-2) text-2xs font-semibold text-white transition-colors duration-(--rt-duration-fast) hover:bg-brand-hover active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <HiMiniSparkles aria-hidden="true" className="h-3.5 w-3.5" />
+          {messages.fillTitle}
+        </button>
         {copilot.quickActions.slice(0, inlineQuickActionCount).map((action) => (
           <button
             key={action.id}
@@ -224,6 +234,16 @@ export function StudioCopilot({
         />
       ) : (
         <div className="scrollbar-hidden min-h-0 flex-1 space-y-(--rt-space-2) overflow-y-auto bg-canvas p-(--rt-space-4)">
+          <AiSectionFillForm
+            disabled={!copilot.canSend}
+            initialSection={copilot.selection?.section}
+            messages={messages}
+            onSubmit={(section, details) => {
+              setActiveTab("chat");
+              copilot.fillSection(section, details);
+            }}
+            sectionLabels={sectionLabels}
+          />
           {copilot.quickActions.length > 0 ? (
             copilot.quickActions.map((action) => (
               <button

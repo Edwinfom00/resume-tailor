@@ -366,6 +366,18 @@ export const messages = {
       attachLabel: "Joindre un fichier",
       sendLabel: "Envoyer le message",
       reviewNotice: "Le Copilote peut faire des erreurs. Vérifiez avant d’appliquer.",
+      fillTitle: "Remplir avec l’IA",
+      fillDescription:
+        "Choisissez une section, décrivez les faits, puis obtenez un brouillon à vérifier.",
+      fillSectionLabel: "Section",
+      fillDetailsLabel: "Que faut-il ajouter ?",
+      fillDetailsPlaceholder:
+        "Décrivez les éléments à ajouter au CV : technologies, résultats et liens, si vous les avez...",
+      fillProjectHint:
+        "Pour un projet personnel, indiquez son nom, son objectif, les technologies, les résultats et les liens publics éventuels.",
+      fillConfirmationHint:
+        "Le Copilote prépare une proposition que vous vérifiez et confirmez avant toute modification du CV.",
+      fillSubmitLabel: "Générer un brouillon",
     },
   },
   resumeExport: {

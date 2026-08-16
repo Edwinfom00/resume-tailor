@@ -37,6 +37,7 @@ import {
 import {
   selectionForAction,
   type ResumeSelection,
+  type ResumeSectionId,
 } from "@/modules/session/domain/resume-selection";
 import {
   deriveWorkflowState,
@@ -84,7 +85,10 @@ interface SessionActions {
   undoLastChange: () => Promise<void>;
   redoLastChange: () => Promise<void>;
 
-  sendCopilotMessage: (message: string) => Promise<void>;
+  sendCopilotMessage: (
+    message: string,
+    fillSection?: ResumeSectionId,
+  ) => Promise<void>;
   retryCopilotMessage: () => Promise<void>;
   dismissCopilotError: () => void;
   applyCopilotProposal: (proposalId: string) => Promise<void>;
@@ -666,7 +670,7 @@ export const useSessionStore = create<SessionStore>()(
         await get().runAnalysis();
       },
 
-      sendCopilotMessage: async (message) => {
+      sendCopilotMessage: async (message, fillSection) => {
         const state = get();
         const resume = state.resume.data;
 
@@ -688,6 +692,7 @@ export const useSessionStore = create<SessionStore>()(
             pending: true,
             error: undefined,
             retryMessage: undefined,
+            retryFillSection: undefined,
           },
           updatedAt: now(),
         }));
@@ -701,6 +706,7 @@ export const useSessionStore = create<SessionStore>()(
           ),
           message,
           history: state.copilot.messages,
+          fillSection,
         });
 
         if (!result.ok) {
@@ -710,6 +716,7 @@ export const useSessionStore = create<SessionStore>()(
               pending: false,
               error: result.error,
               retryMessage: message,
+              retryFillSection: fillSection,
             },
             updatedAt: now(),
           }));
@@ -744,6 +751,7 @@ export const useSessionStore = create<SessionStore>()(
             pending: false,
             error: undefined,
             retryMessage: undefined,
+            retryFillSection: undefined,
           },
           updatedAt: now(),
         }));
@@ -757,6 +765,7 @@ export const useSessionStore = create<SessionStore>()(
         }
 
         const message = copilot.retryMessage;
+        const fillSection = copilot.retryFillSection;
 
         set((current) => ({
           copilot: {
@@ -771,15 +780,21 @@ export const useSessionStore = create<SessionStore>()(
             ),
             error: undefined,
             retryMessage: undefined,
+            retryFillSection: undefined,
           },
         }));
 
-        await get().sendCopilotMessage(message);
+        await get().sendCopilotMessage(message, fillSection);
       },
 
       dismissCopilotError: () =>
         set((state) => ({
-          copilot: { ...state.copilot, error: undefined, retryMessage: undefined },
+          copilot: {
+            ...state.copilot,
+            error: undefined,
+            retryMessage: undefined,
+            retryFillSection: undefined,
+          },
         })),
 
       applyCopilotProposal: async (proposalId) => {

@@ -86,11 +86,11 @@ export function useCopilot({
   }, [resume, sectionLabels, selection]);
 
   const send = useCallback(
-    (content: string) => {
+    (content: string, fillSection?: ResumeSectionId) => {
       const trimmed = content.trim();
 
       if (trimmed) {
-        void sendCopilotMessage(trimmed);
+        void sendCopilotMessage(trimmed, fillSection);
       }
     },
     [sendCopilotMessage],
@@ -153,6 +153,8 @@ export function useCopilot({
     canRetry: Boolean(retryMessage),
     dismissError: dismissCopilotError,
     runQuickAction,
+    fillSection: (section: ResumeSectionId, details: string) =>
+      send(details, section),
     selection,
     selectionLabel,
     send,

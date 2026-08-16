@@ -8,7 +8,7 @@ type ResumeProfileProps = Readonly<{
 
 export function ResumeProfile({ resume, title }: ResumeProfileProps) {
   return (
-    <section className="mt-(--rt-resume-section-gap) px-(--rt-resume-page-inset-inline)">
+    <section>
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <p className="mt-3 mb-0 text-sm leading-tight text-(--rt-color-resume-copy)">
         {resume.profile.summary}

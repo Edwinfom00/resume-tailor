@@ -21,5 +21,10 @@ export type Messages = {
       title: string;
       presentLabel: string;
     };
+    projects: {
+      title: string;
+      roleLabel: string;
+      technologiesLabel: string;
+    };
   };
 };

@@ -55,7 +55,7 @@ export function ResumeExperience({
   presentLabel,
 }: ResumeExperienceProps) {
   return (
-    <section className="mt-(--rt-resume-section-gap) px-(--rt-resume-page-inset-inline)">
+    <section>
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-(--rt-resume-entry-gap)">
         {resume.experiences.map((experience) => (

@@ -24,5 +24,10 @@ export const messages = {
       title: "Work Experience",
       presentLabel: "Present",
     },
+    projects: {
+      title: "Independent Projects",
+      roleLabel: "Role",
+      technologiesLabel: "Technologies",
+    },
   },
 } satisfies Messages;

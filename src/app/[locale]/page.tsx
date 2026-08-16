@@ -2,14 +2,7 @@ import { notFound } from "next/navigation";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale } from "@/i18n/locales";
-import type { ResumeData } from "@/@types/resume-data";
-import {
-  ResumeDocument,
-  type ResumeDocumentPage,
-} from "@/modules/components/resume-document";
-import { ResumeHeader } from "@/modules/components/sections/resume-header";
-import { ResumeExperience } from "@/modules/components/sections/resume-experience";
-import { ResumeProfile } from "@/modules/components/sections/resume-profile";
+import { ResumePreviewDocument } from "@/modules/components/resume-preview-document";
 import { edwinResume } from "@/modules/fixtures/edwin-resume";
 
 type LocalePageProps = Readonly<{
@@ -24,26 +17,6 @@ export default async function ResumePreview({ params }: LocalePageProps) {
   }
 
   const dictionary = await getDictionary(locale);
-  const previewPages: readonly ResumeDocumentPage<ResumeData>[] = [
-    {
-      id: "resume-preview",
-      render: (resume) => (
-        <>
-          <ResumeHeader resume={resume} />
-          <ResumeProfile
-            resume={resume}
-            title={dictionary.resume.profile.title}
-          />
-          <ResumeExperience
-            presentLabel={dictionary.resume.experience.presentLabel}
-            resume={resume}
-            title={dictionary.resume.experience.title}
-          />
-        </>
-      ),
-    },
-  ];
-
   return (
     <main className="relative flex flex-1 bg-canvas">
       <div className="absolute top-4 right-4 z-10">
@@ -52,7 +25,7 @@ export default async function ResumePreview({ params }: LocalePageProps) {
           locale={locale}
         />
       </div>
-      <ResumeDocument data={edwinResume} pages={previewPages} />
+      <ResumePreviewDocument dictionary={dictionary} resume={edwinResume} />
     </main>
   );
 }

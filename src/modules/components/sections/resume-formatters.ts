@@ -12,11 +12,11 @@ export function formatResumeDate(date: ResumeDate) {
 
 export function formatResumeDateRange(
   range: ResumeDateRange,
-  presentLabel: string,
+  presentLabel?: string,
 ) {
-  return `${formatResumeDate(range.start)} – ${
-    range.end ? formatResumeDate(range.end) : presentLabel
-  }`;
+  const end = range.end ? formatResumeDate(range.end) : presentLabel;
+
+  return end ? `${formatResumeDate(range.start)} – ${end}` : formatResumeDate(range.start);
 }
 
 export function formatResumeLocation(location?: ResumeLocation) {

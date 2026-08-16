@@ -72,7 +72,7 @@ export function ResumeHeader({ resume }: ResumeHeaderProps) {
   const contactItems = getContactItems(resume);
 
   return (
-    <header className="px-(--rt-resume-page-inset-inline) pt-(--rt-resume-page-inset-block-start)">
+    <header>
       <h1 className="m-0 font-bold tracking-normal text-(--rt-color-resume-heading) [font-size:var(--rt-font-size-resume-name)] leading-(--rt-line-height-resume-name)">
         {resume.identity.name}
       </h1>

@@ -52,8 +52,8 @@ function RequirementStatus({
 
 export function JobOfferPanel({ messages, jobOffer }: JobOfferPanelProps) {
   return (
-    <aside className="flex min-h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:max-w-none!">
-      <div className="flex items-center justify-between border-b border-line-subtle pb-(--rt-space-4)">
+    <aside className="flex h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:max-w-none!">
+      <div className="flex shrink-0 items-center justify-between border-b border-line-subtle pb-(--rt-space-4)">
         <h1 className="flex items-center gap-(--rt-space-3) text-lg font-bold tracking-tight text-ink">
           <FiBriefcase aria-hidden="true" className="h-5 w-5 text-brand" />
           {messages.title}
@@ -68,8 +68,8 @@ export function JobOfferPanel({ messages, jobOffer }: JobOfferPanelProps) {
       </div>
 
       {jobOffer ? (
-        <>
-          <section className="rt-animate-rise mt-(--rt-space-4) rounded-lg border border-line-subtle bg-canvas p-(--rt-space-4) shadow-xs">
+        <div className="scrollbar-hidden mt-(--rt-space-4) min-h-0 flex-1 overflow-y-auto overscroll-contain">
+          <section className="rt-animate-rise rounded-lg border border-line-subtle bg-canvas p-(--rt-space-4) shadow-xs">
             <div className="flex gap-(--rt-space-3)">
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-surface-brand text-brand">
                 <HiBuildingOffice2 aria-hidden="true" className="h-8 w-8" />
@@ -166,7 +166,7 @@ export function JobOfferPanel({ messages, jobOffer }: JobOfferPanelProps) {
               {messages.priorityKeywordsHint}
             </p>
           </section>
-        </>
+        </div>
       ) : (
         <div className="mt-(--rt-space-4) flex flex-1 items-center justify-center rounded-lg border border-dashed border-brand-line bg-canvas p-(--rt-space-6) text-center">
           <p className="text-sm text-ink-muted">{messages.emptyLabel}</p>

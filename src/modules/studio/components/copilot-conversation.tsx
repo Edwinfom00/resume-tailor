@@ -85,7 +85,7 @@ export function CopilotConversation({
     <div
       ref={scrollRef}
       onScroll={handleScroll}
-      className="min-h-0 flex-1 overflow-y-auto bg-canvas p-(--rt-space-4)"
+      className="scrollbar-hidden min-h-0 flex-1 overflow-y-auto bg-canvas p-(--rt-space-4)"
     >
       <div className="space-y-(--rt-space-3)">
         <div className="flex items-start gap-(--rt-space-2)">

@@ -76,10 +76,13 @@ export function MatchIndicator({
         {displayedScore === undefined ? messages.matchValue : `${displayedScore}%`}
       </span>
       {previewScore === undefined && isRunning ? (
-        <FiLoader
-          aria-hidden="true"
-          className="h-3.5 w-3.5 animate-spin text-brand"
-        />
+        <span
+          role="status"
+          aria-label={messages.recalculatingLabel}
+          className="flex h-6 w-6 items-center justify-center rounded-full bg-surface-brand text-brand"
+        >
+          <FiLoader aria-hidden="true" className="h-4 w-4 animate-spin" />
+        </span>
       ) : null}
       {delta !== 0 ? (
         <span

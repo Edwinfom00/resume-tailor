@@ -7,7 +7,13 @@ import {
   useRef,
   useState,
 } from "react";
-import { FiArrowUp, FiChevronDown, FiPaperclip, FiX } from "react-icons/fi";
+import {
+  FiArrowUp,
+  FiChevronDown,
+  FiMessageCircle,
+  FiPaperclip,
+  FiX,
+} from "react-icons/fi";
 import { HiMiniSparkles } from "react-icons/hi2";
 import type { ResumeSectionId } from "@/modules/session/domain/resume-selection";
 import { CopilotConversation } from "@/modules/studio/components/copilot-conversation";
@@ -33,34 +39,10 @@ export function StudioCopilot({
 }: StudioCopilotProps) {
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const [activeTab, setActiveTab] = useState<CopilotTab>("chat");
-  const [anchorCenter, setAnchorCenter] = useState<number | null>(null);
   const [draft, setDraft] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const copilot = useCopilot({ domainErrorMessages, messages, sectionLabels });
-
-  useLayoutEffect(() => {
-    const panel = document.getElementById("studio-cv-panel");
-
-    if (!panel) {
-      return;
-    }
-
-    const updateAnchor = () => {
-      const bounds = panel.getBoundingClientRect();
-      setAnchorCenter(bounds.left + bounds.width / 2);
-    };
-    const observer = new ResizeObserver(updateAnchor);
-
-    updateAnchor();
-    observer.observe(panel);
-    window.addEventListener("resize", updateAnchor);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", updateAnchor);
-    };
-  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -91,7 +73,6 @@ export function StudioCopilot({
   };
 
   const isChatActive = activeTab === "chat";
-  const triggerStyle = anchorCenter === null ? undefined : { left: `${anchorCenter}px` };
 
   const quickActionButtons = (
     <div>
@@ -128,17 +109,9 @@ export function StudioCopilot({
         type="button"
         aria-label={messages.openLabel}
         onClick={() => setIsOpen(true)}
-        style={triggerStyle}
-        className="fixed bottom-(--rt-space-6) left-1/2 z-20 flex h-(--rt-control-height-lg) w-[calc(100vw-var(--rt-space-8))] max-w-(--rt-studio-copilot-composer-width) -translate-x-1/2 items-center gap-(--rt-space-3) rounded-full border border-line-subtle bg-surface px-(--rt-space-4) text-left shadow-md transition-colors duration-(--rt-duration-fast) hover:border-brand-line"
+        className="fixed right-(--rt-space-6) bottom-(--rt-space-6) z-20 flex h-(--rt-control-height-lg) w-(--rt-control-height-lg) items-center justify-center rounded-full bg-brand text-white shadow-brand transition-colors duration-(--rt-duration-fast) hover:bg-brand-hover"
       >
-        <HiMiniSparkles aria-hidden="true" className="h-5 w-5 shrink-0 text-brand" />
-        <span className="min-w-0 flex-1 truncate text-sm text-ink-subtle">
-          {messages.composerPlaceholder}
-        </span>
-        <FiPaperclip aria-hidden="true" className="h-4 w-4 shrink-0 text-ink-muted" />
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-white">
-          <FiArrowUp aria-hidden="true" className="h-4 w-4" />
-        </span>
+        <FiMessageCircle aria-hidden="true" className="h-5 w-5" />
       </button>
     );
   }
@@ -250,7 +223,7 @@ export function StudioCopilot({
           resume={copilot.resume}
         />
       ) : (
-        <div className="min-h-0 flex-1 space-y-(--rt-space-2) overflow-y-auto bg-canvas p-(--rt-space-4)">
+        <div className="scrollbar-hidden min-h-0 flex-1 space-y-(--rt-space-2) overflow-y-auto bg-canvas p-(--rt-space-4)">
           {copilot.quickActions.length > 0 ? (
             copilot.quickActions.map((action) => (
               <button

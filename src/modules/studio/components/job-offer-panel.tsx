@@ -4,6 +4,7 @@ import {
   FiCheckCircle,
   FiExternalLink,
   FiInfo,
+  FiLoader,
   FiMapPin,
   FiMoreHorizontal,
 } from "react-icons/fi";
@@ -16,8 +17,10 @@ import type {
 import type { Messages } from "@/i18n/messages/types";
 
 type JobOfferPanelProps = Readonly<{
+  isReanalyzing: boolean;
   messages: Messages["studio"]["jobOffer"];
   jobOffer?: StudioJobOfferView;
+  recalculatingLabel: string;
 }>;
 
 function RequirementStatus({
@@ -50,9 +53,19 @@ function RequirementStatus({
   );
 }
 
-export function JobOfferPanel({ messages, jobOffer }: JobOfferPanelProps) {
+export function JobOfferPanel({
+  isReanalyzing,
+  messages,
+  jobOffer,
+  recalculatingLabel,
+}: JobOfferPanelProps) {
   return (
-    <aside className="flex h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:max-w-none!">
+    <aside
+      aria-busy={isReanalyzing}
+      className={`relative flex h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:max-w-none! ${
+        isReanalyzing ? "rt-animate-float shadow-md" : ""
+      }`}
+    >
       <div className="flex shrink-0 items-center justify-between border-b border-line-subtle pb-(--rt-space-4)">
         <h1 className="flex items-center gap-(--rt-space-3) text-lg font-bold tracking-tight text-ink">
           <FiBriefcase aria-hidden="true" className="h-5 w-5 text-brand" />
@@ -172,6 +185,17 @@ export function JobOfferPanel({ messages, jobOffer }: JobOfferPanelProps) {
           <p className="text-sm text-ink-muted">{messages.emptyLabel}</p>
         </div>
       )}
+      {isReanalyzing ? (
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-surface/65 backdrop-blur-[1px]">
+          <span
+            role="status"
+            aria-label={recalculatingLabel}
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-brand text-brand shadow-brand"
+          >
+            <FiLoader aria-hidden="true" className="h-6 w-6 animate-spin" />
+          </span>
+        </div>
+      ) : null}
     </aside>
   );
 }

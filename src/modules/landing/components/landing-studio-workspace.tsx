@@ -47,8 +47,10 @@ export function LandingStudioWorkspace({
         />
         <div className="grid gap-(--rt-space-3) p-(--rt-space-3) xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.7fr)_minmax(0,1.15fr)] [&>aside]:max-w-none! [&>section]:max-w-none!">
           <JobOfferPanel
+            isReanalyzing={false}
             jobOffer={jobOffer}
             messages={dictionary.studio.jobOffer}
+            recalculatingLabel={dictionary.workspaceHeader.recalculatingLabel}
           />
           <StudioCvPanel
             dictionary={dictionary}
@@ -58,7 +60,9 @@ export function LandingStudioWorkspace({
           <AiRecommendationsPanel
             hasAnalysis
             highImpactImprovements={highImpactImprovements}
+            isReanalyzing={false}
             messages={dictionary.studio.recommendations}
+            recalculatingLabel={dictionary.workspaceHeader.recalculatingLabel}
             recommendations={recommendations}
           />
         </div>

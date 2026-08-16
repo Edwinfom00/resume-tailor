@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FiArrowRight, FiInfo, FiZap } from "react-icons/fi";
+import { FiArrowRight, FiInfo, FiLoader, FiZap } from "react-icons/fi";
 import { HiMiniSparkles } from "react-icons/hi2";
 import type { Messages } from "@/i18n/messages/types";
 import type { ResumeSectionId } from "@/modules/session/domain/resume-selection";
@@ -16,14 +16,18 @@ import type {
 type AiRecommendationsPanelProps = Readonly<{
   hasAnalysis: boolean;
   highImpactImprovements: readonly StudioSuggestionView[];
+  isReanalyzing: boolean;
   messages: Messages["studio"]["recommendations"];
+  recalculatingLabel: string;
   recommendations: readonly StudioRecommendation[];
 }>;
 
 export function AiRecommendationsPanel({
   hasAnalysis,
   highImpactImprovements,
+  isReanalyzing,
   messages,
+  recalculatingLabel,
   recommendations,
 }: AiRecommendationsPanelProps) {
   const [expandedSectionId, setExpandedSectionId] =
@@ -47,7 +51,12 @@ export function AiRecommendationsPanel({
   };
 
   return (
-    <aside className="flex min-h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-recommendations-width) flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:max-w-none!">
+    <aside
+      aria-busy={isReanalyzing}
+      className={`relative flex min-h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-recommendations-width) flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:max-w-none! ${
+        isReanalyzing ? "rt-animate-float shadow-md" : ""
+      }`}
+    >
       <div className="flex items-center justify-between">
         <h1 className="flex items-center gap-(--rt-space-3) text-lg font-bold tracking-tight text-ink">
           <HiMiniSparkles aria-hidden="true" className="h-5 w-5 text-brand" />
@@ -149,6 +158,17 @@ export function AiRecommendationsPanel({
           <p className="text-sm text-ink-muted">{messages.emptyLabel}</p>
         </div>
       )}
+      {isReanalyzing ? (
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-surface/65 backdrop-blur-[1px]">
+          <span
+            role="status"
+            aria-label={recalculatingLabel}
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-brand text-brand shadow-brand"
+          >
+            <FiLoader aria-hidden="true" className="h-6 w-6 animate-spin" />
+          </span>
+        </div>
+      ) : null}
     </aside>
   );
 }

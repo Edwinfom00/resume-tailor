@@ -102,6 +102,7 @@
   --rt-duration-slow: 300ms;
   --rt-duration-panel: 220ms;
   --rt-duration-overlay: 260ms;
+  --rt-duration-float: 2.4s;
   --rt-duration-highlight: 1100ms;
   --rt-duration-marquee: 30s;
   --rt-easing-standard: cubic-bezier(0.2, 0, 0, 1);

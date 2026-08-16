@@ -151,6 +151,17 @@ select {
   }
 }
 
+@keyframes rt-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(calc(-1 * var(--rt-space-2)));
+  }
+}
+
 @keyframes rt-marquee {
   from {
     transform: translateX(0);
@@ -194,6 +205,10 @@ select {
 
 .rt-animate-breathe {
   animation: rt-breathe 1.8s var(--rt-easing-standard) infinite;
+}
+
+.rt-animate-float {
+  animation: rt-float var(--rt-duration-float) var(--rt-easing-standard) infinite;
 }
 
 .scrollbar-hidden {

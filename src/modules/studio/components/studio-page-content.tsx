@@ -72,8 +72,10 @@ export function StudioPageContent({
     <>
       <main className={workspaceGridClassName}>
         <JobOfferPanel
+          isReanalyzing={workspace.isReanalyzing}
           messages={dictionary.studio.jobOffer}
           jobOffer={workspace.jobOfferView}
+          recalculatingLabel={dictionary.workspaceHeader.recalculatingLabel}
         />
         <StudioCvPanel
           dictionary={dictionary}
@@ -84,7 +86,9 @@ export function StudioPageContent({
           <AiRecommendationsPanel
             hasAnalysis={Boolean(workspace.analysis)}
             highImpactImprovements={workspace.highImpactImprovements}
+            isReanalyzing={workspace.isReanalyzing}
             messages={dictionary.studio.recommendations}
+            recalculatingLabel={dictionary.workspaceHeader.recalculatingLabel}
             recommendations={workspace.recommendations}
           />
         </div>

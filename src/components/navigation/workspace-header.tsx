@@ -5,6 +5,9 @@ import { useEffect, useRef } from "react";
 import { FiDownload, FiSearch } from "react-icons/fi";
 import { Logo } from "@/components/brand/logo";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { useResumePdfExport } from "@/modules/resume/hooks/use-resume-pdf-export";
+import { useSessionStore } from "@/modules/session/state/session-store";
+import { useSessionHydrated } from "@/modules/session/state/use-session-hydrated";
 import type { Locale } from "@/i18n/locales";
 import type { Messages } from "@/i18n/messages/types";
 
@@ -12,14 +15,21 @@ type WorkspaceHeaderProps = Readonly<{
   languageSwitcherLabel: string;
   locale: Locale;
   messages: Messages["workspaceHeader"];
+  exportMessages: Messages["resumeExport"];
 }>;
 
 export function WorkspaceHeader({
   languageSwitcherLabel,
   locale,
   messages,
+  exportMessages,
 }: WorkspaceHeaderProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const isHydrated = useSessionHydrated();
+  const overallScore = useSessionStore(
+    (state) => state.analysis.data?.score.overall,
+  );
+  const { exportPdf, isExporting } = useResumePdfExport();
 
   useEffect(() => {
     const focusSearch = (event: KeyboardEvent) => {
@@ -74,15 +84,23 @@ export function WorkspaceHeader({
               aria-hidden="true"
               className="h-6 w-6 rounded-full border-2 border-brand border-l-brand-subtle"
             />
-            <span className="text-ink-muted">{messages.matchValue}</span>
+            <span className="text-ink-muted">
+              {isHydrated && overallScore !== undefined
+                ? `${overallScore}%`
+                : messages.matchValue}
+            </span>
           </div>
 
           <button
             type="button"
-            className="inline-flex h-(--rt-control-height-md) items-center justify-center gap-(--rt-space-2) rounded-md bg-brand px-(--rt-space-4) text-sm font-semibold text-white shadow-xs transition-colors duration-(--rt-duration-fast) hover:bg-brand-hover"
+            disabled={isExporting}
+            onClick={() => void exportPdf()}
+            className="inline-flex h-(--rt-control-height-md) items-center justify-center gap-(--rt-space-2) rounded-md bg-brand px-(--rt-space-4) text-sm font-semibold text-white shadow-xs transition-colors duration-(--rt-duration-fast) hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-60"
           >
             <FiDownload aria-hidden="true" className="h-4 w-4" />
-            <span className="hidden sm:inline">{messages.exportLabel}</span>
+            <span className="hidden sm:inline">
+              {isExporting ? exportMessages.exportingLabel : messages.exportLabel}
+            </span>
           </button>
 
           <LanguageSwitcher label={languageSwitcherLabel} locale={locale} />

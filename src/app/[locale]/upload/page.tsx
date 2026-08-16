@@ -16,5 +16,5 @@ export default async function UploadPage({ params }: UploadPageProps) {
 
   const dictionary = await getDictionary(locale);
 
-  return <UploadPageContent dictionary={dictionary} />;
+  return <UploadPageContent dictionary={dictionary} locale={locale} />;
 }

@@ -216,6 +216,26 @@ export type Messages = {
     errorLabel: string;
     exportingLabel: string;
   };
+  domainErrors: {
+    UNSUPPORTED_FILE: string;
+    FILE_TOO_LARGE: string;
+    EMPTY_DOCUMENT: string;
+    TEXT_EXTRACTION_FAILED: string;
+    INVALID_RESUME: string;
+    PARTIAL_EXTRACTION: string;
+    INVALID_URL: string;
+    UNREACHABLE_URL: string;
+    REQUEST_TIMEOUT: string;
+    NON_HTML_RESPONSE: string;
+    EMPTY_PAGE: string;
+    BLOCKED_PAGE: string;
+    NO_JOB_CONTENT: string;
+    EMPTY_DESCRIPTION: string;
+    INVALID_JOB_OFFER: string;
+    NETWORK_ERROR: string;
+    REQUEST_FAILED: string;
+    UNKNOWN: string;
+  };
   home: {
     eyebrow: string;
     title: string;

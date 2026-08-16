@@ -16,12 +16,21 @@ export type JobOfferDraft = Readonly<{
   url: string;
 }>;
 
+export type JobOfferPreview = Readonly<{
+  role?: string;
+  company?: string;
+  requirements?: string;
+}>;
+
 type JobOfferPanelProps = Readonly<{
   isParsed: boolean;
   jobOffer: JobOfferDraft;
   messages: Messages["jobOffer"];
   onJobOfferChange: (jobOffer: JobOfferDraft) => void;
   onParse: () => void;
+  errorMessage?: string | null;
+  isParsing?: boolean;
+  preview?: JobOfferPreview;
 }>;
 
 export function JobOfferPanel({
@@ -30,6 +39,9 @@ export function JobOfferPanel({
   messages,
   onJobOfferChange,
   onParse,
+  errorMessage = null,
+  isParsing = false,
+  preview,
 }: JobOfferPanelProps) {
   const handleUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
     onJobOfferChange({ ...jobOffer, url: event.target.value });
@@ -71,12 +83,18 @@ export function JobOfferPanel({
           <button
             type="button"
             onClick={onParse}
-            className="h-(--rt-control-height-md) rounded-md border border-line-subtle bg-surface px-(--rt-space-5) text-sm font-semibold text-ink shadow-xs transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand"
+            disabled={isParsing}
+            className="h-(--rt-control-height-md) rounded-md border border-line-subtle bg-surface px-(--rt-space-5) text-sm font-semibold text-ink shadow-xs transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand disabled:cursor-not-allowed disabled:opacity-60"
           >
             {messages.fetchLabel}
           </button>
         </div>
-        <p className="mt-(--rt-space-2) text-xs text-ink-muted">{messages.urlHint}</p>
+        <p
+          className={`mt-(--rt-space-2) text-xs ${errorMessage ? "text-negative" : "text-ink-muted"}`}
+          role={errorMessage ? "alert" : undefined}
+        >
+          {errorMessage ?? messages.urlHint}
+        </p>
       </div>
 
       <div className="my-(--rt-space-5) flex items-center gap-(--rt-space-3) text-xs font-medium text-ink-muted before:h-px before:flex-1 before:bg-line-subtle after:h-px after:flex-1 after:bg-line-subtle">
@@ -117,21 +135,27 @@ export function JobOfferPanel({
               <FiBriefcase aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
               <div>
                 <dt className="font-semibold text-ink">{messages.roleLabel}</dt>
-                <dd className="text-ink-muted">{messages.roleValue}</dd>
+                <dd className="text-ink-muted">
+                  {preview?.role || messages.roleValue}
+                </dd>
               </div>
             </div>
             <div className="flex gap-(--rt-space-2)">
               <FiHome aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
               <div>
                 <dt className="font-semibold text-ink">{messages.companyLabel}</dt>
-                <dd className="text-ink-muted">{messages.companyValue}</dd>
+                <dd className="text-ink-muted">
+                  {preview?.company || messages.companyValue}
+                </dd>
               </div>
             </div>
             <div className="flex gap-(--rt-space-2)">
               <FiList aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
               <div>
                 <dt className="font-semibold text-ink">{messages.requirementsLabel}</dt>
-                <dd className="text-ink-muted">{messages.requirementsValue}</dd>
+                <dd className="text-ink-muted">
+                  {preview?.requirements || messages.requirementsValue}
+                </dd>
               </div>
             </div>
           </dl>

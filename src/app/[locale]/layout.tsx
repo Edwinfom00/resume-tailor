@@ -74,6 +74,7 @@ export default async function LocaleLayout({
           languageSwitcherLabel={dictionary.languageSwitcher.label}
           locale={locale}
           messages={dictionary.workspaceHeader}
+          exportMessages={dictionary.resumeExport}
         />
         {children}
       </body>

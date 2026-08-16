@@ -12,30 +12,45 @@ import {
 import { HiMiniSparkles } from "react-icons/hi2";
 import type { Messages } from "@/i18n/messages/types";
 import { studioCopilotContext } from "@/modules/studio/fixtures/copilot";
+import { useSessionStore } from "@/modules/session/state/session-store";
+import { useSessionHydrated } from "@/modules/session/state/use-session-hydrated";
 
 type CopilotTab = "actions" | "chat";
 
-type CopilotMessage = Readonly<{
-  id: string;
-  sender: "assistant" | "user";
-  content: string;
-}>;
-
 type StudioCopilotProps = Readonly<{
   messages: Messages["studio"]["copilot"];
+  onSubmitMessage?: (message: string) => void | Promise<void>;
 }>;
 
-export function StudioCopilot({ messages }: StudioCopilotProps) {
+export function StudioCopilot({
+  messages,
+  onSubmitMessage,
+}: StudioCopilotProps) {
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const [activeTab, setActiveTab] = useState<CopilotTab>("chat");
   const [anchorCenter, setAnchorCenter] = useState<number | null>(null);
   const [draft, setDraft] = useState("");
-  const [isApplied, setIsApplied] = useState(false);
-  const [isIgnored, setIsIgnored] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [messagesAfterSuggestion, setMessagesAfterSuggestion] = useState<
-    readonly CopilotMessage[]
-  >([]);
+  const isHydrated = useSessionHydrated();
+  const job = useSessionStore((state) => state.job.data);
+  const conversation = useSessionStore((state) => state.copilot.messages);
+  const proposals = useSessionStore((state) => state.copilot.proposals);
+  const applyCopilotProposal = useSessionStore(
+    (state) => state.applyCopilotProposal,
+  );
+  const ignoreCopilotProposal = useSessionStore(
+    (state) => state.ignoreCopilotProposal,
+  );
+
+  const latestProposal = isHydrated
+    ? [...proposals].reverse().find((proposal) => proposal.status !== "ignored")
+    : undefined;
+  const isApplied = latestProposal?.status === "applied";
+  const isIgnored = Boolean(isHydrated && proposals.length > 0 && !latestProposal);
+  const conversationMessages = isHydrated ? conversation : [];
+  const contextRole = job?.title || studioCopilotContext.role;
+  const contextCompany = job?.company || studioCopilotContext.company;
+
   const quickActions = [
     messages.improveProfileLabel,
     messages.reorderProjectsLabel,
@@ -98,15 +113,7 @@ export function StudioCopilot({ messages }: StudioCopilotProps) {
       return;
     }
 
-    setMessagesAfterSuggestion((currentMessages) => [
-      ...currentMessages,
-      { id: `user-${currentMessages.length}`, sender: "user", content },
-      {
-        id: `assistant-${currentMessages.length}`,
-        sender: "assistant",
-        content: messages.responseMessage,
-      },
-    ]);
+    void onSubmitMessage?.(content);
     setDraft("");
   };
 
@@ -152,9 +159,9 @@ export function StudioCopilot({ messages }: StudioCopilotProps) {
             <p className="text-xs text-ink-muted">{messages.workingWithLabel}</p>
             <p className="mt-(--rt-space-1) flex items-center gap-(--rt-space-2) text-sm font-bold text-ink">
               <span className="h-2 w-2 rounded-pill bg-positive" />
-              {studioCopilotContext.role}
+              {contextRole}
               <span aria-hidden="true">·</span>
-              {studioCopilotContext.company}
+              {contextCompany}
             </p>
           </div>
 
@@ -214,7 +221,7 @@ export function StudioCopilot({ messages }: StudioCopilotProps) {
                         {messages.assistantLabel}
                       </p>
                       <p className="mt-(--rt-space-1) text-xs text-ink-muted">
-                        {messages.improvementsFoundLabel}
+                        {latestProposal?.explanation ?? messages.improvementsFoundLabel}
                       </p>
                       <section className="mt-(--rt-space-2) overflow-hidden rounded-lg border border-line-subtle bg-surface">
                         <div className="border-b border-line-subtle p-(--rt-space-3)">
@@ -228,13 +235,17 @@ export function StudioCopilot({ messages }: StudioCopilotProps) {
                               </p>
                             </div>
                             <span className="rounded-pill bg-success-50 px-(--rt-space-2) py-0.5 text-2xs font-semibold text-positive">
-                              {messages.impactLabel}
+                              {latestProposal?.estimatedImpact
+                                ? `+${latestProposal.estimatedImpact}%`
+                                : messages.impactLabel}
                             </span>
                           </div>
                           <ul className="mt-(--rt-space-3) list-disc space-y-(--rt-space-2) pl-(--rt-space-4) text-2xs leading-relaxed text-ink-muted">
-                            {messages.changeBullets.map((bullet) => (
-                              <li key={bullet}>{bullet}</li>
-                            ))}
+                            {(latestProposal?.changeSummary ?? messages.changeBullets).map(
+                              (bullet) => (
+                                <li key={bullet}>{bullet}</li>
+                              ),
+                            )}
                           </ul>
                         </div>
                         <button
@@ -247,7 +258,11 @@ export function StudioCopilot({ messages }: StudioCopilotProps) {
                         <div className="flex gap-(--rt-space-2) border-t border-line-subtle p-(--rt-space-2)">
                           <button
                             type="button"
-                            onClick={() => setIsApplied(true)}
+                            disabled={!latestProposal || isApplied}
+                            onClick={() =>
+                              latestProposal &&
+                              applyCopilotProposal(latestProposal.id)
+                            }
                             className={`inline-flex h-(--rt-control-height-sm) items-center gap-(--rt-space-2) rounded-md px-(--rt-space-3) text-xs font-semibold transition-colors duration-(--rt-duration-fast) ${isApplied
                               ? "bg-success-50 text-positive"
                               : "bg-brand text-white hover:bg-brand-hover"
@@ -265,7 +280,11 @@ export function StudioCopilot({ messages }: StudioCopilotProps) {
                           </button>
                           <button
                             type="button"
-                            onClick={() => setIsIgnored(true)}
+                            disabled={!latestProposal}
+                            onClick={() =>
+                              latestProposal &&
+                              ignoreCopilotProposal(latestProposal.id)
+                            }
                             className="inline-flex h-(--rt-control-height-sm) items-center gap-(--rt-space-2) rounded-md border border-line-subtle px-(--rt-space-3) text-xs font-semibold text-ink-muted transition-colors duration-(--rt-duration-fast) hover:bg-negative-subtle hover:text-negative"
                           >
                             <FiX aria-hidden="true" className="h-4 w-4" />
@@ -277,17 +296,17 @@ export function StudioCopilot({ messages }: StudioCopilotProps) {
                   </div>
                 ) : null}
 
-                {messagesAfterSuggestion.map((message) => (
+                {conversationMessages.map((message) => (
                   <div
                     key={message.id}
                     className={
-                      message.sender === "user"
+                      message.role === "user"
                         ? "ml-auto max-w-(--rt-studio-copilot-message-width) rounded-lg rounded-tr-sm bg-brand p-(--rt-space-3) text-xs leading-relaxed text-white"
                         : "max-w-(--rt-studio-copilot-message-width) rounded-lg border border-line-subtle bg-surface p-(--rt-space-3) text-xs leading-relaxed text-ink-muted"
                     }
                   >
-                    <p className={message.sender === "user" ? "text-white/70" : "font-semibold text-ink"}>
-                      {message.sender === "user" ? messages.userLabel : messages.assistantLabel}
+                    <p className={message.role === "user" ? "text-white/70" : "font-semibold text-ink"}>
+                      {message.role === "user" ? messages.userLabel : messages.assistantLabel}
                     </p>
                     <p className="mt-(--rt-space-1)">{message.content}</p>
                   </div>

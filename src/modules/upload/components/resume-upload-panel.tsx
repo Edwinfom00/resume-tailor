@@ -25,16 +25,22 @@ type ResumeUploadPanelProps = Readonly<{
   messages: Messages["upload"];
   onUploadedFileChange: (file: UploadedResume | null) => void;
   uploadedFile: UploadedResume | null;
+  extractionErrorMessage?: string | null;
 }>;
 
 export function ResumeUploadPanel({
   messages,
   onUploadedFileChange,
   uploadedFile,
+  extractionErrorMessage = null,
 }: ResumeUploadPanelProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [validationErrorMessage, setValidationErrorMessage] = useState<
+    string | null
+  >(null);
+  const errorMessage = validationErrorMessage ?? extractionErrorMessage;
+  const setErrorMessage = setValidationErrorMessage;
 
   const chooseFile = () => inputRef.current?.click();
 

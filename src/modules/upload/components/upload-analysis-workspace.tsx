@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AnalysisBenefitsPanel } from "@/modules/upload/components/analysis-benefits-panel";
 import { AnalysisWorkflowSteps } from "@/modules/upload/components/analysis-workflow-steps";
@@ -8,57 +9,113 @@ import {
   type JobOfferDraft,
 } from "@/modules/upload/components/job-offer-panel";
 import {
-  createMockResume,
+  fromFileMetadata,
   type UploadedResume,
 } from "@/modules/upload/components/resume-file";
 import { ResumeUploadPanel } from "@/modules/upload/components/resume-upload-panel";
 import { UploadActionPanel } from "@/modules/upload/components/upload-action-panel";
+import { edwinResume } from "@/modules/resume/fixtures/edwin-resume";
+import { useSessionStore } from "@/modules/session/state/session-store";
+import { useSessionHydrated } from "@/modules/session/state/use-session-hydrated";
+import { toLocalizedErrorMessage } from "@/modules/session/state/use-domain-error-message";
+import type { Locale } from "@/i18n/locales";
 import type { Messages } from "@/i18n/messages/types";
 
 type UploadAnalysisWorkspaceProps = Readonly<{
   analysisBenefitsMessages: Messages["analysisBenefits"];
+  domainErrorMessages: Messages["domainErrors"];
   jobOfferMessages: Messages["jobOffer"];
+  locale: Locale;
   messages: Messages["upload"];
 }>;
 
 export function UploadAnalysisWorkspace({
   analysisBenefitsMessages,
+  domainErrorMessages,
   jobOfferMessages,
+  locale,
   messages,
 }: UploadAnalysisWorkspaceProps) {
-  const [uploadedFile, setUploadedFile] = useState<UploadedResume | null>(() =>
-    createMockResume(messages),
-  );
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [isJobOfferParsed, setIsJobOfferParsed] = useState(true);
-  const [jobOffer, setJobOffer] = useState<JobOfferDraft>({
-    description: "",
-    url: "",
-  });
+  const router = useRouter();
+  const isHydrated = useSessionHydrated();
   const [resetKey, setResetKey] = useState(0);
 
-  const handleAnalyze = () => {
-    if (!uploadedFile) {
+  const resume = useSessionStore((state) => state.resume);
+  const job = useSessionStore((state) => state.job);
+  const analysis = useSessionStore((state) => state.analysis);
+  const uploadResume = useSessionStore((state) => state.uploadResume);
+  const clearResume = useSessionStore((state) => state.clearResume);
+  const loadSampleResume = useSessionStore((state) => state.loadSampleResume);
+  const setJobUrl = useSessionStore((state) => state.setJobUrl);
+  const setJobDescription = useSessionStore((state) => state.setJobDescription);
+  const extractJob = useSessionStore((state) => state.extractJob);
+  const runAnalysis = useSessionStore((state) => state.runAnalysis);
+  const resetSession = useSessionStore((state) => state.resetSession);
+
+  const uploadedFile: UploadedResume | null = !isHydrated
+    ? null
+    : resume.originalFile
+      ? fromFileMetadata(resume.originalFile, messages)
+      : resume.data
+        ? {
+            name: messages.mockFileName,
+            metadata: messages.mockFileMetadata,
+            type: messages.fileTypeLabel,
+          }
+        : null;
+
+  const jobOfferDraft: JobOfferDraft = {
+    description: isHydrated ? job.description : "",
+    url: isHydrated ? job.url : "",
+  };
+
+  const isAnalyzing = resume.status === "extracting" || analysis.running;
+
+  const handleUploadedFileChange = (nextFile: UploadedResume | null) => {
+    if (!nextFile) {
+      clearResume();
+
       return;
     }
 
-    setIsAnalyzing(true);
-    window.setTimeout(() => setIsAnalyzing(false), 700);
+    if (nextFile.source) {
+      void uploadResume(nextFile.source);
+    }
+  };
+
+  const handleJobOfferChange = (nextJobOffer: JobOfferDraft) => {
+    if (nextJobOffer.url !== job.url) {
+      setJobUrl(nextJobOffer.url);
+    }
+
+    if (nextJobOffer.description !== job.description) {
+      setJobDescription(nextJobOffer.description);
+    }
+  };
+
+  const handleAnalyze = async () => {
+    if (!resume.data) {
+      return;
+    }
+
+    if (!job.data) {
+      await extractJob();
+    }
+
+    await runAnalysis();
+
+    if (useSessionStore.getState().analysis.data) {
+      router.push(`/${locale}/studio`);
+    }
   };
 
   const handleClear = () => {
-    setUploadedFile(null);
-    setIsAnalyzing(false);
-    setIsJobOfferParsed(false);
-    setJobOffer({ description: "", url: "" });
+    resetSession();
     setResetKey((currentKey) => currentKey + 1);
   };
 
   const handleUseSample = () => {
-    setUploadedFile(createMockResume(messages));
-    setIsAnalyzing(false);
-    setIsJobOfferParsed(true);
-    setJobOffer({ description: "", url: "" });
+    loadSampleResume(edwinResume);
     setResetKey((currentKey) => currentKey + 1);
   };
 
@@ -69,26 +126,39 @@ export function UploadAnalysisWorkspace({
           key={resetKey}
           messages={messages}
           uploadedFile={uploadedFile}
-          onUploadedFileChange={setUploadedFile}
+          onUploadedFileChange={handleUploadedFileChange}
+          extractionErrorMessage={toLocalizedErrorMessage(
+            resume.error,
+            domainErrorMessages,
+          )}
         />
         <JobOfferPanel
-          isParsed={isJobOfferParsed}
-          jobOffer={jobOffer}
+          isParsed={isHydrated && job.status === "completed"}
+          isParsing={job.status === "fetching" || job.status === "structuring"}
+          jobOffer={jobOfferDraft}
           messages={jobOfferMessages}
-          onJobOfferChange={(nextJobOffer) => {
-            setJobOffer(nextJobOffer);
-            setIsJobOfferParsed(false);
+          onJobOfferChange={handleJobOfferChange}
+          onParse={() => void extractJob()}
+          errorMessage={toLocalizedErrorMessage(job.error, domainErrorMessages)}
+          preview={{
+            role: job.data?.title,
+            company: job.data?.company,
+            requirements: job.data
+              ? job.data.requirements
+                  .slice(0, 6)
+                  .map((requirement) => requirement.label)
+                  .join(", ")
+              : undefined,
           }}
-          onParse={() => setIsJobOfferParsed(true)}
         />
         <AnalysisBenefitsPanel messages={analysisBenefitsMessages} />
       </div>
       <div className="mt-(--rt-space-5) grid gap-(--rt-space-5) lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
         <UploadActionPanel
-          canAnalyze={uploadedFile !== null}
+          canAnalyze={Boolean(resume.data)}
           isAnalyzing={isAnalyzing}
           messages={messages}
-          onAnalyze={handleAnalyze}
+          onAnalyze={() => void handleAnalyze()}
           onClear={handleClear}
           onUseSample={handleUseSample}
         />

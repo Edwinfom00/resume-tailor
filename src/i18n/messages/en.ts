@@ -232,6 +232,34 @@ export const messages = {
     errorLabel: "The PDF could not be exported. Please try again.",
     exportingLabel: "Preparing PDF…",
   },
+  domainErrors: {
+    UNSUPPORTED_FILE: "This file type is not supported. Upload a PDF or DOCX resume.",
+    FILE_TOO_LARGE: "This file is larger than the 10 MB limit.",
+    EMPTY_DOCUMENT: "No readable text was found in this document.",
+    TEXT_EXTRACTION_FAILED:
+      "The document could not be read. Try exporting it again as a PDF or DOCX.",
+    INVALID_RESUME:
+      "This document does not look like a resume. Upload your CV instead.",
+    PARTIAL_EXTRACTION:
+      "Only part of the resume could be structured. Review the imported content.",
+    INVALID_URL: "This job link is not a valid URL.",
+    UNREACHABLE_URL:
+      "Could not open this job page. Paste the job description instead.",
+    REQUEST_TIMEOUT:
+      "The job page took too long to respond. Paste the job description instead.",
+    NON_HTML_RESPONSE:
+      "This link does not point to a job page. Paste the job description instead.",
+    EMPTY_PAGE:
+      "This job page returned no readable content. Paste the job description instead.",
+    BLOCKED_PAGE: "This site blocked the request. Paste the job description instead.",
+    NO_JOB_CONTENT:
+      "Could not extract this job page. Paste the job description instead.",
+    EMPTY_DESCRIPTION: "Add a job URL or paste the job description first.",
+    INVALID_JOB_OFFER: "The job offer could not be structured from this content.",
+    NETWORK_ERROR: "The request could not be sent. Check your connection.",
+    REQUEST_FAILED: "The request could not be completed. Please try again.",
+    UNKNOWN: "Something went wrong. Please try again.",
+  },
   home: {
     eyebrow: "Resume Tailor",
     title: "Tailor every resume to the role that matters.",

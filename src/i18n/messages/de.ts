@@ -234,6 +234,39 @@ export const messages = {
     errorLabel: "Das PDF konnte nicht exportiert werden. Bitte erneut versuchen.",
     exportingLabel: "PDF wird erstellt…",
   },
+  domainErrors: {
+    UNSUPPORTED_FILE:
+      "Dieser Dateityp wird nicht unterstützt. Laden Sie einen Lebenslauf als PDF oder DOCX hoch.",
+    FILE_TOO_LARGE: "Diese Datei überschreitet das Limit von 10 MB.",
+    EMPTY_DOCUMENT: "In diesem Dokument wurde kein lesbarer Text gefunden.",
+    TEXT_EXTRACTION_FAILED:
+      "Das Dokument konnte nicht gelesen werden. Exportieren Sie es erneut als PDF oder DOCX.",
+    INVALID_RESUME:
+      "Dieses Dokument sieht nicht nach einem Lebenslauf aus. Laden Sie stattdessen Ihren Lebenslauf hoch.",
+    PARTIAL_EXTRACTION:
+      "Nur ein Teil des Lebenslaufs konnte strukturiert werden. Prüfen Sie die importierten Inhalte.",
+    INVALID_URL: "Dieser Stellenlink ist keine gültige URL.",
+    UNREACHABLE_URL:
+      "Diese Stellenseite konnte nicht geöffnet werden. Fügen Sie stattdessen die Stellenbeschreibung ein.",
+    REQUEST_TIMEOUT:
+      "Die Stellenseite hat zu lange gebraucht. Fügen Sie stattdessen die Stellenbeschreibung ein.",
+    NON_HTML_RESPONSE:
+      "Dieser Link führt nicht zu einer Stellenseite. Fügen Sie stattdessen die Stellenbeschreibung ein.",
+    EMPTY_PAGE:
+      "Diese Stellenseite lieferte keinen lesbaren Inhalt. Fügen Sie stattdessen die Stellenbeschreibung ein.",
+    BLOCKED_PAGE:
+      "Diese Website hat die Anfrage blockiert. Fügen Sie stattdessen die Stellenbeschreibung ein.",
+    NO_JOB_CONTENT:
+      "Diese Stellenseite konnte nicht ausgelesen werden. Fügen Sie stattdessen die Stellenbeschreibung ein.",
+    EMPTY_DESCRIPTION:
+      "Fügen Sie zuerst eine Stellen-URL oder die Stellenbeschreibung ein.",
+    INVALID_JOB_OFFER:
+      "Aus diesem Inhalt konnte kein Stellenangebot strukturiert werden.",
+    NETWORK_ERROR:
+      "Die Anfrage konnte nicht gesendet werden. Prüfen Sie Ihre Verbindung.",
+    REQUEST_FAILED: "Die Anfrage konnte nicht abgeschlossen werden. Bitte erneut versuchen.",
+    UNKNOWN: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+  },
   home: {
     eyebrow: "Resume Tailor",
     title: "Passen Sie jeden Lebenslauf an die Stelle an, die zählt.",

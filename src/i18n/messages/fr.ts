@@ -234,6 +234,37 @@ export const messages = {
     errorLabel: "Le PDF n’a pas pu être exporté. Veuillez réessayer.",
     exportingLabel: "Préparation du PDF…",
   },
+  domainErrors: {
+    UNSUPPORTED_FILE:
+      "Ce type de fichier n'est pas pris en charge. Importez un CV PDF ou DOCX.",
+    FILE_TOO_LARGE: "Ce fichier dépasse la limite de 10 Mo.",
+    EMPTY_DOCUMENT: "Aucun texte lisible n'a été trouvé dans ce document.",
+    TEXT_EXTRACTION_FAILED:
+      "Le document n'a pas pu être lu. Réexportez-le en PDF ou DOCX.",
+    INVALID_RESUME:
+      "Ce document ne ressemble pas à un CV. Importez plutôt votre CV.",
+    PARTIAL_EXTRACTION:
+      "Seule une partie du CV a pu être structurée. Vérifiez le contenu importé.",
+    INVALID_URL: "Ce lien d'offre n'est pas une URL valide.",
+    UNREACHABLE_URL:
+      "Impossible d'ouvrir cette page d'offre. Collez plutôt la description.",
+    REQUEST_TIMEOUT:
+      "La page d'offre a mis trop de temps à répondre. Collez plutôt la description.",
+    NON_HTML_RESPONSE:
+      "Ce lien ne pointe pas vers une page d'offre. Collez plutôt la description.",
+    EMPTY_PAGE:
+      "Cette page d'offre n'a retourné aucun contenu lisible. Collez plutôt la description.",
+    BLOCKED_PAGE:
+      "Ce site a bloqué la requête. Collez plutôt la description de l'offre.",
+    NO_JOB_CONTENT:
+      "Impossible d'extraire cette page d'offre. Collez plutôt la description.",
+    EMPTY_DESCRIPTION:
+      "Ajoutez d'abord une URL ou collez la description de l'offre.",
+    INVALID_JOB_OFFER: "L'offre n'a pas pu être structurée à partir de ce contenu.",
+    NETWORK_ERROR: "La requête n'a pas pu être envoyée. Vérifiez votre connexion.",
+    REQUEST_FAILED: "La requête n'a pas pu aboutir. Veuillez réessayer.",
+    UNKNOWN: "Une erreur est survenue. Veuillez réessayer.",
+  },
   home: {
     eyebrow: "Resume Tailor",
     title: "Adaptez chaque CV au poste qui compte.",

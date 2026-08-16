@@ -13,10 +13,12 @@ import {
   studioJobOffer,
   type JobRequirement,
 } from "@/modules/studio/fixtures/job-offer";
+import type { StudioJobOfferView } from "@/modules/studio/view-models/job-offer-view";
 import type { Messages } from "@/i18n/messages/types";
 
 type JobOfferPanelProps = Readonly<{
   messages: Messages["studio"]["jobOffer"];
+  jobOffer?: StudioJobOfferView;
 }>;
 
 function RequirementStatus({
@@ -49,7 +51,10 @@ function RequirementStatus({
   );
 }
 
-export function JobOfferPanel({ messages }: JobOfferPanelProps) {
+export function JobOfferPanel({
+  messages,
+  jobOffer = studioJobOffer,
+}: JobOfferPanelProps) {
   return (
     <aside className="flex min-h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:!max-w-none">
       <div className="flex items-center justify-between border-b border-line-subtle pb-(--rt-space-4)">
@@ -73,21 +78,21 @@ export function JobOfferPanel({ messages }: JobOfferPanelProps) {
           </span>
           <div className="min-w-0">
             <h2 className="truncate text-base font-bold tracking-tight text-ink">
-              {studioJobOffer.title}
+              {jobOffer.title}
             </h2>
             <p className="mt-0.5 flex items-center gap-(--rt-space-2) text-sm font-semibold text-ink-muted">
-              {studioJobOffer.company}
+              {jobOffer.company}
               <FiCheckCircle aria-hidden="true" className="h-4 w-4 text-brand" />
             </p>
             <p className="mt-1 flex flex-wrap items-center gap-x-(--rt-space-2) text-xs text-ink-muted">
               <span className="inline-flex items-center gap-1">
                 <FiMapPin aria-hidden="true" className="h-3.5 w-3.5" />
-                {studioJobOffer.location}
+                {jobOffer.location}
               </span>
               <span aria-hidden="true">•</span>
-              <span>{studioJobOffer.type}</span>
+              <span>{jobOffer.type}</span>
             </p>
-            <p className="mt-1 text-xs text-ink-muted">{studioJobOffer.postedDate}</p>
+            <p className="mt-1 text-xs text-ink-muted">{jobOffer.postedDate}</p>
           </div>
         </div>
       </section>
@@ -96,11 +101,11 @@ export function JobOfferPanel({ messages }: JobOfferPanelProps) {
         <div className="flex items-center justify-between gap-(--rt-space-3)">
           <h2 className="text-sm font-bold text-ink">{messages.detectedRequirementsLabel}</h2>
           <span className="rounded-pill bg-surface-subtle px-(--rt-space-2) py-0.5 text-xs font-semibold text-ink-muted">
-            {studioJobOffer.matchedRequirements}/{studioJobOffer.totalRequirements} {messages.matchedSummarySuffix}
+            {jobOffer.matchedRequirements}/{jobOffer.totalRequirements} {messages.matchedSummarySuffix}
           </span>
         </div>
         <ul className="mt-(--rt-space-4) space-y-(--rt-space-3)">
-          {studioJobOffer.requirements.map((requirement) => (
+          {jobOffer.requirements.map((requirement) => (
             <RequirementStatus
               key={requirement.name}
               requirement={requirement}
@@ -123,7 +128,7 @@ export function JobOfferPanel({ messages }: JobOfferPanelProps) {
           <FiInfo aria-hidden="true" className="h-4 w-4 text-ink-muted" />
         </h2>
         <ul className="mt-(--rt-space-4) flex flex-wrap gap-(--rt-space-2)">
-          {studioJobOffer.keywords.map((keyword) => (
+          {jobOffer.keywords.map((keyword) => (
             <li key={keyword} className="rounded-sm bg-surface-brand px-(--rt-space-2) py-(--rt-space-1) text-xs font-medium text-brand">
               {keyword}
             </li>

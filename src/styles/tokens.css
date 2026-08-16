@@ -116,6 +116,9 @@
   --rt-studio-recommendations-width: 31.5rem;
   --rt-studio-panel-gap: 1rem;
   --rt-studio-panel-min-height: 52.75rem;
+  --rt-studio-copilot-width: 25rem;
+  --rt-studio-copilot-composer-width: 29.625rem;
+  --rt-studio-copilot-message-width: 17rem;
   --rt-resume-page-inset-inline: 16mm;
   --rt-resume-page-inset-block-start: 13.5mm;
   --rt-resume-page-inset-block-end: 13.5mm;

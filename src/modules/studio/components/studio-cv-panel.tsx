@@ -154,7 +154,7 @@ export function StudioCvPanel({
   };
 
   return (
-    <section className="flex h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-cv-panel-width) min-w-0 flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface shadow-xs min-[1672px]:!max-w-none">
+    <section id="studio-cv-panel" className="flex h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-cv-panel-width) min-w-0 flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface shadow-xs min-[1672px]:max-w-none!">
       <div className="flex min-h-(--rt-control-height-lg) items-center gap-(--rt-space-4) border-b border-line-subtle px-(--rt-space-5)">
         <h1 className="mr-auto text-lg font-bold tracking-tight text-ink">{messages.title}</h1>
         <nav aria-label={messages.title} className="hidden h-full items-center gap-(--rt-space-6) lg:flex">
@@ -168,8 +168,8 @@ export function StudioCvPanel({
                 aria-current={isActive ? "page" : undefined}
                 onClick={() => activateSection(tab.id)}
                 className={`relative h-full text-sm font-medium transition-colors duration-(--rt-duration-fast) ${isActive
-                    ? "text-brand after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand"
-                    : "text-ink-muted hover:text-ink"
+                  ? "text-brand after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand"
+                  : "text-ink-muted hover:text-ink"
                   }`}
               >
                 {tab.label}
@@ -182,8 +182,8 @@ export function StudioCvPanel({
           aria-label={messages.toggleGuidesLabel}
           onClick={() => setIsGuideVisible((currentValue) => !currentValue)}
           className={`rounded-md p-(--rt-space-2) transition-colors duration-(--rt-duration-fast) ${isGuideVisible
-              ? "bg-surface-brand text-brand"
-              : "text-ink-muted hover:bg-surface-brand hover:text-brand"
+            ? "bg-surface-brand text-brand"
+            : "text-ink-muted hover:bg-surface-brand hover:text-brand"
             }`}
         >
           <FiSliders aria-hidden="true" className="h-4 w-4" />
@@ -202,8 +202,8 @@ export function StudioCvPanel({
           <div
             style={{ transform: `scale(${previewScale})`, transformOrigin: "top left" }}
             className={`w-max [&>section]:min-h-0 [&>section]:overflow-visible [&>section]:p-0 ${isGuideVisible
-                ? "**:data-resume-page:outline **:data-resume-page:outline-dashed **:data-resume-page:outline-brand"
-                : ""
+              ? "**:data-resume-page:outline **:data-resume-page:outline-dashed **:data-resume-page:outline-brand"
+              : ""
               }`}
           >
             <ResumePreviewDocument dictionary={dictionary} resume={resume} />

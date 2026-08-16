@@ -76,9 +76,10 @@ export function RecommendationCard({
 
   return (
     <section
-      className={`overflow-hidden rounded-lg border bg-surface transition-colors duration-(--rt-duration-fast) ${
-        isExpanded ? "border-brand-line" : "border-line-subtle"
-      }`}
+      className={`overflow-hidden rounded-lg border bg-surface transition-colors duration-(--rt-duration-fast) ${isExpanded
+          ? "flex h-(--rt-studio-recommendation-expanded-height) flex-col border-brand-line"
+          : "border-line-subtle"
+        }`}
     >
       <button
         type="button"
@@ -86,7 +87,7 @@ export function RecommendationCard({
         aria-controls={panelId}
         aria-label={`${isExpanded ? messages.closeLabel : messages.openLabel}: ${copy.title}`}
         onClick={() => onToggle(recommendation.id)}
-        className="flex w-full items-center gap-(--rt-space-3) px-(--rt-space-3) py-(--rt-space-2) text-left"
+        className="flex w-full shrink-0 items-center gap-(--rt-space-3) px-(--rt-space-3) py-(--rt-space-2) text-left"
       >
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-surface-brand text-brand">
           <Icon aria-hidden="true" className="h-5 w-5" />
@@ -99,11 +100,10 @@ export function RecommendationCard({
         </span>
         <span
           aria-label={`${messages.sectionScoreLabel}: ${recommendation.score}%`}
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold transition-colors duration-(--rt-duration-normal) ${
-            isPositive
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold transition-colors duration-(--rt-duration-normal) ${isPositive
               ? "border-positive bg-success-50 text-positive"
               : "border-caution bg-caution-subtle text-caution"
-          }`}
+            }`}
         >
           {recommendation.score}%
         </span>
@@ -116,10 +116,15 @@ export function RecommendationCard({
 
       {isExpanded ? (
         <div
-          id={panelId}
-          className="rt-animate-expand-in border-t border-line-subtle px-(--rt-space-3) pb-(--rt-space-2) pt-(--rt-space-2)"
+          className="rt-animate-expand-in min-h-0 flex-1 border-t border-line-subtle"
         >
-          {recommendation.currentKeywords && recommendation.suggestedKeywords ? (
+          <div
+            id={panelId}
+            tabIndex={0}
+            aria-label={copy.title}
+            className="h-full overflow-y-scroll overscroll-contain px-(--rt-space-3) pb-(--rt-space-2) pt-(--rt-space-2) scrollbar-gutter-stable"
+          >
+            {recommendation.currentKeywords && recommendation.suggestedKeywords ? (
             <>
               <div className="rounded-md border border-line-subtle bg-canvas p-(--rt-space-2)">
                 <p className="text-xs font-bold text-ink">{messages.currentLabel}</p>
@@ -185,7 +190,7 @@ export function RecommendationCard({
             </p>
           )}
 
-          {ignoredSuggestions.length > 0 ? (
+            {ignoredSuggestions.length > 0 ? (
             <ul className="mt-(--rt-space-2) space-y-1">
               {ignoredSuggestions.map((suggestion) => (
                 <li
@@ -206,7 +211,8 @@ export function RecommendationCard({
                 </li>
               ))}
             </ul>
-          ) : null}
+            ) : null}
+          </div>
         </div>
       ) : null}
     </section>

@@ -1,5 +1,6 @@
 "use client";
 
+import { FiLoader } from "react-icons/fi";
 import { useSessionStore } from "@/modules/session/state/session-store";
 import { useSessionHydrated } from "@/modules/session/state/use-session-hydrated";
 import { useAnimatedNumber } from "@/modules/shared/ui/use-animated-number";
@@ -22,8 +23,11 @@ export function MatchIndicator({
   const previousScore = useSessionStore((state) => state.analysis.previousScore);
   const isRunning = useSessionStore((state) => state.analysis.running);
 
+  const retainedSessionScore = isRunning
+    ? (previousScore ?? sessionScore)
+    : sessionScore;
   const displayedScore = useAnimatedNumber(
-    previewScore ?? (isHydrated ? sessionScore : undefined),
+    previewScore ?? (isHydrated ? retainedSessionScore : undefined),
   );
   const delta =
     previewScore === undefined && !isRunning && sessionScore !== undefined && previousScore !== undefined
@@ -61,12 +65,22 @@ export function MatchIndicator({
         />
       </svg>
       <span
-          aria-live="polite"
-          aria-label={previewScore === undefined && isRunning ? messages.recalculatingLabel : undefined}
+        aria-live="polite"
+        aria-label={
+          previewScore === undefined && isRunning
+            ? messages.recalculatingLabel
+            : undefined
+        }
         className="text-ink-muted"
       >
         {displayedScore === undefined ? messages.matchValue : `${displayedScore}%`}
       </span>
+      {previewScore === undefined && isRunning ? (
+        <FiLoader
+          aria-hidden="true"
+          className="h-3.5 w-3.5 animate-spin text-brand"
+        />
+      ) : null}
       {delta !== 0 ? (
         <span
           className={`rt-animate-rise text-xs font-semibold ${

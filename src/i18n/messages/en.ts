@@ -109,6 +109,19 @@ export const messages = {
     privacyDescription:
       "Your data is confidential and used only to improve your resume.",
   },
+  studio: {
+    jobOffer: {
+      title: "Job Offer",
+      optionsLabel: "Job offer options",
+      detectedRequirementsLabel: "Detected requirements",
+      matchedSummarySuffix: "matched",
+      matchedLabel: "Matched",
+      missingLabel: "Missing",
+      fullDescriptionLabel: "View full job description",
+      priorityKeywordsLabel: "Priority keywords",
+      priorityKeywordsHint: "Drag to reorder priority",
+    },
+  },
   resumeExport: {
     downloadLabel: "Download PDF",
     errorLabel: "The PDF could not be exported. Please try again.",

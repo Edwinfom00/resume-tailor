@@ -97,6 +97,19 @@ export type Messages = {
     privacyTitle: string;
     privacyDescription: string;
   };
+  studio: {
+    jobOffer: {
+      title: string;
+      optionsLabel: string;
+      detectedRequirementsLabel: string;
+      matchedSummarySuffix: string;
+      matchedLabel: string;
+      missingLabel: string;
+      fullDescriptionLabel: string;
+      priorityKeywordsLabel: string;
+      priorityKeywordsHint: string;
+    };
+  };
   resumeExport: {
     downloadLabel: string;
     errorLabel: string;

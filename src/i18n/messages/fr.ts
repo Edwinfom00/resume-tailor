@@ -111,6 +111,19 @@ export const messages = {
     privacyDescription:
       "Vos données sont confidentielles et utilisées uniquement pour améliorer votre CV.",
   },
+  studio: {
+    jobOffer: {
+      title: "Offre d’emploi",
+      optionsLabel: "Options de l’offre",
+      detectedRequirementsLabel: "Exigences détectées",
+      matchedSummarySuffix: "correspondances",
+      matchedLabel: "Correspondant",
+      missingLabel: "Manquant",
+      fullDescriptionLabel: "Voir la description complète du poste",
+      priorityKeywordsLabel: "Mots-clés prioritaires",
+      priorityKeywordsHint: "Glissez pour réorganiser la priorité",
+    },
+  },
   resumeExport: {
     downloadLabel: "Télécharger le PDF",
     errorLabel: "Le PDF n’a pas pu être exporté. Veuillez réessayer.",

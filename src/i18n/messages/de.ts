@@ -111,6 +111,19 @@ export const messages = {
     privacyDescription:
       "Ihre Daten bleiben vertraulich und werden nur zur Verbesserung Ihres Lebenslaufs verwendet.",
   },
+  studio: {
+    jobOffer: {
+      title: "Stellenangebot",
+      optionsLabel: "Optionen zum Stellenangebot",
+      detectedRequirementsLabel: "Erkannte Anforderungen",
+      matchedSummarySuffix: "übereinstimmend",
+      matchedLabel: "Erfüllt",
+      missingLabel: "Fehlend",
+      fullDescriptionLabel: "Vollständige Stellenbeschreibung anzeigen",
+      priorityKeywordsLabel: "Prioritäts-Schlüsselwörter",
+      priorityKeywordsHint: "Zum Ändern der Priorität ziehen",
+    },
+  },
   resumeExport: {
     downloadLabel: "PDF herunterladen",
     errorLabel: "Das PDF konnte nicht exportiert werden. Bitte erneut versuchen.",

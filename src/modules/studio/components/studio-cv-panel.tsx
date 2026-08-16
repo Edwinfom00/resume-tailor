@@ -154,7 +154,7 @@ export function StudioCvPanel({
   };
 
   return (
-    <section className="flex h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-cv-panel-width) min-w-0 flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface shadow-xs">
+    <section className="flex h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-cv-panel-width) min-w-0 flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface shadow-xs min-[1672px]:!max-w-none">
       <div className="flex min-h-(--rt-control-height-lg) items-center gap-(--rt-space-4) border-b border-line-subtle px-(--rt-space-5)">
         <h1 className="mr-auto text-lg font-bold tracking-tight text-ink">{messages.title}</h1>
         <nav aria-label={messages.title} className="hidden h-full items-center gap-(--rt-space-6) lg:flex">

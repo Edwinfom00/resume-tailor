@@ -139,6 +139,54 @@ export const messages = {
       nextPageLabel: "Next page",
       pageIndicatorLabel: "Page {current} of {total}",
     },
+    recommendations: {
+      title: "AI Recommendations",
+      infoLabel: "About AI recommendations",
+      openLabel: "Open recommendation",
+      closeLabel: "Close recommendation",
+      currentLabel: "Current",
+      suggestedImprovementLabel: "Suggested improvement",
+      relevanceLabel: "+{value}% relevance",
+      acceptLabel: "Accept",
+      editLabel: "Edit",
+      ignoreLabel: "Ignore",
+      acceptedLabel: "Accepted",
+      highImpactTitle: "High Impact Improvements",
+      highImpactDescription: "Focus on these changes to boost your match",
+      highImpactBadge: "High impact",
+      items: {
+        profile: {
+          title: "Profile",
+          description: "Strengthen your summary",
+        },
+        experience: {
+          title: "Experience",
+          description: "Highlight relevant achievements",
+        },
+        projects: {
+          title: "Projects",
+          description: "Better showcase your work",
+        },
+        skills: {
+          title: "Skills",
+          description: "Add missing or related skills",
+        },
+      },
+      improvements: {
+        rewriteProfile: {
+          title: "Rewrite profile",
+          description: "Make your summary highly relevant to this role",
+        },
+        reorderProjects: {
+          title: "Reorder projects",
+          description: "Lead with projects that match the job",
+        },
+        highlightPostgres: {
+          title: "Highlight PostgreSQL",
+          description: "Emphasize your PostgreSQL experience",
+        },
+      },
+    },
   },
   resumeExport: {
     downloadLabel: "Download PDF",

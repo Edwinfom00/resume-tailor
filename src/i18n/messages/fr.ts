@@ -141,6 +141,54 @@ export const messages = {
       nextPageLabel: "Page suivante",
       pageIndicatorLabel: "Page {current} sur {total}",
     },
+    recommendations: {
+      title: "Recommandations IA",
+      infoLabel: "À propos des recommandations IA",
+      openLabel: "Ouvrir la recommandation",
+      closeLabel: "Fermer la recommandation",
+      currentLabel: "Actuel",
+      suggestedImprovementLabel: "Amélioration suggérée",
+      relevanceLabel: "+{value} % de pertinence",
+      acceptLabel: "Accepter",
+      editLabel: "Modifier",
+      ignoreLabel: "Ignorer",
+      acceptedLabel: "Acceptée",
+      highImpactTitle: "Améliorations à fort impact",
+      highImpactDescription: "Concentrez-vous sur ces changements pour améliorer votre correspondance",
+      highImpactBadge: "Fort impact",
+      items: {
+        profile: {
+          title: "Profil",
+          description: "Renforcez votre résumé",
+        },
+        experience: {
+          title: "Expérience",
+          description: "Mettez en avant les réalisations pertinentes",
+        },
+        projects: {
+          title: "Projets",
+          description: "Présentez mieux votre travail",
+        },
+        skills: {
+          title: "Compétences",
+          description: "Ajoutez des compétences manquantes ou liées",
+        },
+      },
+      improvements: {
+        rewriteProfile: {
+          title: "Réécrire le profil",
+          description: "Rendez votre résumé très pertinent pour ce poste",
+        },
+        reorderProjects: {
+          title: "Réorganiser les projets",
+          description: "Placez en premier les projets qui correspondent au poste",
+        },
+        highlightPostgres: {
+          title: "Mettre PostgreSQL en avant",
+          description: "Soulignez votre expérience avec PostgreSQL",
+        },
+      },
+    },
   },
   resumeExport: {
     downloadLabel: "Télécharger le PDF",

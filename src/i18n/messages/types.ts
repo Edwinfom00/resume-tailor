@@ -127,6 +127,54 @@ export type Messages = {
       nextPageLabel: string;
       pageIndicatorLabel: string;
     };
+    recommendations: {
+      title: string;
+      infoLabel: string;
+      openLabel: string;
+      closeLabel: string;
+      currentLabel: string;
+      suggestedImprovementLabel: string;
+      relevanceLabel: string;
+      acceptLabel: string;
+      editLabel: string;
+      ignoreLabel: string;
+      acceptedLabel: string;
+      highImpactTitle: string;
+      highImpactDescription: string;
+      highImpactBadge: string;
+      items: {
+        profile: {
+          title: string;
+          description: string;
+        };
+        experience: {
+          title: string;
+          description: string;
+        };
+        projects: {
+          title: string;
+          description: string;
+        };
+        skills: {
+          title: string;
+          description: string;
+        };
+      };
+      improvements: {
+        rewriteProfile: {
+          title: string;
+          description: string;
+        };
+        reorderProjects: {
+          title: string;
+          description: string;
+        };
+        highlightPostgres: {
+          title: string;
+          description: string;
+        };
+      };
+    };
   };
   resumeExport: {
     downloadLabel: string;

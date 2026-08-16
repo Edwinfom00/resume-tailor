@@ -47,6 +47,7 @@
   --rt-font-family-sans: var(--font-geist-sans), "Segoe UI", sans-serif;
   --rt-font-family-mono: var(--font-geist-mono), "SFMono-Regular", Consolas, monospace;
   --rt-font-size-xs: 0.75rem;
+  --rt-font-size-2xs: 0.625rem;
   --rt-font-size-sm: 0.875rem;
   --rt-font-size-md: 1rem;
   --rt-font-size-lg: 1.125rem;
@@ -112,6 +113,8 @@
   --rt-workflow-connector-width: 2.75rem;
   --rt-studio-sidebar-width: 22.75rem;
   --rt-studio-cv-panel-width: 45.25rem;
+  --rt-studio-recommendations-width: 31.5rem;
+  --rt-studio-panel-gap: 1rem;
   --rt-studio-panel-min-height: 52.75rem;
   --rt-resume-page-inset-inline: 16mm;
   --rt-resume-page-inset-block-start: 13.5mm;

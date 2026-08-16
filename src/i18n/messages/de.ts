@@ -141,6 +141,54 @@ export const messages = {
       nextPageLabel: "Nächste Seite",
       pageIndicatorLabel: "Seite {current} von {total}",
     },
+    recommendations: {
+      title: "KI-Empfehlungen",
+      infoLabel: "Über KI-Empfehlungen",
+      openLabel: "Empfehlung öffnen",
+      closeLabel: "Empfehlung schließen",
+      currentLabel: "Aktuell",
+      suggestedImprovementLabel: "Vorgeschlagene Verbesserung",
+      relevanceLabel: "+{value} % Relevanz",
+      acceptLabel: "Übernehmen",
+      editLabel: "Bearbeiten",
+      ignoreLabel: "Ignorieren",
+      acceptedLabel: "Übernommen",
+      highImpactTitle: "Verbesserungen mit hoher Wirkung",
+      highImpactDescription: "Konzentrieren Sie sich auf diese Änderungen, um Ihre Übereinstimmung zu verbessern",
+      highImpactBadge: "Hohe Wirkung",
+      items: {
+        profile: {
+          title: "Profil",
+          description: "Stärken Sie Ihre Zusammenfassung",
+        },
+        experience: {
+          title: "Erfahrung",
+          description: "Heben Sie relevante Erfolge hervor",
+        },
+        projects: {
+          title: "Projekte",
+          description: "Präsentieren Sie Ihre Arbeit besser",
+        },
+        skills: {
+          title: "Kenntnisse",
+          description: "Fügen Sie fehlende oder verwandte Kenntnisse hinzu",
+        },
+      },
+      improvements: {
+        rewriteProfile: {
+          title: "Profil überarbeiten",
+          description: "Machen Sie Ihre Zusammenfassung für diese Stelle besonders relevant",
+        },
+        reorderProjects: {
+          title: "Projekte neu anordnen",
+          description: "Führen Sie mit Projekten, die zur Stelle passen",
+        },
+        highlightPostgres: {
+          title: "PostgreSQL hervorheben",
+          description: "Betonen Sie Ihre PostgreSQL-Erfahrung",
+        },
+      },
+    },
   },
   resumeExport: {
     downloadLabel: "PDF herunterladen",

@@ -51,7 +51,7 @@ function RequirementStatus({
 
 export function JobOfferPanel({ messages }: JobOfferPanelProps) {
   return (
-    <aside className="flex min-h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
+    <aside className="flex min-h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:!max-w-none">
       <div className="flex items-center justify-between border-b border-line-subtle pb-(--rt-space-4)">
         <h1 className="flex items-center gap-(--rt-space-3) text-lg font-bold tracking-tight text-ink">
           <FiBriefcase aria-hidden="true" className="h-5 w-5 text-brand" />

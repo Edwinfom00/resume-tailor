@@ -20,6 +20,8 @@
   --color-caution: var(--rt-color-warning-500);
   --color-negative: var(--rt-color-danger-500);
   --color-negative-subtle: var(--rt-color-danger-50);
+  --text-2xs: var(--rt-font-size-2xs);
+  --text-2xs--line-height: var(--rt-line-height-normal);
   --font-sans: var(--rt-font-family-sans);
   --font-mono: var(--rt-font-family-mono);
   --radius-control: var(--rt-radius-md);

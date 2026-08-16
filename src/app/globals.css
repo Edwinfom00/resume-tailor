@@ -1,26 +1,69 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "../styles/tokens.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--rt-color-canvas);
+  --color-surface: var(--rt-color-surface);
+  --color-surface-subtle: var(--rt-color-surface-subtle);
+  --color-surface-brand: var(--rt-color-surface-brand);
+  --color-ink: var(--rt-color-text-primary);
+  --color-ink-muted: var(--rt-color-text-secondary);
+  --color-ink-subtle: var(--rt-color-text-tertiary);
+  --color-brand: var(--rt-color-action-primary);
+  --color-brand-hover: var(--rt-color-action-primary-hover);
+  --color-line: var(--rt-color-border-default);
+  --color-line-subtle: var(--rt-color-border-subtle);
+  --color-positive: var(--rt-color-success-500);
+  --color-caution: var(--rt-color-warning-500);
+  --color-negative: var(--rt-color-danger-500);
+  --font-sans: var(--rt-font-family-sans);
+  --font-mono: var(--rt-font-family-mono);
+  --radius-control: var(--rt-radius-md);
+  --radius-card: var(--rt-radius-lg);
+  --radius-panel: var(--rt-radius-xl);
+  --shadow-xs: var(--rt-shadow-xs);
+  --shadow-sm: var(--rt-shadow-sm);
+  --shadow-md: var(--rt-shadow-md);
+  --shadow-lg: var(--rt-shadow-lg);
+  --shadow-brand: var(--rt-shadow-brand);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  min-height: 100%;
+  background: var(--rt-color-canvas);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
+  background: var(--rt-color-canvas);
+  color: var(--rt-color-text-primary);
+  font-family: var(--rt-font-family-sans);
+  font-size: var(--rt-font-size-md);
+  line-height: var(--rt-line-height-normal);
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--rt-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto;
+    transition-duration: 1ms;
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+  }
 }

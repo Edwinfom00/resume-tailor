@@ -18,8 +18,8 @@ export default async function Home({ params }: LocalePageProps) {
   const dictionary = await getDictionary(locale);
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex w-full max-w-3xl flex-1 flex-col items-center justify-between bg-white px-16 py-16 dark:bg-black sm:items-start sm:py-32">
+    <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 font-sans">
+      <main className="flex w-full max-w-3xl flex-1 flex-col items-center justify-between px-16 py-16 sm:items-start sm:py-32">
         <div className="flex w-full items-center justify-between gap-6">
           <Image
             className="h-5 w-25 dark:invert"
@@ -38,7 +38,7 @@ export default async function Home({ params }: LocalePageProps) {
           <p className="text-sm font-semibold tracking-[0.2em] text-zinc-500 uppercase dark:text-zinc-400">
             {dictionary.home.eyebrow}
           </p>
-          <h1 className="max-w-xl text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+          <h1 className="max-w-xl text-3xl font-semibold leading-10 tracking-tight dark:text-zinc-50">
             {dictionary.home.title}
           </h1>
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">

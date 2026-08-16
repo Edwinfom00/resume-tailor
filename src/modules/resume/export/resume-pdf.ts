@@ -142,6 +142,30 @@ function downloadPdf(blob: Blob, fileName: string) {
   window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 0);
 }
 
+function applyCanvasTextSpacingCompensation(documentClone: Document) {
+  const style = documentClone.createElement("style");
+
+  style.textContent = `
+    [data-resume-page] header > h1 {
+      margin-bottom: var(--rt-space-2) !important;
+    }
+
+    [data-resume-page] header > address {
+      margin-bottom: calc(var(--rt-space-2) * -1) !important;
+    }
+
+    [data-resume-page] h2 {
+      padding-bottom: var(--rt-space-3) !important;
+    }
+
+    [data-resume-page] h2 + * {
+      margin-top: var(--rt-space-1) !important;
+    }
+  `;
+
+  documentClone.head.append(style);
+}
+
 export async function exportResumePdf(
   fileName = "resume.pdf",
 ): Promise<ResumePdfExportResult> {
@@ -169,6 +193,7 @@ export async function exportResumePdf(
       allowTaint: false,
       backgroundColor: null,
       logging: false,
+      onclone: applyCanvasTextSpacingCompensation,
       scale: captureScale,
       useCORS: true,
     });

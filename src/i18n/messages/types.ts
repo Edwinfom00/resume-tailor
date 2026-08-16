@@ -13,4 +13,9 @@ export type Messages = {
     primaryAction: string;
     secondaryAction: string;
   };
+  resume: {
+    profile: {
+      title: string;
+    };
+  };
 };

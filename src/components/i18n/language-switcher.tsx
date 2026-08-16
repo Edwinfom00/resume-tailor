@@ -24,17 +24,17 @@ export function LanguageSwitcher({ locale, label }: LanguageSwitcherProps) {
   }
 
   return (
-    <nav aria-label={label} className="flex items-center gap-2">
+    <nav aria-label={label} className="flex items-center gap-1">
       {localeOptions.map((option) => (
         <Link
           key={option.code}
           href={getLocalizedPathname(option.code, pathname)}
           onClick={() => persistLocale(option.code)}
           aria-current={option.code === locale ? "page" : undefined}
-          className={`rounded-md px-2 py-1 text-sm font-medium transition-colors ${
+          className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
             option.code === locale
-              ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-              : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              ? "bg-brand text-white"
+              : "text-ink-muted hover:bg-surface-brand"
           }`}
         >
           {option.label}

@@ -35,6 +35,7 @@
   --rt-color-text-inverse: var(--rt-color-white);
   --rt-color-resume-heading: #1f3864;
   --rt-color-resume-body: #545454;
+  --rt-color-resume-copy: #1a1a1a;
   --rt-color-border-subtle: var(--rt-color-navy-100);
   --rt-color-border-default: var(--rt-color-navy-200);
   --rt-color-border-focus: var(--rt-color-blue-500);
@@ -60,6 +61,7 @@
   --rt-line-height-normal: 1.5;
   --rt-line-height-relaxed: 1.7;
   --rt-line-height-resume-name: 1.1;
+  --rt-line-height-resume-copy: 1.2;
   --rt-font-weight-regular: 400;
   --rt-font-weight-medium: 500;
   --rt-font-weight-semibold: 600;

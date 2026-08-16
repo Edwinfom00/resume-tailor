@@ -16,4 +16,9 @@ export const messages = {
     primaryAction: "Jetzt starten",
     secondaryAction: "Dokumentation lesen",
   },
+  resume: {
+    profile: {
+      title: "Berufliches Profil",
+    },
+  },
 } satisfies Messages;

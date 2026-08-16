@@ -6,6 +6,8 @@
   --color-surface: var(--rt-color-surface);
   --color-surface-subtle: var(--rt-color-surface-subtle);
   --color-surface-brand: var(--rt-color-surface-brand);
+  --color-brand-subtle: var(--rt-color-blue-100);
+  --color-brand-line: var(--rt-color-blue-200);
   --color-ink: var(--rt-color-text-primary);
   --color-ink-muted: var(--rt-color-text-secondary);
   --color-ink-subtle: var(--rt-color-text-tertiary);
@@ -16,6 +18,7 @@
   --color-positive: var(--rt-color-success-500);
   --color-caution: var(--rt-color-warning-500);
   --color-negative: var(--rt-color-danger-500);
+  --color-negative-subtle: var(--rt-color-danger-50);
   --font-sans: var(--rt-font-family-sans);
   --font-mono: var(--rt-font-family-mono);
   --radius-control: var(--rt-radius-md);

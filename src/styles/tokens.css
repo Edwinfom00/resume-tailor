@@ -102,6 +102,12 @@
   --rt-easing-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
   --rt-container-max: 76rem;
   --rt-page-gutter: clamp(1rem, 4vw, 2.5rem);
+  --rt-workspace-page-gutter: clamp(1.25rem, 3vw, 3.25rem);
+  --rt-workspace-header-height: 4.5rem;
+  --rt-workspace-search-width: 33.5rem;
+  --rt-upload-column-width: 34.375rem;
+  --rt-upload-dropzone-min-height: 17.5rem;
+  --rt-upload-file-row-min-height: 3.875rem;
   --rt-resume-page-inset-inline: 16mm;
   --rt-resume-page-inset-block-start: 13.5mm;
   --rt-resume-page-inset-block-end: 13.5mm;

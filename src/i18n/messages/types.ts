@@ -109,6 +109,24 @@ export type Messages = {
       priorityKeywordsLabel: string;
       priorityKeywordsHint: string;
     };
+    cv: {
+      title: string;
+      overviewLabel: string;
+      profileLabel: string;
+      experienceLabel: string;
+      projectsLabel: string;
+      skillsLabel: string;
+      displayOptionsLabel: string;
+      toggleGuidesLabel: string;
+      zoomOutLabel: string;
+      zoomInLabel: string;
+      zoomLevelLabel: string;
+      fitPreviewLabel: string;
+      toggleCanvasThemeLabel: string;
+      previousPageLabel: string;
+      nextPageLabel: string;
+      pageIndicatorLabel: string;
+    };
   };
   resumeExport: {
     downloadLabel: string;

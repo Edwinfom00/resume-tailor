@@ -3,6 +3,7 @@
 - Apply senior-level architecture and code conventions: favor small, composable modules, explicit boundaries, strict TypeScript, and maintainable naming.
 - Do not add code comments. Write self-explanatory code instead.
 - Keep internationalization modular and type-safe. Every new translatable key must be added to the shared message schema and translated in English, French, and German.
+- Keep resume templates multilingual through the existing locale dictionaries. Fixture data is separate from template localization and must not determine a template's language.
 - Build interface styling from the design tokens in `src/styles/tokens.css`. Do not introduce one-off visual values when an existing token can express the intent.
 - Preserve the established locale routing, dictionary loading, and language-switching architecture unless a change is explicitly requested.
 

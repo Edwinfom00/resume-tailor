@@ -12,6 +12,7 @@ export const edwinResume = {
         city: "Douala",
         country: "Kamerun",
         remote: true,
+        remoteStatus: "Remote-tauglich (CET-nah)",
       },
       links: [
         {

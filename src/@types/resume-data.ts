@@ -56,6 +56,7 @@ export interface ResumeLocation {
   readonly region?: string;
   readonly country?: string;
   readonly remote?: boolean;
+  readonly remoteStatus?: string;
 }
 
 export interface ResumeLink {

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Logo } from "@/components/brand/logo";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale } from "@/i18n/locales";
@@ -21,13 +21,10 @@ export default async function Home({ params }: LocalePageProps) {
     <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 font-sans">
       <main className="flex w-full max-w-3xl flex-1 flex-col items-center justify-between px-16 py-16 sm:items-start sm:py-32">
         <div className="flex w-full items-center justify-between gap-6">
-          <Image
-            className="h-5 w-25 dark:invert"
-            src="/next.svg"
-            alt={dictionary.home.logoAlt}
-            width={100}
-            height={20}
-            priority
+          <Logo
+            name={dictionary.metadata.title}
+            size="sm"
+            preload
           />
           <LanguageSwitcher
             locale={locale}

@@ -10,7 +10,6 @@ export type Messages = {
     eyebrow: string;
     title: string;
     description: string;
-    logoAlt: string;
     primaryAction: string;
     secondaryAction: string;
   };

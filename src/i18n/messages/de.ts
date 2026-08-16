@@ -13,7 +13,6 @@ export const messages = {
     title: "Passen Sie jeden Lebenslauf an die Stelle an, die zählt.",
     description:
       "Erstellen Sie einen überzeugenden, stellenbezogenen Lebenslauf mit einer skalierbaren mehrsprachigen Grundlage.",
-    logoAlt: "Resume Tailor",
     primaryAction: "Jetzt starten",
     secondaryAction: "Dokumentation lesen",
   },

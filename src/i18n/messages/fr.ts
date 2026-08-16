@@ -13,7 +13,6 @@ export const messages = {
     title: "Adaptez chaque CV au poste qui compte.",
     description:
       "Créez un CV convaincant et adapté au poste grâce à une base multilingue prête à évoluer.",
-    logoAlt: "Resume Tailor",
     primaryAction: "Commencer",
     secondaryAction: "Lire la documentation",
   },

@@ -13,7 +13,6 @@ export const messages = {
     title: "Tailor every resume to the role that matters.",
     description:
       "Build a compelling, role-specific resume with a multilingual foundation that is ready to grow.",
-    logoAlt: "Resume Tailor",
     primaryAction: "Start tailoring",
     secondaryAction: "Read the documentation",
   },

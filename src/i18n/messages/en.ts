@@ -527,6 +527,26 @@ export const messages = {
           role: "Front-end developer",
           quote: "It is reassuring to get specific guidance while keeping control over every change to my CV.",
         },
+        {
+          name: "Claire V.",
+          role: "HR consultant",
+          quote: "I can immediately see what should be tailored for the role without making my CV feel overloaded.",
+        },
+        {
+          name: "Yann K.",
+          role: "Data engineer",
+          quote: "The result stays true to my experience, but every application feels much more focused.",
+        },
+        {
+          name: "Nora A.",
+          role: "Product manager",
+          quote: "I like reviewing every suggestion before applying it. It stays my CV, with a clearer direction.",
+        },
+        {
+          name: "Hugo S.",
+          role: "Mobile developer",
+          quote: "The PDF export is polished, and the whole process stays simple from the first upload to submitting my application.",
+        },
       ],
     },
     finalCta: {

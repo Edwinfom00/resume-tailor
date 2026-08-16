@@ -11,7 +11,7 @@ const avatarStyles = [
   "bg-surface-brand text-brand",
 ] as const;
 
-const cardOffsets = ["", "lg:mt-(--rt-space-8)", "lg:mt-(--rt-space-4)", "lg:mt-(--rt-space-12)"] as const;
+const testimonialColumnCount = 4;
 
 function getInitials(name: string) {
   return name
@@ -22,6 +22,9 @@ function getInitials(name: string) {
 
 export function LandingTestimonialsSection({ home }: LandingTestimonialsSectionProps) {
   const { testimonials } = home;
+  const testimonialColumns = Array.from({ length: testimonialColumnCount }, (_, columnIndex) =>
+    testimonials.items.filter((_, testimonialIndex) => testimonialIndex % testimonialColumnCount === columnIndex),
+  );
 
   return (
     <section id="testimonials" className="scroll-mt-(--rt-space-8) bg-canvas px-(--rt-page-gutter) py-(--rt-space-24)">
@@ -41,22 +44,27 @@ export function LandingTestimonialsSection({ home }: LandingTestimonialsSectionP
         </div>
 
         <div className="mt-(--rt-space-16) grid gap-(--rt-space-5) sm:grid-cols-2 lg:grid-cols-4">
-          {testimonials.items.map((testimonial, index) => (
-            <article
-              key={testimonial.name}
-              className={`flex h-full flex-col rounded-panel border border-line-subtle bg-surface p-(--rt-space-6) ${cardOffsets[index % cardOffsets.length]}`}
-            >
-              <div className="flex items-center gap-(--rt-space-3)">
-                <span className={`inline-flex h-(--rt-control-height-lg) w-(--rt-control-height-lg) shrink-0 items-center justify-center rounded-full text-xs font-semibold ${avatarStyles[index % avatarStyles.length]}`}>
-                  {getInitials(testimonial.name)}
-                </span>
-                <div className="min-w-0">
-                  <h3 className="truncate text-sm font-semibold text-ink">{testimonial.name}</h3>
-                  <p className="truncate text-xs text-ink-subtle">{testimonial.role}</p>
-                </div>
-              </div>
-              <p className="mt-(--rt-space-6) text-sm leading-relaxed text-ink-muted">“{testimonial.quote}”</p>
-            </article>
+          {testimonialColumns.map((column, columnIndex) => (
+            <div key={columnIndex} className="space-y-(--rt-space-5)">
+              {column.map((testimonial, testimonialIndex) => {
+                const index = columnIndex + testimonialIndex * testimonialColumnCount;
+
+                return (
+                  <article key={testimonial.name} className="rounded-panel border border-line-subtle bg-surface p-(--rt-space-5)">
+                    <div className="flex items-center gap-(--rt-space-3)">
+                      <span className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${avatarStyles[index % avatarStyles.length]}`}>
+                        {getInitials(testimonial.name)}
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="truncate text-sm font-semibold text-ink">{testimonial.name}</h3>
+                        <p className="truncate text-xs text-ink-subtle">{testimonial.role}</p>
+                      </div>
+                    </div>
+                    <p className="mt-(--rt-space-5) text-sm leading-relaxed text-ink-muted">“{testimonial.quote}”</p>
+                  </article>
+                );
+              })}
+            </div>
           ))}
         </div>
       </div>

@@ -549,6 +549,26 @@ export const messages = {
           role: "Front-End-Entwickler",
           quote: "Es ist beruhigend, konkrete Hinweise zu erhalten und trotzdem jede Änderung an meinem Lebenslauf selbst zu kontrollieren.",
         },
+        {
+          name: "Claire V.",
+          role: "HR-Beraterin",
+          quote: "Ich sehe sofort, was für die Stelle angepasst werden sollte, ohne dass mein Lebenslauf überladen wirkt.",
+        },
+        {
+          name: "Yann K.",
+          role: "Data Engineer",
+          quote: "Das Ergebnis bleibt meiner Erfahrung treu, aber jede Bewerbung wirkt deutlich fokussierter.",
+        },
+        {
+          name: "Nora A.",
+          role: "Produktmanagerin",
+          quote: "Ich prüfe jeden Vorschlag gern, bevor ich ihn übernehme. Es bleibt mein Lebenslauf, nur mit einer klareren Richtung.",
+        },
+        {
+          name: "Hugo S.",
+          role: "Mobile-Entwickler",
+          quote: "Der PDF-Export ist professionell und der gesamte Ablauf bleibt vom ersten Upload bis zur Bewerbung einfach.",
+        },
       ],
     },
     finalCta: {

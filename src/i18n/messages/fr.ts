@@ -536,6 +536,26 @@ export const messages = {
           role: "Développeur front-end",
           quote: "C’est rassurant d’avoir des conseils précis tout en gardant le contrôle sur chaque modification de mon CV.",
         },
+        {
+          name: "Claire V.",
+          role: "Consultante RH",
+          quote: "Je vois immédiatement les éléments qui méritent d’être adaptés au poste, sans alourdir mon CV.",
+        },
+        {
+          name: "Yann K.",
+          role: "Ingénieur données",
+          quote: "Le résultat reste fidèle à mon parcours, mais chaque candidature paraît beaucoup plus ciblée.",
+        },
+        {
+          name: "Nora A.",
+          role: "Product manager",
+          quote: "J’aime pouvoir relire chaque suggestion avant de l’appliquer. Cela reste mon CV, avec une meilleure direction.",
+        },
+        {
+          name: "Hugo S.",
+          role: "Développeur mobile",
+          quote: "L’export PDF est propre et le processus reste simple du premier import jusqu’à l’envoi de ma candidature.",
+        },
       ],
     },
     finalCta: {

@@ -91,7 +91,14 @@ export function LandingFooter({ home, locale, navigation }: LandingFooterProps) 
           <p>{footer.copyright}</p>
           <div className="flex gap-(--rt-space-5)">
             <Link href="#faq-group-1" className="transition-colors hover:text-brand">{pricing.privacy.title}</Link>
-            <Link href="#faq-group-2" className="transition-colors hover:text-brand">{pricing.openSource.title}</Link>
+            <a
+              href="https://github.com/Edwinfom00/resume-tailor"
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-brand"
+            >
+              {pricing.openSource.title}
+            </a>
           </div>
         </div>
       </div>

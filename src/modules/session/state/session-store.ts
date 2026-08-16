@@ -128,6 +128,28 @@ function createInitialState(): TailorSessionState {
   };
 }
 
+const maximumCachedAnalyses = 5;
+
+function boundAnalysisCache(
+  cache: TailorSessionState["analysis"]["cache"],
+  newestKey: string,
+) {
+  const keys = Object.keys(cache);
+
+  if (keys.length <= maximumCachedAnalyses) {
+    return cache;
+  }
+
+  const retained = [
+    newestKey,
+    ...keys.filter((key) => key !== newestKey).slice(-(maximumCachedAnalyses - 1)),
+  ];
+
+  return Object.fromEntries(
+    retained.filter((key) => key in cache).map((key) => [key, cache[key]]),
+  );
+}
+
 function markAnalysisStale(state: TailorSessionState) {
   if (!state.analysis.data || !state.resume.data || !state.job.data) {
     return state.analysis;
@@ -351,13 +373,16 @@ export const useSessionStore = create<SessionStore>()(
             running: false,
             data: result.value.analysis,
             error: undefined,
-            cache: {
-              ...current.analysis.cache,
-              [analysisKey]: {
-                analysis: result.value.analysis,
-                suggestions: result.value.suggestions,
+            cache: boundAnalysisCache(
+              {
+                ...current.analysis.cache,
+                [analysisKey]: {
+                  analysis: result.value.analysis,
+                  suggestions: result.value.suggestions,
+                },
               },
-            },
+              analysisKey,
+            ),
           },
           suggestions: result.value.suggestions,
           jobs: upsertJob(current.jobs, completeJob(backgroundJob)),

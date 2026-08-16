@@ -14,7 +14,7 @@ export interface ResumeHistory {
   readonly future: readonly ResumeHistoryEntry[];
 }
 
-const maximumHistoryDepth = 40;
+const maximumHistoryDepth = 20;
 
 export const emptyResumeHistory: ResumeHistory = { past: [], future: [] };
 

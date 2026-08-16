@@ -17,5 +17,9 @@ export type Messages = {
     profile: {
       title: string;
     };
+    experience: {
+      title: string;
+      presentLabel: string;
+    };
   };
 };

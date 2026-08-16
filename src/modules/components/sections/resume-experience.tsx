@@ -1,0 +1,71 @@
+import type { ResumeData, ResumeExperience } from "@/@types/resume-data";
+import {
+  formatResumeDateRange,
+  formatResumeLocation,
+} from "./resume-formatters";
+import { ResumeSectionHeading } from "./resume-section-heading";
+
+type ResumeExperienceProps = Readonly<{
+  resume: ResumeData;
+  title: string;
+  presentLabel: string;
+}>;
+
+type ResumeExperienceItemProps = Readonly<{
+  experience: ResumeExperience;
+  presentLabel: string;
+}>;
+
+function ResumeExperienceItem({
+  experience,
+  presentLabel,
+}: ResumeExperienceItemProps) {
+  const location = formatResumeLocation(experience.location);
+
+  return (
+    <article>
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className="m-0 text-sm leading-tight font-bold text-(--rt-color-resume-copy)">
+          {experience.role}
+        </h3>
+        <time className="shrink-0 [font-size:var(--rt-font-size-resume-meta)] leading-tight text-(--rt-color-resume-body)">
+          {formatResumeDateRange(experience.period, presentLabel)}
+        </time>
+      </div>
+      <p className="m-0 [font-size:var(--rt-font-size-resume-meta)] leading-tight italic">
+        <span className="text-(--rt-color-resume-heading)">
+          {experience.employer}
+        </span>
+        {location ? (
+          <span className="text-(--rt-color-resume-body)"> · {location}</span>
+        ) : null}
+      </p>
+      <ul className="mt-1 mb-0 list-disc space-y-0 pl-6 [font-size:var(--rt-font-size-resume-copy)] leading-(--rt-line-height-resume-copy) text-(--rt-color-resume-copy)">
+        {experience.achievements.map((achievement) => (
+          <li key={achievement}>{achievement}</li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+export function ResumeExperience({
+  resume,
+  title,
+  presentLabel,
+}: ResumeExperienceProps) {
+  return (
+    <section className="mt-(--rt-resume-section-gap) px-(--rt-resume-page-inset-inline)">
+      <ResumeSectionHeading>{title}</ResumeSectionHeading>
+      <div className="mt-3 space-y-(--rt-resume-entry-gap)">
+        {resume.experiences.map((experience) => (
+          <ResumeExperienceItem
+            key={experience.id}
+            experience={experience}
+            presentLabel={presentLabel}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}

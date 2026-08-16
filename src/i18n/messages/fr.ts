@@ -20,5 +20,9 @@ export const messages = {
     profile: {
       title: "Profil professionnel",
     },
+    experience: {
+      title: "Expérience professionnelle",
+      presentLabel: "Aujourd’hui",
+    },
   },
 } satisfies Messages;

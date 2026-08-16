@@ -8,6 +8,7 @@ import {
   type ResumeDocumentPage,
 } from "@/modules/components/resume-document";
 import { ResumeHeader } from "@/modules/components/sections/resume-header";
+import { ResumeExperience } from "@/modules/components/sections/resume-experience";
 import { ResumeProfile } from "@/modules/components/sections/resume-profile";
 import { edwinResume } from "@/modules/fixtures/edwin-resume";
 
@@ -32,6 +33,11 @@ export default async function ResumePreview({ params }: LocalePageProps) {
           <ResumeProfile
             resume={resume}
             title={dictionary.resume.profile.title}
+          />
+          <ResumeExperience
+            presentLabel={dictionary.resume.experience.presentLabel}
+            resume={resume}
+            title={dictionary.resume.experience.title}
           />
         </>
       ),

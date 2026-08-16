@@ -54,6 +54,17 @@ export const messages = {
     analyzeDescription: "Erhalten Sie personalisierte Empfehlungen",
     sampleLabel: "Beispieldaten ausprobieren",
     sampleDescription: "Sehen Sie anhand eines Beispiels, wie es funktioniert",
+    clearLabel: "Alles löschen",
+    clearDescription: "Alle Eingaben entfernen",
+    workflow: {
+      uploadTitle: "Lebenslauf hochladen",
+      uploadDescription: "Fügen Sie Ihren Lebenslauf als PDF oder DOCX hinzu.",
+      offerTitle: "Stellenangebot hinzufügen",
+      offerDescription: "Fügen Sie die Job-URL oder Beschreibung ein.",
+      recommendationsTitle: "Empfehlungen erhalten",
+      recommendationsDescription:
+        "Erhalten Sie KI-gestützte Hinweise zur Optimierung Ihres Lebenslaufs.",
+    },
     invalidFileLabel: "Wählen Sie eine PDF- oder DOCX-Datei unter 10 MB.",
   },
   resumeExport: {

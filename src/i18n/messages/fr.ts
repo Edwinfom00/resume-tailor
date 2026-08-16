@@ -54,6 +54,17 @@ export const messages = {
     analyzeDescription: "Recevez des recommandations personnalisées",
     sampleLabel: "Essayer les données d’exemple",
     sampleDescription: "Découvrez le fonctionnement avec un exemple",
+    clearLabel: "Tout effacer",
+    clearDescription: "Supprimer toutes les données saisies",
+    workflow: {
+      uploadTitle: "Importer le CV",
+      uploadDescription: "Ajoutez votre CV au format PDF ou DOCX.",
+      offerTitle: "Ajouter l’offre",
+      offerDescription: "Collez l’URL ou la description du poste.",
+      recommendationsTitle: "Recevoir les recommandations",
+      recommendationsDescription:
+        "Recevez des conseils IA pour adapter votre CV.",
+    },
     invalidFileLabel: "Choisissez un fichier PDF ou DOCX inférieur à 10 Mo.",
   },
   resumeExport: {

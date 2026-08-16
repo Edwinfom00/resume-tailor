@@ -54,6 +54,16 @@ export const messages = {
     analyzeDescription: "Get your personalized recommendations",
     sampleLabel: "Try sample data",
     sampleDescription: "See how it works with example",
+    clearLabel: "Clear all",
+    clearDescription: "Remove all inputs",
+    workflow: {
+      uploadTitle: "Upload CV",
+      uploadDescription: "Add your resume in PDF or DOCX format.",
+      offerTitle: "Add job offer",
+      offerDescription: "Paste the job URL or description.",
+      recommendationsTitle: "Get recommendations",
+      recommendationsDescription: "Receive AI-powered insights to tailor your resume.",
+    },
     invalidFileLabel: "Choose a PDF or DOCX file smaller than 10MB.",
   },
   resumeExport: {

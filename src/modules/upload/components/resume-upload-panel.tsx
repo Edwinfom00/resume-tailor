@@ -14,64 +14,37 @@ import {
   FiTrash2,
   FiUpload,
 } from "react-icons/fi";
-import { HiSparkles } from "react-icons/hi2";
+import {
+  createUploadedResume,
+  isSupportedResume,
+  type UploadedResume,
+} from "@/modules/upload/components/resume-file";
 import type { Messages } from "@/i18n/messages/types";
 
 type ResumeUploadPanelProps = Readonly<{
   messages: Messages["upload"];
+  onUploadedFileChange: (file: UploadedResume | null) => void;
+  uploadedFile: UploadedResume | null;
 }>;
 
-type UploadedFile = Readonly<{
-  name: string;
-  metadata: string;
-  type: string;
-}>;
-
-const maximumFileSize = 10 * 1024 * 1024;
-
-function createMockFile(messages: Messages["upload"]): UploadedFile {
-  return {
-    name: messages.mockFileName,
-    metadata: messages.mockFileMetadata,
-    type: messages.fileTypeLabel,
-  };
-}
-
-function isSupportedFile(file: File) {
-  return /\.(pdf|docx)$/i.test(file.name) && file.size <= maximumFileSize;
-}
-
-function createUploadedFile(
-  file: File,
-  messages: Messages["upload"],
-): UploadedFile {
-  const sizeInKilobytes = Math.max(1, Math.round(file.size / 1024));
-
-  return {
-    name: file.name,
-    metadata: `${sizeInKilobytes} KB · ${messages.uploadedJustNowLabel}`,
-    type: file.name.toLowerCase().endsWith(".pdf") ? "PDF" : "DOCX",
-  };
-}
-
-export function ResumeUploadPanel({ messages }: ResumeUploadPanelProps) {
+export function ResumeUploadPanel({
+  messages,
+  onUploadedFileChange,
+  uploadedFile,
+}: ResumeUploadPanelProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(() =>
-    createMockFile(messages),
-  );
   const [isDragging, setIsDragging] = useState(false);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const chooseFile = () => inputRef.current?.click();
 
   const acceptFile = (file: File) => {
-    if (!isSupportedFile(file)) {
+    if (!isSupportedResume(file)) {
       setErrorMessage(messages.invalidFileLabel);
       return;
     }
 
-    setUploadedFile(createUploadedFile(file, messages));
+    onUploadedFileChange(createUploadedResume(file, messages));
     setErrorMessage(null);
   };
 
@@ -101,15 +74,6 @@ export function ResumeUploadPanel({ messages }: ResumeUploadPanelProps) {
       event.preventDefault();
       chooseFile();
     }
-  };
-
-  const handleAnalyze = () => {
-    if (!uploadedFile) {
-      return;
-    }
-
-    setIsAnalyzing(true);
-    window.setTimeout(() => setIsAnalyzing(false), 700);
   };
 
   return (
@@ -211,7 +175,7 @@ export function ResumeUploadPanel({ messages }: ResumeUploadPanelProps) {
               </button>
               <button
                 type="button"
-                onClick={() => setUploadedFile(null)}
+                onClick={() => onUploadedFileChange(null)}
                 className="inline-flex items-center gap-1 rounded-md p-1 text-xs font-semibold text-negative transition-colors duration-(--rt-duration-fast) hover:bg-negative-subtle"
               >
                 <FiTrash2 aria-hidden="true" className="h-3.5 w-3.5" />
@@ -232,40 +196,6 @@ export function ResumeUploadPanel({ messages }: ResumeUploadPanelProps) {
         </div>
       </div>
 
-      <div className="mt-(--rt-space-5) grid grid-cols-1 gap-(--rt-space-3) rounded-xl border border-line-subtle bg-surface p-(--rt-space-4) shadow-xs sm:grid-cols-2">
-        <button
-          type="button"
-          disabled={!uploadedFile || isAnalyzing}
-          onClick={handleAnalyze}
-          className="flex min-h-16 items-center gap-(--rt-space-3) rounded-md bg-brand px-(--rt-space-4) text-left text-white shadow-brand transition-opacity duration-(--rt-duration-fast) hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          <HiSparkles aria-hidden="true" className="h-5 w-5 shrink-0" />
-          <span>
-            <span className="block text-sm font-semibold">
-              {isAnalyzing ? messages.analyzingLabel : messages.analyzeLabel}
-            </span>
-            <span className="block text-xs text-brand-subtle">
-              {messages.analyzeDescription}
-            </span>
-          </span>
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setUploadedFile(createMockFile(messages));
-            setErrorMessage(null);
-          }}
-          className="flex min-h-16 items-center gap-(--rt-space-3) rounded-md border border-line-subtle bg-surface px-(--rt-space-4) text-left text-ink shadow-xs transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand"
-        >
-          <FiFileText aria-hidden="true" className="h-5 w-5 shrink-0 text-ink-muted" />
-          <span>
-            <span className="block text-sm font-semibold">{messages.sampleLabel}</span>
-            <span className="block text-xs text-ink-muted">
-              {messages.sampleDescription}
-            </span>
-          </span>
-        </button>
-      </div>
     </div>
   );
 }

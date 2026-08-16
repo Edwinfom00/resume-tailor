@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale } from "@/i18n/locales";
 import { FiArrowLeft } from "react-icons/fi";
-import { ResumeUploadPanel } from "@/modules/upload/components/resume-upload-panel";
+import { UploadAnalysisWorkspace } from "@/modules/upload/components/upload-analysis-workspace";
 
 type LocalePageProps = Readonly<{
   params: Promise<{ locale: string }>;
@@ -32,7 +32,7 @@ export default async function UploadResume({ params }: LocalePageProps) {
             {dictionary.upload.description}
           </p>
         </div>
-        <ResumeUploadPanel messages={dictionary.upload} />
+        <UploadAnalysisWorkspace messages={dictionary.upload} />
       </div>
     </main>
   );

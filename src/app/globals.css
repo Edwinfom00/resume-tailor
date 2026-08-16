@@ -61,6 +61,7 @@ select {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -68,5 +69,13 @@ select {
     transition-duration: 1ms;
     animation-duration: 1ms;
     animation-iteration-count: 1;
+  }
+}
+
+@layer base {
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer !important;
   }
 }

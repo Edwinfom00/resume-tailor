@@ -50,6 +50,16 @@ export type Messages = {
     analyzeDescription: string;
     sampleLabel: string;
     sampleDescription: string;
+    clearLabel: string;
+    clearDescription: string;
+    workflow: {
+      uploadTitle: string;
+      uploadDescription: string;
+      offerTitle: string;
+      offerDescription: string;
+      recommendationsTitle: string;
+      recommendationsDescription: string;
+    };
     invalidFileLabel: string;
   };
   resumeExport: {

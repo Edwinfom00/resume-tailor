@@ -8,6 +8,16 @@ export const messages = {
   languageSwitcher: {
     label: "Sprache auswählen",
   },
+  navigation: {
+    homeLabel: "Startseite von Resume Tailor",
+    primaryLabel: "Hauptnavigation",
+    features: "Funktionen",
+    howItWorks: "So funktioniert es",
+    benefits: "Vorteile",
+    pricing: "Preise",
+    resources: "Ressourcen",
+    getStarted: "Loslegen",
+  },
   resumeExport: {
     downloadLabel: "PDF herunterladen",
     errorLabel: "Das PDF konnte nicht exportiert werden. Bitte erneut versuchen.",

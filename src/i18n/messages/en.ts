@@ -8,6 +8,16 @@ export const messages = {
   languageSwitcher: {
     label: "Choose language",
   },
+  navigation: {
+    homeLabel: "Resume Tailor home",
+    primaryLabel: "Primary navigation",
+    features: "Features",
+    howItWorks: "How it works",
+    benefits: "Benefits",
+    pricing: "Pricing",
+    resources: "Resources",
+    getStarted: "Get Started",
+  },
   resumeExport: {
     downloadLabel: "Download PDF",
     errorLabel: "The PDF could not be exported. Please try again.",

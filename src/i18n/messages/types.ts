@@ -6,6 +6,16 @@ export type Messages = {
   languageSwitcher: {
     label: string;
   };
+  navigation: {
+    homeLabel: string;
+    primaryLabel: string;
+    features: string;
+    howItWorks: string;
+    benefits: string;
+    pricing: string;
+    resources: string;
+    getStarted: string;
+  };
   resumeExport: {
     downloadLabel: string;
     errorLabel: string;

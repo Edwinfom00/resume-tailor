@@ -122,7 +122,7 @@ export function RecommendationCard({
             id={panelId}
             tabIndex={0}
             aria-label={copy.title}
-            className="h-full overflow-y-scroll overscroll-contain px-(--rt-space-3) pb-(--rt-space-2) pt-(--rt-space-2) scrollbar-gutter-stable"
+            className="scrollbar-hidden h-full overflow-y-scroll overscroll-contain px-(--rt-space-3) pb-(--rt-space-2) pt-(--rt-space-2)"
           >
             {recommendation.currentKeywords && recommendation.suggestedKeywords ? (
             <>

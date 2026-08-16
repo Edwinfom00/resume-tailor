@@ -196,6 +196,15 @@ select {
   animation: rt-breathe 1.8s var(--rt-easing-standard) infinite;
 }
 
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
 .rt-logo-marquee-track {
   animation: rt-marquee var(--rt-duration-marquee) linear infinite;
   width: max-content;

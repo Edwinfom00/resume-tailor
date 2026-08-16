@@ -131,7 +131,7 @@ export function StudioCvPanel({
       <div
         ref={canvasRef}
         onClick={(event) => selectFromEvent(event.target)}
-        className={`relative flex min-h-0 flex-1 items-start justify-center overflow-auto p-(--rt-space-6) transition-colors duration-(--rt-duration-normal) ${
+        className={`scrollbar-hidden relative flex min-h-0 flex-1 items-start justify-center overflow-auto p-(--rt-space-6) transition-colors duration-(--rt-duration-normal) ${
           isDarkCanvas ? "bg-ink" : "bg-canvas"
         }`}
       >

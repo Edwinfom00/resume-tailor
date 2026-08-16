@@ -11,11 +11,14 @@ import {
 } from "react-icons/fi";
 import type { SuggestionPriority } from "@/modules/analysis/domain/suggestion-types";
 import { formatTemplate } from "@/modules/shared/ui/format-template";
+import type { ApplicationPhase } from "@/modules/session/domain/application-phase";
+import { ApplicationProgress } from "@/modules/studio/components/application-progress";
 import { RecommendationEditForm } from "@/modules/studio/components/recommendation-edit-form";
 import type { StudioSuggestionView } from "@/modules/studio/view-models/recommendations-view";
 import type { Messages } from "@/i18n/messages/types";
 
 type RecommendationSuggestionProps = Readonly<{
+  applicationPhase?: ApplicationPhase;
   isApplying: boolean;
   isBlocked: boolean;
   isEditing: boolean;
@@ -48,6 +51,7 @@ function priorityLabel(
 }
 
 export function RecommendationSuggestion({
+  applicationPhase,
   canUndo,
   isApplying,
   isBlocked,
@@ -75,7 +79,7 @@ export function RecommendationSuggestion({
   return (
     <div
       className={`mt-(--rt-space-2) rounded-md border border-line-subtle bg-canvas p-(--rt-space-2) ${
-        isExiting ? "rt-animate-collapse-out" : "rt-animate-rise"
+        isExiting ? "rt-animate-collapse-out" : ""
       }`}
     >
       <div className="flex items-start justify-between gap-(--rt-space-3)">
@@ -113,7 +117,12 @@ export function RecommendationSuggestion({
         </div>
       ) : null}
 
-      {isEditing ? (
+      {isApplying ? (
+        <ApplicationProgress
+          messages={messages}
+          phase={applicationPhase ?? "applying"}
+        />
+      ) : isEditing ? (
         <RecommendationEditForm
           messages={messages}
           onCancel={onCancelEdit}

@@ -9,11 +9,13 @@ import type {
   CopilotMessage,
 } from "@/modules/copilot/domain/copilot-types";
 import type { ResumeAction } from "@/modules/resume/domain/resume-actions";
+import type { ApplicationPhase } from "@/modules/session/domain/application-phase";
 import { CopilotProposalCard } from "@/modules/studio/components/copilot-proposal-card";
 import type { Messages } from "@/i18n/messages/types";
 
 type CopilotConversationProps = Readonly<{
   applyingProposalId?: string;
+  applicationPhase?: ApplicationPhase;
   canRetry: boolean;
   canUndo: boolean;
   conversation: readonly CopilotMessage[];
@@ -36,6 +38,7 @@ const nearBottomThreshold = 96;
 
 export function CopilotConversation({
   applyingProposalId,
+  applicationPhase,
   canRetry,
   canUndo,
   conversation,
@@ -131,6 +134,7 @@ export function CopilotConversation({
                   <CopilotProposalCard
                     canUndo={canUndo}
                     isApplying={applyingProposalId === proposal.id}
+                    applicationPhase={applicationPhase}
                     messages={messages}
                     onApply={() => onApplyProposal(proposal.id)}
                     onEdit={(action) => onEditProposal(proposal.id, action)}

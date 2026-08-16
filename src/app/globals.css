@@ -200,6 +200,37 @@ select {
   animation: rt-sweep 1.4s var(--rt-easing-standard) infinite;
 }
 
+@keyframes rt-indeterminate {
+  0% {
+    transform: translateX(-105%) scaleX(0.4);
+  }
+
+  50% {
+    transform: translateX(15%) scaleX(0.72);
+  }
+
+  100% {
+    transform: translateX(105%) scaleX(0.4);
+  }
+}
+
+/* The pipeline reports discrete phases, never a completion ratio, so the bar
+   stays indeterminate rather than claiming a fabricated percentage. */
+.rt-indeterminate-track {
+  position: relative;
+  overflow: hidden;
+}
+
+.rt-indeterminate-track::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--rt-radius-pill);
+  background: var(--rt-color-action-primary);
+  transform-origin: left center;
+  animation: rt-indeterminate 1.3s var(--rt-easing-standard) infinite;
+}
+
 .rt-thinking-dot {
   animation: rt-thinking 1.2s var(--rt-easing-standard) infinite;
 }
@@ -237,6 +268,11 @@ select {
   .rt-sweep::after,
   .rt-thinking-dot {
     animation: none;
+  }
+
+  .rt-indeterminate-track::after {
+    animation: none;
+    transform: scaleX(0.4);
   }
 
   [data-resume-highlight="active"] {

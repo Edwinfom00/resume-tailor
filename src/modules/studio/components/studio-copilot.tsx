@@ -231,6 +231,7 @@ export function StudioCopilot({
       {isChatActive ? (
         <CopilotConversation
           applyingProposalId={copilot.applyingProposalId}
+          applicationPhase={copilot.applicationPhase}
           canRetry={copilot.canRetry}
           canUndo={copilot.canUndo}
           conversation={copilot.conversation}

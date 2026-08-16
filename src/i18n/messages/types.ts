@@ -187,6 +187,13 @@ export type Messages = {
       relevanceLabel: string;
       acceptLabel: string;
       applyingLabel: string;
+      applyingChangesTitle: string;
+      applyingChangesDescription: string;
+      evaluatingMatchTitle: string;
+      evaluatingMatchDescription: string;
+      applicationStepLabel: string;
+      evaluationStepLabel: string;
+      processingLabel: string;
       editLabel: string;
       ignoreLabel: string;
       acceptedLabel: string;
@@ -247,6 +254,13 @@ export type Messages = {
       detailedChangesLabel: string;
       applyChangesLabel: string;
       applyingLabel: string;
+      applyingChangesTitle: string;
+      applyingChangesDescription: string;
+      evaluatingMatchTitle: string;
+      evaluatingMatchDescription: string;
+      applicationStepLabel: string;
+      evaluationStepLabel: string;
+      processingLabel: string;
       appliedLabel: string;
       undoLabel: string;
       editLabel: string;

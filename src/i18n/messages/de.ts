@@ -195,6 +195,15 @@ export const messages = {
       relevanceLabel: "+{value} % Relevanz",
       acceptLabel: "Übernehmen",
       applyingLabel: "Wird angewendet…",
+      applyingChangesTitle: "Ihre Änderungen werden angewendet",
+      applyingChangesDescription:
+        "Der ausgewählte Inhalt in Ihrem Lebenslauf wird aktualisiert.",
+      evaluatingMatchTitle: "Ihre Übereinstimmung wird neu bewertet",
+      evaluatingMatchDescription:
+        "Ihr aktualisierter Lebenslauf wird mit dem aktuellen Stellenangebot verglichen.",
+      applicationStepLabel: "Änderungen im Lebenslauf anwenden",
+      evaluationStepLabel: "Übereinstimmung mit dem Stellenangebot bewerten",
+      processingLabel: "Wird verarbeitet",
       editLabel: "Bearbeiten",
       ignoreLabel: "Ignorieren",
       acceptedLabel: "Übernommen",
@@ -291,6 +300,15 @@ export const messages = {
       detailedChangesLabel: "Detaillierte Änderungen anzeigen",
       applyChangesLabel: "Änderungen anwenden",
       applyingLabel: "Wird angewendet…",
+      applyingChangesTitle: "Ihre Änderungen werden angewendet",
+      applyingChangesDescription:
+        "Der ausgewählte Inhalt in Ihrem Lebenslauf wird aktualisiert.",
+      evaluatingMatchTitle: "Ihre Übereinstimmung wird neu bewertet",
+      evaluatingMatchDescription:
+        "Ihr aktualisierter Lebenslauf wird mit dem aktuellen Stellenangebot verglichen.",
+      applicationStepLabel: "Änderungen im Lebenslauf anwenden",
+      evaluationStepLabel: "Übereinstimmung mit dem Stellenangebot bewerten",
+      processingLabel: "Wird verarbeitet",
       appliedLabel: "Änderungen angewendet",
       undoLabel: "Rückgängig",
       editLabel: "Bearbeiten",

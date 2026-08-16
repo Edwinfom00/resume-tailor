@@ -1,4 +1,5 @@
 import type { ResumeAction } from "@/modules/resume/domain/resume-actions";
+import type { ApplicationPhase } from "@/modules/session/domain/application-phase";
 import type { DomainError } from "@/modules/shared/domain/domain-error";
 
 export type CopilotIntent =
@@ -66,6 +67,7 @@ export interface CopilotState {
   readonly error?: DomainError;
   readonly retryMessage?: string;
   readonly applyingProposalId?: string;
+  readonly applicationPhase?: ApplicationPhase;
 }
 
 export const emptyCopilotState: CopilotState = {

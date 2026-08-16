@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import type { Messages } from "@/i18n/messages/types";
 import type { ResumeSectionId } from "@/modules/session/domain/resume-selection";
+import type { ApplicationPhase } from "@/modules/session/domain/application-phase";
 import { formatTemplate } from "@/modules/shared/ui/format-template";
 import { RecommendationSuggestion } from "@/modules/studio/components/recommendation-suggestion";
 import type { StudioRecommendation } from "@/modules/studio/view-models/recommendations-view";
@@ -23,6 +24,7 @@ const sectionIcons = {
 
 type RecommendationCardProps = Readonly<{
   applyingSuggestionId?: string;
+  applyingSuggestionPhase?: ApplicationPhase;
   canUndo: boolean;
   editingSuggestionId: string | null;
   exitingSuggestionId: string | null;
@@ -43,6 +45,7 @@ type RecommendationCardProps = Readonly<{
 
 export function RecommendationCard({
   applyingSuggestionId,
+  applyingSuggestionPhase,
   canUndo,
   editingSuggestionId,
   exitingSuggestionId,
@@ -159,6 +162,7 @@ export function RecommendationCard({
                 key={suggestion.id}
                 canUndo={canUndo}
                 isApplying={applyingSuggestionId === suggestion.id}
+                applicationPhase={applyingSuggestionPhase}
                 isBlocked={Boolean(applyingSuggestionId)}
                 isEditing={editingSuggestionId === suggestion.id}
                 isExiting={exitingSuggestionId === suggestion.id}

@@ -192,6 +192,15 @@ export const messages = {
       relevanceLabel: "+{value} % de pertinence",
       acceptLabel: "Accepter",
       applyingLabel: "Application…",
+      applyingChangesTitle: "Application de vos changements",
+      applyingChangesDescription:
+        "Mise à jour du contenu sélectionné dans votre CV.",
+      evaluatingMatchTitle: "Nouvelle évaluation de votre correspondance",
+      evaluatingMatchDescription:
+        "Comparaison de votre CV mis à jour avec l’offre actuelle.",
+      applicationStepLabel: "Appliquer les changements au CV",
+      evaluationStepLabel: "Évaluer la correspondance avec l’offre",
+      processingLabel: "En cours",
       editLabel: "Modifier",
       ignoreLabel: "Ignorer",
       acceptedLabel: "Acceptée",
@@ -285,6 +294,15 @@ export const messages = {
       detailedChangesLabel: "Voir les changements détaillés",
       applyChangesLabel: "Appliquer les changements",
       applyingLabel: "Application…",
+      applyingChangesTitle: "Application de vos changements",
+      applyingChangesDescription:
+        "Mise à jour du contenu sélectionné dans votre CV.",
+      evaluatingMatchTitle: "Nouvelle évaluation de votre correspondance",
+      evaluatingMatchDescription:
+        "Comparaison de votre CV mis à jour avec l’offre actuelle.",
+      applicationStepLabel: "Appliquer les changements au CV",
+      evaluationStepLabel: "Évaluer la correspondance avec l’offre",
+      processingLabel: "En cours",
       appliedLabel: "Changements appliqués",
       undoLabel: "Annuler",
       editLabel: "Modifier",

@@ -103,6 +103,12 @@ function now() {
   return new Date().toISOString();
 }
 
+function waitForDuration(milliseconds: number) {
+  return new Promise<void>((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}
+
 function createJob(
   type: BackgroundJobType,
   inputHash: string,
@@ -529,11 +535,25 @@ export const useSessionStore = create<SessionStore>()(
           return;
         }
 
-        set({ applyingSuggestionId: suggestionId, updatedAt: now() });
+        set({
+          applyingSuggestionId: suggestionId,
+          applyingSuggestionPhase: "applying",
+          updatedAt: now(),
+        });
 
         try {
           if (suggestion.action) {
-            await get().applyAction(suggestion.action, { suggestionId });
+            await waitForDuration(360);
+            const application = get().applyAction(suggestion.action, {
+              suggestionId,
+            });
+
+            set({
+              applyingSuggestionPhase: "evaluating",
+              updatedAt: now(),
+            });
+
+            await application;
           }
 
           set((current) => ({
@@ -543,7 +563,10 @@ export const useSessionStore = create<SessionStore>()(
             updatedAt: now(),
           }));
         } finally {
-          set({ applyingSuggestionId: undefined });
+          set({
+            applyingSuggestionId: undefined,
+            applyingSuggestionPhase: undefined,
+          });
         }
       },
 
@@ -774,12 +797,27 @@ export const useSessionStore = create<SessionStore>()(
         }
 
         set((current) => ({
-          copilot: { ...current.copilot, applyingProposalId: proposalId },
+          copilot: {
+            ...current.copilot,
+            applyingProposalId: proposalId,
+            applicationPhase: "applying",
+          },
           updatedAt: now(),
         }));
 
         try {
-          await get().applyAction(proposal.action, { proposalId });
+          await waitForDuration(360);
+          const application = get().applyAction(proposal.action, { proposalId });
+
+          set((current) => ({
+            copilot: {
+              ...current.copilot,
+              applicationPhase: "evaluating",
+            },
+            updatedAt: now(),
+          }));
+
+          await application;
 
           set((current) => ({
             copilot: {
@@ -794,7 +832,11 @@ export const useSessionStore = create<SessionStore>()(
           }));
         } finally {
           set((current) => ({
-            copilot: { ...current.copilot, applyingProposalId: undefined },
+            copilot: {
+              ...current.copilot,
+              applyingProposalId: undefined,
+              applicationPhase: undefined,
+            },
           }));
         }
       },
@@ -920,9 +962,11 @@ export const useSessionStore = create<SessionStore>()(
             error: undefined,
             retryMessage: undefined,
             applyingProposalId: undefined,
+            applicationPhase: undefined,
           },
           highlight: undefined,
           applyingSuggestionId: undefined,
+          applyingSuggestionPhase: undefined,
           jobs: (restored.jobs ?? []).map((job) =>
             isResumable(job)
               ? { ...job, status: "cancelled" as const, updatedAt: now() }

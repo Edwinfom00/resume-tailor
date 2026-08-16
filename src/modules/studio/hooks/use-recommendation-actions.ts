@@ -21,6 +21,9 @@ export function useRecommendationActions() {
   const applyingSuggestionId = useSessionStore(
     (state) => state.applyingSuggestionId,
   );
+  const applyingSuggestionPhase = useSessionStore(
+    (state) => state.applyingSuggestionPhase,
+  );
   const isReanalyzing = useSessionStore((state) => state.analysis.running);
   const previousScore = useSessionStore((state) => state.analysis.previousScore);
   const currentScore = useSessionStore(
@@ -106,6 +109,7 @@ export function useRecommendationActions() {
   return {
     accept,
     applyingSuggestionId,
+    applyingSuggestionPhase,
     canUndo,
     exitingSuggestionId,
     focusSuggestion,

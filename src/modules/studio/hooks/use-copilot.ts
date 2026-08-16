@@ -39,6 +39,9 @@ export function useCopilot({
   const applyingProposalId = useSessionStore(
     (state) => state.copilot.applyingProposalId,
   );
+  const applicationPhase = useSessionStore(
+    (state) => state.copilot.applicationPhase,
+  );
   const selection = useSessionStore((state) => state.selection);
   const canUndo = useSessionStore(selectCanUndo);
 
@@ -130,6 +133,7 @@ export function useCopilot({
   return {
     applyProposal: (proposalId: string) => void applyCopilotProposal(proposalId),
     applyingProposalId,
+    applicationPhase,
     canSend: Boolean(resume) && !isPending,
     canUndo,
     clearSelection: () => selectResumeSection(undefined),

@@ -10,6 +10,8 @@ import { useSessionStore } from "@/modules/session/state/session-store";
 import { useResumeHighlight } from "@/modules/studio/hooks/use-resume-highlight";
 import { useReducedMotion } from "@/modules/shared/ui/use-reduced-motion";
 
+const visibilityMargin = 24;
+
 function getRenderedPages(container: HTMLElement) {
   return Array.from(
     container.querySelectorAll<HTMLElement>("[data-resume-page]"),
@@ -42,24 +44,56 @@ function markSelection(
   container: HTMLElement,
   selection: ResumeSelection | undefined,
 ) {
-  container
-    .querySelectorAll<HTMLElement>("[data-resume-selected]")
-    .forEach((element) => {
-      delete element.dataset.resumeSelected;
-    });
-
   const target =
     selection && findTarget(container, selection.section, selection.itemId);
 
-  if (target) {
+  container
+    .querySelectorAll<HTMLElement>("[data-resume-selected]")
+    .forEach((element) => {
+      if (element !== target) {
+        delete element.dataset.resumeSelected;
+      }
+    });
+
+  if (target && target.dataset.resumeSelected !== "true") {
     target.dataset.resumeSelected = "true";
   }
+}
+
+// Scrolls the preview canvas only, and only when the target is actually out of
+// view. scrollIntoView would also scroll every scrollable ancestor, which makes
+// the whole workspace lurch whenever the resume re-paginates.
+function revealWithinCanvas(
+  container: HTMLElement,
+  target: HTMLElement,
+  smooth: boolean,
+) {
+  const containerBounds = container.getBoundingClientRect();
+  const targetBounds = target.getBoundingClientRect();
+  const overflowTop = containerBounds.top + visibilityMargin - targetBounds.top;
+  const overflowBottom =
+    targetBounds.bottom - (containerBounds.bottom - visibilityMargin);
+
+  if (overflowTop <= 0 && overflowBottom <= 0) {
+    return;
+  }
+
+  const delta = overflowTop > 0 ? -overflowTop : overflowBottom;
+
+  container.scrollTo({
+    behavior: smooth ? "smooth" : "auto",
+    top: container.scrollTop + delta,
+  });
 }
 
 export function useResumeCanvas() {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageCount, setPageCount] = useState(1);
+  const pageCountRef = useRef(pageCount);
+  const displayedPageRef = useRef(0);
+  const focusedKeyRef = useRef<string | null>(null);
+  const highlightedRef = useRef<HTMLElement | null>(null);
 
   const prefersReducedMotion = useReducedMotion();
   const selection = useSessionStore((state) => state.selection);
@@ -76,28 +110,49 @@ export function useResumeCanvas() {
     }
 
     let frameId: number | null = null;
+
     const syncCanvas = () => {
+      frameId = null;
+
       const pages = getRenderedPages(canvas);
       const nextPageCount = Math.max(1, pages.length);
+      const nextCurrentPage = Math.min(currentPage, nextPageCount - 1);
+      const isPageSwitch = displayedPageRef.current !== nextCurrentPage;
+      const scrollTop = canvas.scrollTop;
 
       pages.forEach((page, pageIndex) => {
-        page.style.display = pageIndex === currentPage ? "" : "none";
+        const display = pageIndex === nextCurrentPage ? "" : "none";
+
+        if (page.style.display !== display) {
+          page.style.display = display;
+        }
       });
 
-      markSelection(canvas, selection);
-
-      if (frameId !== null) {
-        window.cancelAnimationFrame(frameId);
+      if (isPageSwitch) {
+        displayedPageRef.current = nextCurrentPage;
+        canvas.scrollTop = 0;
+      } else if (canvas.scrollTop !== scrollTop) {
+        // Re-pagination rebuilds the page elements and clamps the offset;
+        // restoring it keeps the preview still while a change is applied.
+        canvas.scrollTop = scrollTop;
       }
 
-      frameId = window.requestAnimationFrame(() => {
-        setPageCount((previous) =>
-          previous === nextPageCount ? previous : nextPageCount,
-        );
-        setCurrentPage((previous) => Math.min(previous, nextPageCount - 1));
-      });
+      if (pageCountRef.current !== nextPageCount) {
+        pageCountRef.current = nextPageCount;
+        setPageCount(nextPageCount);
+      }
+
+      if (currentPage !== nextCurrentPage) {
+        setCurrentPage(nextCurrentPage);
+      }
     };
-    const observer = new MutationObserver(syncCanvas);
+
+    const scheduleSync = () => {
+      if (frameId === null) {
+        frameId = window.requestAnimationFrame(syncCanvas);
+      }
+    };
+    const observer = new MutationObserver(scheduleSync);
 
     observer.observe(canvas, { childList: true, subtree: true });
     syncCanvas();
@@ -109,8 +164,42 @@ export function useResumeCanvas() {
         window.cancelAnimationFrame(frameId);
       }
     };
-  }, [currentPage, selection]);
+  }, [currentPage]);
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+
+    if (!canvas) {
+      return;
+    }
+
+    let frameId: number | null = null;
+    const syncSelection = () => {
+      frameId = null;
+      markSelection(canvas, selection);
+    };
+    const scheduleSelection = () => {
+      if (frameId === null) {
+        frameId = window.requestAnimationFrame(syncSelection);
+      }
+    };
+    const observer = new MutationObserver(scheduleSelection);
+
+    observer.observe(canvas, { childList: true, subtree: true });
+    syncSelection();
+
+    return () => {
+      observer.disconnect();
+
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
+  }, [selection]);
+
+  // Deliberately does not depend on currentPage: it updates that state, and it
+  // is a dependency of the effects below, so reading it here would make those
+  // effects re-run themselves until React bails out with a depth error.
   const focusTarget = useCallback(
     (section: ResumeSectionId, itemId: string | undefined, scroll: boolean) => {
       const canvas = canvasRef.current;
@@ -124,28 +213,38 @@ export function useResumeCanvas() {
           page.querySelector(`[data-resume-section="${section}"]`) !== null,
       );
 
-      if (pageIndex >= 0 && pageIndex !== currentPage) {
-        setCurrentPage(pageIndex);
+      if (pageIndex >= 0) {
+        setCurrentPage((previous) =>
+          previous === pageIndex ? previous : pageIndex,
+        );
       }
 
       const target = findTarget(canvas, section, itemId);
 
       if (target && scroll) {
-        target.scrollIntoView({
-          behavior: prefersReducedMotion ? "auto" : "smooth",
-          block: "nearest",
-        });
+        revealWithinCanvas(canvas, target, !prefersReducedMotion);
       }
 
       return target;
     },
-    [currentPage, prefersReducedMotion],
+    [prefersReducedMotion],
   );
 
   useEffect(() => {
-    if (selection) {
-      focusTarget(selection.section, selection.itemId, true);
+    if (!selection) {
+      focusedKeyRef.current = null;
+
+      return;
     }
+
+    const key = `${selection.section}:${selection.itemId ?? ""}`;
+
+    if (focusedKeyRef.current === key) {
+      return;
+    }
+
+    focusedKeyRef.current = key;
+    focusTarget(selection.section, selection.itemId, true);
   }, [focusTarget, selection]);
 
   useEffect(() => {
@@ -153,16 +252,26 @@ export function useResumeCanvas() {
       return;
     }
 
-    const target = focusTarget(highlight.section, highlight.itemId, true);
+    // Wait one frame so the resume has finished re-paginating around the change
+    // before the single reveal scroll runs.
+    const frameId = window.requestAnimationFrame(() => {
+      const target = focusTarget(highlight.section, highlight.itemId, true);
 
-    if (!target) {
-      return;
-    }
-
-    target.dataset.resumeHighlight = "active";
+      if (target) {
+        target.dataset.resumeHighlight = "active";
+        highlightedRef.current = target;
+      }
+    });
 
     return () => {
-      delete target.dataset.resumeHighlight;
+      window.cancelAnimationFrame(frameId);
+
+      const highlighted = highlightedRef.current;
+
+      if (highlighted) {
+        delete highlighted.dataset.resumeHighlight;
+        highlightedRef.current = null;
+      }
     };
   }, [focusTarget, highlight]);
 

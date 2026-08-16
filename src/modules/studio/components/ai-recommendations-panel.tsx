@@ -65,6 +65,7 @@ export function AiRecommendationsPanel({
               <RecommendationCard
                 key={recommendation.id}
                 applyingSuggestionId={actions.applyingSuggestionId}
+                applyingSuggestionPhase={actions.applyingSuggestionPhase}
                 canUndo={actions.canUndo}
                 editingSuggestionId={editingSuggestionId}
                 exitingSuggestionId={actions.exitingSuggestionId}
@@ -109,7 +110,7 @@ export function AiRecommendationsPanel({
                     <button
                       type="button"
                       onClick={() => openImprovement(suggestion)}
-                      className="rt-animate-rise flex w-full items-center gap-(--rt-space-3) rounded-md border border-line-subtle bg-surface p-(--rt-space-2) text-left transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand"
+                      className="flex w-full items-center gap-(--rt-space-3) rounded-md border border-line-subtle bg-surface p-(--rt-space-2) text-left transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand"
                     >
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-surface-brand text-brand">
                         <HiMiniSparkles aria-hidden="true" className="h-4 w-4" />

@@ -8,11 +8,12 @@ import {
   FiChevronUp,
   FiCornerUpLeft,
   FiEdit3,
-  FiLoader,
   FiX,
 } from "react-icons/fi";
 import type { ResumeData } from "@/@types/resume-data";
 import type { CopilotActionProposal } from "@/modules/copilot/domain/copilot-types";
+import type { ApplicationPhase } from "@/modules/session/domain/application-phase";
+import { ApplicationProgress } from "@/modules/studio/components/application-progress";
 import {
   describeProposal,
   withEditedLines,
@@ -25,6 +26,7 @@ import type { Messages } from "@/i18n/messages/types";
 type CopilotProposalCardProps = Readonly<{
   canUndo: boolean;
   isApplying: boolean;
+  applicationPhase?: ApplicationPhase;
   messages: Messages["studio"]["copilot"];
   onApply: () => void;
   onEdit: (action: ResumeAction) => void;
@@ -38,6 +40,7 @@ type CopilotProposalCardProps = Readonly<{
 export function CopilotProposalCard({
   canUndo,
   isApplying,
+  applicationPhase,
   messages,
   onApply,
   onEdit,
@@ -196,7 +199,12 @@ export function CopilotProposalCard({
         </div>
       ) : null}
 
-      {isApplied ? (
+      {isApplying ? (
+        <ApplicationProgress
+          messages={messages}
+          phase={applicationPhase ?? "applying"}
+        />
+      ) : isApplied ? (
         <div className="flex flex-wrap items-center gap-(--rt-space-2) border-t border-line-subtle p-(--rt-space-2)">
           <span className="inline-flex items-center gap-(--rt-space-2) rounded-md bg-success-50 px-(--rt-space-3) py-1 text-xs font-semibold text-positive">
             <FiCheck aria-hidden="true" className="h-3.5 w-3.5" />
@@ -218,25 +226,21 @@ export function CopilotProposalCard({
           {messages.ignoredLabel}
         </p>
       ) : (
-        <div className="flex gap-(--rt-space-2) border-t border-line-subtle p-(--rt-space-2)">
+        <div className="flex flex-wrap gap-(--rt-space-2) border-t border-line-subtle p-(--rt-space-2)">
           <button
             type="button"
             disabled={isApplying || needsFactConfirmation}
             onClick={isEditing ? saveEdit : onApply}
-            className="inline-flex h-(--rt-control-height-sm) items-center gap-(--rt-space-2) rounded-md bg-brand px-(--rt-space-3) text-xs font-semibold text-white transition-colors duration-(--rt-duration-fast) hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex h-(--rt-control-height-sm) shrink-0 items-center gap-(--rt-space-2) whitespace-nowrap rounded-md bg-brand px-(--rt-space-3) text-xs font-semibold text-white transition-colors duration-(--rt-duration-fast) hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isApplying ? (
-              <FiLoader aria-hidden="true" className="h-4 w-4 animate-spin" />
-            ) : (
-              <FiCheck aria-hidden="true" className="h-4 w-4" />
-            )}
-            {isApplying ? messages.applyingLabel : messages.applyChangesLabel}
+            <FiCheck aria-hidden="true" className="h-4 w-4" />
+            {messages.applyChangesLabel}
           </button>
           <button
             type="button"
             disabled={preview.editableLines.length === 0 || isApplying}
             onClick={() => setIsEditing((current) => !current)}
-            className="inline-flex h-(--rt-control-height-sm) items-center gap-(--rt-space-2) rounded-md border border-line-subtle px-(--rt-space-3) text-xs font-semibold text-ink-muted transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex h-(--rt-control-height-sm) shrink-0 items-center gap-(--rt-space-2) whitespace-nowrap rounded-md border border-line-subtle px-(--rt-space-3) text-xs font-semibold text-ink-muted transition-colors duration-(--rt-duration-fast) hover:bg-surface-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-50"
           >
             <FiEdit3 aria-hidden="true" className="h-4 w-4" />
             {messages.editLabel}
@@ -245,7 +249,7 @@ export function CopilotProposalCard({
             type="button"
             disabled={isApplying}
             onClick={onIgnore}
-            className="inline-flex h-(--rt-control-height-sm) items-center gap-(--rt-space-2) rounded-md border border-line-subtle px-(--rt-space-3) text-xs font-semibold text-ink-muted transition-colors duration-(--rt-duration-fast) hover:bg-negative-subtle hover:text-negative disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex h-(--rt-control-height-sm) shrink-0 items-center gap-(--rt-space-2) whitespace-nowrap rounded-md border border-line-subtle px-(--rt-space-3) text-xs font-semibold text-ink-muted transition-colors duration-(--rt-duration-fast) hover:bg-negative-subtle hover:text-negative disabled:cursor-not-allowed disabled:opacity-50"
           >
             <FiX aria-hidden="true" className="h-4 w-4" />
             {messages.ignoreLabel}

@@ -9,6 +9,7 @@ import type {
 } from "@/modules/resume/domain/resume-status";
 import type { ResumeWarningCode } from "@/modules/resume/validation/validate-resume";
 import type { BackgroundJobState } from "@/modules/session/domain/background-job";
+import type { ApplicationPhase } from "@/modules/session/domain/application-phase";
 import type { ResumeHistory } from "@/modules/session/domain/resume-history";
 import type {
   ResumeHighlight,
@@ -65,6 +66,7 @@ export interface TailorSessionState {
   readonly selection?: ResumeSelection;
   readonly highlight?: ResumeHighlight;
   readonly applyingSuggestionId?: string;
+  readonly applyingSuggestionPhase?: ApplicationPhase;
   readonly createdAt: string;
   readonly updatedAt: string;
 }

@@ -29,5 +29,8 @@ export const messages = {
       roleLabel: "Rôle",
       technologiesLabel: "Technologies",
     },
+    education: {
+      title: "Formation",
+    },
   },
 } satisfies Messages;

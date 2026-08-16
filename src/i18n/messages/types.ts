@@ -26,5 +26,8 @@ export type Messages = {
       roleLabel: string;
       technologiesLabel: string;
     };
+    education: {
+      title: string;
+    };
   };
 };

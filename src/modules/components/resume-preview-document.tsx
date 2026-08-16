@@ -7,6 +7,7 @@ import {
   ResumeDocument,
   type ResumeDocumentBlock,
 } from "./resume-document";
+import { ResumeEducation } from "./sections/resume-education";
 import { ResumeExperience } from "./sections/resume-experience";
 import { ResumeHeader } from "./sections/resume-header";
 import { ResumeProfile } from "./sections/resume-profile";
@@ -21,6 +22,7 @@ export function ResumePreviewDocument({
   dictionary,
   resume,
 }: ResumePreviewDocumentProps) {
+  const educationTitle = dictionary.resume.education?.title;
   const blocks = useMemo<readonly ResumeDocumentBlock<ResumeData>[]>(
     () => [
       {
@@ -57,8 +59,18 @@ export function ResumePreviewDocument({
           />
         ),
       },
+      ...(educationTitle
+        ? [
+            {
+              id: "education",
+              render: (data: ResumeData) => (
+                <ResumeEducation resume={data} title={educationTitle} />
+              ),
+            },
+          ]
+        : []),
     ],
-    [dictionary],
+    [dictionary, educationTitle],
   );
 
   return <ResumeDocument blocks={blocks} data={resume} />;

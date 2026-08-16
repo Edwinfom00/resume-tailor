@@ -41,7 +41,6 @@ export function SiteHeader({
   const navigationItems: readonly NavigationBarItem[] = [
     { href: `/${locale}#features`, label: navigation.features },
     { href: `/${locale}#how-it-works`, label: navigation.howItWorks },
-    { href: `/${locale}#benefits`, label: navigation.benefits },
     { href: `/${locale}#pricing`, label: navigation.pricing },
     {
       href: `/${locale}#resources`,
@@ -74,7 +73,7 @@ export function SiteHeader({
             locale={locale}
           />
           <Link
-            href={`/${locale}#tailor-your-resume`}
+            href={`/${locale}/upload`}
             className="inline-flex h-(--rt-control-height-sm) items-center justify-center rounded-md bg-brand px-(--rt-space-5) text-sm font-semibold text-white shadow-xs transition-colors duration-(--rt-duration-fast) hover:bg-brand-hover"
           >
             {navigation.getStarted}

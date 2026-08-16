@@ -8,20 +8,26 @@ import type { Messages } from "@/i18n/messages/types";
 
 type MatchIndicatorProps = Readonly<{
   messages: Messages["workspaceHeader"];
+  previewScore?: number;
 }>;
 
 const circumference = 2 * Math.PI * 10;
 
-export function MatchIndicator({ messages }: MatchIndicatorProps) {
+export function MatchIndicator({
+  messages,
+  previewScore,
+}: MatchIndicatorProps) {
   const isHydrated = useSessionHydrated();
-  const score = useSessionStore((state) => state.analysis.data?.score.overall);
+  const sessionScore = useSessionStore((state) => state.analysis.data?.score.overall);
   const previousScore = useSessionStore((state) => state.analysis.previousScore);
   const isRunning = useSessionStore((state) => state.analysis.running);
 
-  const displayedScore = useAnimatedNumber(isHydrated ? score : undefined);
+  const displayedScore = useAnimatedNumber(
+    previewScore ?? (isHydrated ? sessionScore : undefined),
+  );
   const delta =
-    !isRunning && score !== undefined && previousScore !== undefined
-      ? score - previousScore
+    previewScore === undefined && !isRunning && sessionScore !== undefined && previousScore !== undefined
+      ? sessionScore - previousScore
       : 0;
 
   return (
@@ -55,8 +61,8 @@ export function MatchIndicator({ messages }: MatchIndicatorProps) {
         />
       </svg>
       <span
-        aria-live="polite"
-        aria-label={isRunning ? messages.recalculatingLabel : undefined}
+          aria-live="polite"
+          aria-label={previewScore === undefined && isRunning ? messages.recalculatingLabel : undefined}
         className="text-ink-muted"
       >
         {displayedScore === undefined ? messages.matchValue : `${displayedScore}%`}

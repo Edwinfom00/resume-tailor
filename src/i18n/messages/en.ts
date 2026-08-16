@@ -13,8 +13,8 @@ export const messages = {
     primaryLabel: "Primary navigation",
     features: "Features",
     howItWorks: "How it works",
-    benefits: "Benefits",
     pricing: "Pricing",
+    faq: "FAQ",
     resources: "Resources",
     getStarted: "Get Started",
   },
@@ -401,11 +401,193 @@ export const messages = {
   },
   home: {
     eyebrow: "Resume Tailor",
-    title: "Tailor every resume to the role that matters.",
+    title: "Tailor your CV.",
+    titleAccent: "Match every opportunity.",
     description:
-      "Build a compelling, role-specific resume with a multilingual foundation that is ready to grow.",
-    primaryAction: "Start tailoring",
-    secondaryAction: "Read the documentation",
+      "Resume Tailor compares your CV with every job offer, then gives you clear, section-by-section recommendations to stand out and get more interviews.",
+    primaryAction: "Upload CV & get started",
+    secondaryAction: "See how it works",
+    trustLabel: "Built for the next opportunity",
+    pillars: {
+      matching: {
+        title: "Smart matching",
+        description: "See how well your CV fits each job offer.",
+      },
+      recommendations: {
+        title: "Actionable recommendations",
+        description: "Get specific, section-by-section improvements.",
+      },
+      ats: {
+        title: "ATS-friendly optimization",
+        description: "Improve relevance with clear, readable formatting.",
+      },
+    },
+    workflow: {
+      eyebrow: "How it works",
+      title: "How it works",
+      showcaseTitle: "A better CV starts with the right context.",
+      description: "Three simple steps to a better-matched CV.",
+      upload: {
+        title: "Upload your CV",
+        description: "Start with your current CV in PDF or DOCX format.",
+      },
+      jobOffer: {
+        title: "Add a job offer",
+        description: "Paste the job description or add the job-posting link.",
+      },
+      recommendations: {
+        title: "Get recommendations",
+        description: "Review personalized suggestions to improve your match.",
+      },
+    },
+    features: {
+      title: "Everything you need to tailor your CV",
+      description: "Powerful, focused tools to help you make a stronger application.",
+      profile: {
+        title: "Optimize your profile",
+        description: "Improve your summary and highlights for the role you want.",
+      },
+      skills: {
+        title: "Match skills intelligently",
+        description: "Identify missing skills and get relevant suggestions.",
+      },
+      projects: {
+        title: "Prioritize the right projects",
+        description: "Put the most relevant work where recruiters will see it.",
+      },
+      export: {
+        title: "Export a polished PDF",
+        description: "Download a clean, ATS-friendly CV ready to submit.",
+      },
+    },
+    pricing: {
+      eyebrow: "Pricing",
+      title: "A free tool, without compromise.",
+      description: "Resume Tailor stays free, open source, and privacy-first so you can tailor every application without paying or giving up your data.",
+      planName: "Resume Tailor",
+      price: "0 XAF",
+      cadence: "forever",
+      action: "Get started for free",
+      note: "No credit card. No limited trial.",
+      privacy: {
+        title: "Your data stays yours",
+        description: "We do not store your CV or the job descriptions you analyze.",
+      },
+      openSource: {
+        title: "Open source",
+        description: "The code is accessible, auditable, and improved by the community.",
+      },
+      free: {
+        title: "Free, truly",
+        description: "Every essential feature remains available without a subscription.",
+      },
+    },
+    testimonials: {
+      eyebrow: "Testimonials",
+      title: "Move forward with more confidence.",
+      description: "Representative feedback from candidates who want to tailor their CV without losing their voice.",
+      items: [
+        {
+          name: "Amélie R.",
+          role: "Full-stack developer",
+          quote: "I could finally see which experiences were worth putting forward for the role I wanted.",
+        },
+        {
+          name: "Koffi N.",
+          role: "Project manager",
+          quote: "The section-by-section suggestions give me a clear direction without rewriting my entire background.",
+        },
+        {
+          name: "Lina B.",
+          role: "Product designer",
+          quote: "Comparing my CV with a job description in moments helps me apply with much more confidence.",
+        },
+        {
+          name: "Thomas D.",
+          role: "Software engineer",
+          quote: "Knowing that my CV is not stored online makes the tool easy to use, even for sensitive applications.",
+        },
+        {
+          name: "Sarah M.",
+          role: "Business analyst",
+          quote: "Matching my CV with the job description helped me describe my strengths in language the recruiter was already looking for.",
+        },
+        {
+          name: "Malik E.",
+          role: "Consultant",
+          quote: "I can adapt one CV foundation for several opportunities without spending time on formatting again.",
+        },
+        {
+          name: "Sophie L.",
+          role: "Marketing manager",
+          quote: "The project suggestions helped me explain my impact in a much more concrete way.",
+        },
+        {
+          name: "Jordan P.",
+          role: "Front-end developer",
+          quote: "It is reassuring to get specific guidance while keeping control over every change to my CV.",
+        },
+      ],
+    },
+    finalCta: {
+      title: "Do not let the right opportunity pass you by.",
+      description: "Tailor your CV to the role that matters, then apply with more confidence.",
+      action: "Get started for free",
+    },
+    faq: {
+      title: "Frequently asked questions",
+      description: "Everything you need to know before tailoring your CV. You stay in control of your data and every suggested change.",
+      groups: [
+        {
+          title: "Getting started",
+          items: [
+            {
+              question: "What is Resume Tailor?",
+              answer: "Resume Tailor helps you compare your CV to a job description and identify the improvements that matter most for your application.",
+            },
+            {
+              question: "How do I get started?",
+              answer: "Upload your CV, add the job description that interests you, then review the recommendations section by section.",
+            },
+          ],
+        },
+        {
+          title: "Privacy",
+          items: [
+            {
+              question: "Is my CV stored?",
+              answer: "No. Resume Tailor does not retain your CV or the job description you analyze.",
+            },
+            {
+              question: "Do I keep control over the changes?",
+              answer: "Yes. Recommendations are guidance: you decide which changes to apply before exporting your CV.",
+            },
+          ],
+        },
+        {
+          title: "Open source",
+          items: [
+            {
+              question: "Is Resume Tailor really free?",
+              answer: "Yes. Essential features are available for free, with no subscription or limited trial.",
+            },
+            {
+              question: "Can I contribute to the project?",
+              answer: "Yes. The project is open source, so its code can be viewed, audited, and improved by the community.",
+            },
+          ],
+        },
+      ],
+    },
+    footer: {
+      description: "A free workspace to tailor your CV for every opportunity without retaining your data.",
+      productLabel: "Product",
+      workflowLabel: "Workflow",
+      resourcesLabel: "Resources",
+      commitmentsLabel: "Our commitments",
+      copyright: "© 2026 Resume Tailor. All rights reserved.",
+      badges: ["Free", "Open source", "No storage"],
+    },
   },
   resume: {
     profile: {

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
-import { WorkspaceHeader } from "@/components/navigation/workspace-header";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, locales } from "@/i18n/locales";
 import "../globals.css";
@@ -62,22 +61,12 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const dictionary = await getDictionary(locale);
-
   return (
     <html
       lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
-        <WorkspaceHeader
-          languageSwitcherLabel={dictionary.languageSwitcher.label}
-          locale={locale}
-          messages={dictionary.workspaceHeader}
-          exportMessages={dictionary.resumeExport}
-        />
-        {children}
-      </body>
+      <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
 }

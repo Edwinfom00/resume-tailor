@@ -13,8 +13,8 @@ export const messages = {
     primaryLabel: "Hauptnavigation",
     features: "Funktionen",
     howItWorks: "So funktioniert es",
-    benefits: "Vorteile",
     pricing: "Preise",
+    faq: "FAQ",
     resources: "Ressourcen",
     getStarted: "Loslegen",
   },
@@ -423,11 +423,193 @@ export const messages = {
   },
   home: {
     eyebrow: "Resume Tailor",
-    title: "Passen Sie jeden Lebenslauf an die Stelle an, die zählt.",
+    title: "Passen Sie Ihren Lebenslauf an.",
+    titleAccent: "Nutzen Sie jede Chance.",
     description:
-      "Erstellen Sie einen überzeugenden, stellenbezogenen Lebenslauf mit einer skalierbaren mehrsprachigen Grundlage.",
-    primaryAction: "Jetzt starten",
-    secondaryAction: "Dokumentation lesen",
+      "Resume Tailor vergleicht Ihren Lebenslauf mit jedem Stellenangebot und gibt Ihnen klare, abschnittsweise Empfehlungen, damit Sie herausstechen und mehr Einladungen erhalten.",
+    primaryAction: "Lebenslauf hochladen & starten",
+    secondaryAction: "So funktioniert es",
+    trustLabel: "Für Ihre nächste Chance entwickelt",
+    pillars: {
+      matching: {
+        title: "Intelligenter Abgleich",
+        description: "Sehen Sie, wie gut Ihr Lebenslauf zu jeder Stelle passt.",
+      },
+      recommendations: {
+        title: "Umsetzbare Empfehlungen",
+        description: "Erhalten Sie konkrete Verbesserungen für jeden Abschnitt.",
+      },
+      ats: {
+        title: "ATS-freundliche Optimierung",
+        description: "Steigern Sie die Relevanz mit einem klaren, lesbaren Layout.",
+      },
+    },
+    workflow: {
+      eyebrow: "So funktioniert es",
+      title: "So funktioniert es",
+      showcaseTitle: "Ein besserer Lebenslauf beginnt mit dem richtigen Kontext.",
+      description: "Drei einfache Schritte zu einem besser passenden Lebenslauf.",
+      upload: {
+        title: "Lebenslauf hochladen",
+        description: "Starten Sie mit Ihrem aktuellen Lebenslauf als PDF oder DOCX.",
+      },
+      jobOffer: {
+        title: "Stellenangebot hinzufügen",
+        description: "Fügen Sie die Stellenbeschreibung oder den Link zur Anzeige ein.",
+      },
+      recommendations: {
+        title: "Empfehlungen erhalten",
+        description: "Prüfen Sie personalisierte Vorschläge, um Ihre Übereinstimmung zu verbessern.",
+      },
+    },
+    features: {
+      title: "Alles, was Sie für Ihren Lebenslauf brauchen",
+      description: "Leistungsstarke, fokussierte Werkzeuge für eine überzeugendere Bewerbung.",
+      profile: {
+        title: "Profil optimieren",
+        description: "Verbessern Sie Ihre Zusammenfassung und Stärken für Ihre Wunschrolle.",
+      },
+      skills: {
+        title: "Kenntnisse intelligent abgleichen",
+        description: "Erkennen Sie fehlende Kenntnisse und erhalten Sie passende Vorschläge.",
+      },
+      projects: {
+        title: "Die richtigen Projekte priorisieren",
+        description: "Platzieren Sie die relevanteste Arbeit dort, wo Recruiter sie sehen.",
+      },
+      export: {
+        title: "Professionelles PDF exportieren",
+        description: "Laden Sie einen klaren, ATS-freundlichen Lebenslauf herunter.",
+      },
+    },
+    pricing: {
+      eyebrow: "Preise",
+      title: "Ein kostenloses Tool ohne Kompromisse.",
+      description: "Resume Tailor bleibt kostenlos, Open Source und datenschutzfreundlich, damit Sie jede Bewerbung ohne Kosten und ohne Preisgabe Ihrer Daten anpassen können.",
+      planName: "Resume Tailor",
+      price: "0 XAF",
+      cadence: "für immer",
+      action: "Kostenlos starten",
+      note: "Keine Kreditkarte. Keine zeitlich begrenzte Testphase.",
+      privacy: {
+        title: "Ihre Daten bleiben bei Ihnen",
+        description: "Wir speichern weder Ihren Lebenslauf noch die Stellenanzeigen, die Sie analysieren.",
+      },
+      openSource: {
+        title: "Open Source",
+        description: "Der Code ist zugänglich, überprüfbar und wird von der Community weiterentwickelt.",
+      },
+      free: {
+        title: "Wirklich kostenlos",
+        description: "Alle wichtigen Funktionen bleiben ohne Abonnement verfügbar.",
+      },
+    },
+    testimonials: {
+      eyebrow: "Erfahrungen",
+      title: "Mit mehr Selbstvertrauen vorankommen.",
+      description: "Beispielhafte Rückmeldungen von Kandidatinnen und Kandidaten, die ihren Lebenslauf anpassen möchten, ohne ihre Stimme zu verlieren.",
+      items: [
+        {
+          name: "Amélie R.",
+          role: "Full-Stack-Entwicklerin",
+          quote: "Ich konnte endlich sehen, welche Erfahrungen ich für die gewünschte Stelle wirklich hervorheben sollte.",
+        },
+        {
+          name: "Koffi N.",
+          role: "Projektmanager",
+          quote: "Die Vorschläge für jeden Abschnitt geben mir eine klare Richtung, ohne meinen gesamten Werdegang neu zu schreiben.",
+        },
+        {
+          name: "Lina B.",
+          role: "Produktdesignerin",
+          quote: "Meinen Lebenslauf in wenigen Augenblicken mit einer Stellenanzeige zu vergleichen, lässt mich deutlich sicherer bewerben.",
+        },
+        {
+          name: "Thomas D.",
+          role: "Softwareentwickler",
+          quote: "Zu wissen, dass mein Lebenslauf nicht online gespeichert wird, macht das Tool auch für sensible Bewerbungen leicht nutzbar.",
+        },
+        {
+          name: "Sarah M.",
+          role: "Business-Analystin",
+          quote: "Der Abgleich mit der Stellenanzeige hat mir geholfen, meine Stärken mit Begriffen zu beschreiben, die Recruiter bereits suchen.",
+        },
+        {
+          name: "Malik E.",
+          role: "Berater",
+          quote: "Ich kann eine Lebenslaufbasis für mehrere Möglichkeiten anpassen, ohne erneut Zeit in die Formatierung zu investieren.",
+        },
+        {
+          name: "Sophie L.",
+          role: "Marketingmanagerin",
+          quote: "Die Projektvorschläge haben mir geholfen, meine Wirkung viel konkreter zu beschreiben.",
+        },
+        {
+          name: "Jordan P.",
+          role: "Front-End-Entwickler",
+          quote: "Es ist beruhigend, konkrete Hinweise zu erhalten und trotzdem jede Änderung an meinem Lebenslauf selbst zu kontrollieren.",
+        },
+      ],
+    },
+    finalCta: {
+      title: "Lassen Sie sich die richtige Gelegenheit nicht entgehen.",
+      description: "Passen Sie Ihren Lebenslauf an die Stelle an, die zählt, und bewerben Sie sich mit mehr Selbstvertrauen.",
+      action: "Kostenlos starten",
+    },
+    faq: {
+      title: "Häufig gestellte Fragen",
+      description: "Alles, was Sie vor dem Anpassen Ihres Lebenslaufs wissen müssen. Sie behalten die Kontrolle über Ihre Daten und jede vorgeschlagene Änderung.",
+      groups: [
+        {
+          title: "Erste Schritte",
+          items: [
+            {
+              question: "Was ist Resume Tailor?",
+              answer: "Resume Tailor hilft Ihnen, Ihren Lebenslauf mit einer Stellenanzeige zu vergleichen und die wichtigsten Verbesserungen für Ihre Bewerbung zu erkennen.",
+            },
+            {
+              question: "Wie fange ich an?",
+              answer: "Laden Sie Ihren Lebenslauf hoch, fügen Sie die interessante Stellenanzeige hinzu und prüfen Sie anschließend die Empfehlungen Abschnitt für Abschnitt.",
+            },
+          ],
+        },
+        {
+          title: "Datenschutz",
+          items: [
+            {
+              question: "Wird mein Lebenslauf gespeichert?",
+              answer: "Nein. Resume Tailor speichert weder Ihren Lebenslauf noch die Stellenanzeige, die Sie analysieren.",
+            },
+            {
+              question: "Behalte ich die Kontrolle über die Änderungen?",
+              answer: "Ja. Empfehlungen dienen als Orientierung: Sie entscheiden, welche Änderungen Sie vor dem Export Ihres Lebenslaufs übernehmen.",
+            },
+          ],
+        },
+        {
+          title: "Open Source",
+          items: [
+            {
+              question: "Ist Resume Tailor wirklich kostenlos?",
+              answer: "Ja. Die wichtigsten Funktionen sind ohne Abonnement und ohne zeitlich begrenzte Testphase kostenlos verfügbar.",
+            },
+            {
+              question: "Kann ich zum Projekt beitragen?",
+              answer: "Ja. Das Projekt ist Open Source, sodass sein Code von der Community eingesehen, geprüft und verbessert werden kann.",
+            },
+          ],
+        },
+      ],
+    },
+    footer: {
+      description: "Ein kostenloser Arbeitsbereich, um Ihren Lebenslauf für jede Gelegenheit anzupassen, ohne Ihre Daten zu speichern.",
+      productLabel: "Produkt",
+      workflowLabel: "Ablauf",
+      resourcesLabel: "Ressourcen",
+      commitmentsLabel: "Unsere Versprechen",
+      copyright: "© 2026 Resume Tailor. Alle Rechte vorbehalten.",
+      badges: ["Kostenlos", "Open Source", "Keine Speicherung"],
+    },
   },
   resume: {
     profile: {

@@ -20,6 +20,7 @@ type WorkspaceHeaderProps = Readonly<{
   locale: Locale;
   messages: Messages["workspaceHeader"];
   exportMessages: Messages["resumeExport"];
+  previewScore?: number;
 }>;
 
 export function WorkspaceHeader({
@@ -27,6 +28,7 @@ export function WorkspaceHeader({
   locale,
   messages,
   exportMessages,
+  previewScore,
 }: WorkspaceHeaderProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const canUndo = useSessionStore(selectCanUndo);
@@ -82,7 +84,7 @@ export function WorkspaceHeader({
         </form>
 
         <div className="ml-auto flex items-center gap-(--rt-space-3)">
-          <MatchIndicator messages={messages} />
+          <MatchIndicator messages={messages} previewScore={previewScore} />
 
           <div className="hidden items-center rounded-lg border border-line-subtle bg-surface shadow-xs sm:flex">
             <button

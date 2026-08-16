@@ -13,8 +13,8 @@ export const messages = {
     primaryLabel: "Navigation principale",
     features: "Fonctionnalités",
     howItWorks: "Fonctionnement",
-    benefits: "Avantages",
     pricing: "Tarifs",
+    faq: "FAQ",
     resources: "Ressources",
     getStarted: "Commencer",
   },
@@ -410,11 +410,193 @@ export const messages = {
   },
   home: {
     eyebrow: "Resume Tailor",
-    title: "Adaptez chaque CV au poste qui compte.",
+    title: "Adaptez votre CV.",
+    titleAccent: "Saisissez chaque opportunité.",
     description:
-      "Créez un CV convaincant et adapté au poste grâce à une base multilingue prête à évoluer.",
-    primaryAction: "Commencer",
-    secondaryAction: "Lire la documentation",
+      "Resume Tailor compare votre CV à chaque offre, puis vous donne des recommandations claires, section par section, pour vous démarquer et obtenir plus d’entretiens.",
+    primaryAction: "Importer mon CV et commencer",
+    secondaryAction: "Voir comment ça marche",
+    trustLabel: "Conçu pour votre prochaine opportunité",
+    pillars: {
+      matching: {
+        title: "Correspondance intelligente",
+        description: "Voyez à quel point votre CV correspond à chaque offre.",
+      },
+      recommendations: {
+        title: "Recommandations actionnables",
+        description: "Obtenez des améliorations précises, section par section.",
+      },
+      ats: {
+        title: "Optimisation compatible ATS",
+        description: "Améliorez la pertinence avec une mise en forme claire.",
+      },
+    },
+    workflow: {
+      eyebrow: "Comment ça marche",
+      title: "Comment ça marche",
+      showcaseTitle: "Un meilleur CV commence avec le bon contexte.",
+      description: "Trois étapes simples pour un CV mieux adapté.",
+      upload: {
+        title: "Importez votre CV",
+        description: "Commencez avec votre CV actuel au format PDF ou DOCX.",
+      },
+      jobOffer: {
+        title: "Ajoutez une offre",
+        description: "Collez la description du poste ou ajoutez son lien.",
+      },
+      recommendations: {
+        title: "Recevez des recommandations",
+        description: "Examinez des suggestions personnalisées pour améliorer votre correspondance.",
+      },
+    },
+    features: {
+      title: "Tout ce dont vous avez besoin pour adapter votre CV",
+      description: "Des outils efficaces et ciblés pour renforcer votre candidature.",
+      profile: {
+        title: "Optimisez votre profil",
+        description: "Améliorez votre résumé et vos points forts pour le poste visé.",
+      },
+      skills: {
+        title: "Faites correspondre vos compétences",
+        description: "Identifiez les compétences manquantes et recevez des suggestions pertinentes.",
+      },
+      projects: {
+        title: "Priorisez les bons projets",
+        description: "Mettez le travail le plus pertinent sous les yeux des recruteurs.",
+      },
+      export: {
+        title: "Exportez un PDF soigné",
+        description: "Téléchargez un CV clair et compatible ATS, prêt à envoyer.",
+      },
+    },
+    pricing: {
+      eyebrow: "Tarifs",
+      title: "Un outil gratuit, sans compromis.",
+      description: "Resume Tailor reste libre, open source et respectueux de votre vie privée pour adapter chaque candidature sans payer ni céder vos données.",
+      planName: "Resume Tailor",
+      price: "0 XAF",
+      cadence: "pour toujours",
+      action: "Commencer gratuitement",
+      note: "Aucune carte bancaire. Aucun essai limité.",
+      privacy: {
+        title: "Vos données restent à vous",
+        description: "Nous ne stockons pas votre CV ni les offres que vous analysez.",
+      },
+      openSource: {
+        title: "Open source",
+        description: "Le code est accessible, vérifiable et améliorable par la communauté.",
+      },
+      free: {
+        title: "Gratuit, vraiment",
+        description: "Toutes les fonctionnalités essentielles restent accessibles sans abonnement.",
+      },
+    },
+    testimonials: {
+      eyebrow: "Témoignages",
+      title: "Ils avancent avec plus de confiance.",
+      description: "Des retours représentatifs de candidats qui veulent adapter leur CV sans perdre leur voix.",
+      items: [
+        {
+          name: "Amélie R.",
+          role: "Développeuse full-stack",
+          quote: "J’ai enfin vu quelles expériences méritaient vraiment d’être mises en avant pour le poste visé.",
+        },
+        {
+          name: "Koffi N.",
+          role: "Chef de projet",
+          quote: "Les recommandations par section me donnent une direction claire sans réécrire tout mon parcours.",
+        },
+        {
+          name: "Lina B.",
+          role: "Designer produit",
+          quote: "Comparer mon CV à une offre en quelques instants m’aide à postuler avec bien plus de sérénité.",
+        },
+        {
+          name: "Thomas D.",
+          role: "Ingénieur logiciel",
+          quote: "Savoir que mon CV n’est pas stocké en ligne rend l’outil simple à utiliser, même pour des candidatures sensibles.",
+        },
+        {
+          name: "Sarah M.",
+          role: "Analyste métier",
+          quote: "La correspondance avec l’offre m’a aidée à reformuler mes forces avec des mots que le recruteur recherchait déjà.",
+        },
+        {
+          name: "Malik E.",
+          role: "Consultant",
+          quote: "Je peux adapter la même base de CV à plusieurs opportunités sans perdre de temps sur la mise en forme.",
+        },
+        {
+          name: "Sophie L.",
+          role: "Responsable marketing",
+          quote: "Les suggestions sur les projets m’ont permis de raconter mon impact de façon beaucoup plus concrète.",
+        },
+        {
+          name: "Jordan P.",
+          role: "Développeur front-end",
+          quote: "C’est rassurant d’avoir des conseils précis tout en gardant le contrôle sur chaque modification de mon CV.",
+        },
+      ],
+    },
+    finalCta: {
+      title: "Ne laissez pas passer la bonne opportunité.",
+      description: "Adaptez votre CV à l’offre qui compte, puis postulez avec plus de confiance.",
+      action: "Commencer gratuitement",
+    },
+    faq: {
+      title: "Foire aux questions",
+      description: "Tout ce qu’il faut savoir avant d’adapter votre CV. Vous gardez le contrôle sur vos données et sur chaque modification proposée.",
+      groups: [
+        {
+          title: "Utilisation",
+          items: [
+            {
+              question: "Qu’est-ce que Resume Tailor ?",
+              answer: "Resume Tailor vous aide à comparer votre CV à une offre, puis à identifier les améliorations les plus utiles pour votre candidature.",
+            },
+            {
+              question: "Comment puis-je commencer ?",
+              answer: "Importez votre CV, ajoutez l’offre qui vous intéresse, puis examinez les recommandations proposées section par section.",
+            },
+          ],
+        },
+        {
+          title: "Confidentialité",
+          items: [
+            {
+              question: "Mon CV est-il stocké ?",
+              answer: "Non. Resume Tailor ne conserve pas votre CV ni l’offre que vous analysez.",
+            },
+            {
+              question: "Puis-je garder le contrôle sur les modifications ?",
+              answer: "Oui. Les recommandations servent de guide : vous choisissez les changements à appliquer avant d’exporter votre CV.",
+            },
+          ],
+        },
+        {
+          title: "Open source",
+          items: [
+            {
+              question: "Resume Tailor est-il vraiment gratuit ?",
+              answer: "Oui. Les fonctionnalités essentielles sont disponibles gratuitement, sans abonnement ni essai limité.",
+            },
+            {
+              question: "Puis-je contribuer au projet ?",
+              answer: "Oui. Le projet est open source : son code peut être consulté, vérifié et amélioré par la communauté.",
+            },
+          ],
+        },
+      ],
+    },
+    footer: {
+      description: "Un espace de travail gratuit pour adapter votre CV à chaque opportunité, sans conserver vos données.",
+      productLabel: "Produit",
+      workflowLabel: "Parcours",
+      resourcesLabel: "Ressources",
+      commitmentsLabel: "Nos engagements",
+      copyright: "© 2026 Resume Tailor. Tous droits réservés.",
+      badges: ["Gratuit", "Open source", "Sans stockage"],
+    },
   },
   resume: {
     profile: {

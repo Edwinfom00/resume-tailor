@@ -45,6 +45,7 @@
   --rt-color-action-secondary-hover: var(--rt-color-blue-50);
   --rt-gradient-brand: linear-gradient(135deg, #2145dc 0%, #2855f6 48%, #5caeff 100%);
   --rt-font-family-sans: var(--font-geist-sans), "Segoe UI", sans-serif;
+  --rt-font-family-display: Georgia, "Times New Roman", serif;
   --rt-font-family-mono: var(--font-geist-mono), "SFMono-Regular", Consolas, monospace;
   --rt-font-size-xs: 0.75rem;
   --rt-font-size-2xs: 0.625rem;
@@ -102,12 +103,18 @@
   --rt-duration-panel: 220ms;
   --rt-duration-overlay: 260ms;
   --rt-duration-highlight: 1100ms;
+  --rt-duration-marquee: 30s;
   --rt-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --rt-easing-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
   --rt-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
   --rt-highlight-ring: 0 0 0 2px rgb(40 85 246 / 0.45);
   --rt-highlight-surface: rgb(40 85 246 / 0.08);
   --rt-container-max: 76rem;
+  --rt-landing-preview-max: 96rem;
+  --rt-landing-preview-height: 52rem;
+  --rt-landing-preview-fade-height: 6rem;
+  --rt-workflow-visual-height: 15rem;
+  --rt-feature-panel-height: 30rem;
   --rt-page-gutter: clamp(1rem, 4vw, 2.5rem);
   --rt-workspace-page-gutter: clamp(1.25rem, 3vw, 3.25rem);
   --rt-workspace-header-height: 4.5rem;
@@ -122,6 +129,7 @@
   --rt-studio-recommendations-width: 31.5rem;
   --rt-studio-panel-gap: 1rem;
   --rt-studio-panel-min-height: 52.75rem;
+  --rt-studio-suggestion-proposed-change-max-height: 12rem;
   --rt-studio-copilot-width: 25rem;
   --rt-studio-copilot-composer-width: 29.625rem;
   --rt-studio-copilot-message-width: 17rem;

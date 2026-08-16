@@ -20,8 +20,8 @@ export type Messages = {
     primaryLabel: string;
     features: string;
     howItWorks: string;
-    benefits: string;
     pricing: string;
+    faq: string;
     resources: string;
     getStarted: string;
   };
@@ -317,9 +317,81 @@ export type Messages = {
   home: {
     eyebrow: string;
     title: string;
+    titleAccent: string;
     description: string;
     primaryAction: string;
     secondaryAction: string;
+    trustLabel: string;
+    pillars: {
+      matching: LabelledEntry;
+      recommendations: LabelledEntry;
+      ats: LabelledEntry;
+    };
+    workflow: {
+      eyebrow: string;
+      title: string;
+      showcaseTitle: string;
+      description: string;
+      upload: LabelledEntry;
+      jobOffer: LabelledEntry;
+      recommendations: LabelledEntry;
+    };
+    features: {
+      title: string;
+      description: string;
+      profile: LabelledEntry;
+      skills: LabelledEntry;
+      projects: LabelledEntry;
+      export: LabelledEntry;
+    };
+    pricing: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      planName: string;
+      price: string;
+      cadence: string;
+      action: string;
+      note: string;
+      privacy: LabelledEntry;
+      openSource: LabelledEntry;
+      free: LabelledEntry;
+    };
+    testimonials: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      items: readonly {
+        name: string;
+        role: string;
+        quote: string;
+      }[];
+    };
+    finalCta: {
+      title: string;
+      description: string;
+      action: string;
+    };
+    faq: {
+      title: string;
+      description: string;
+      groups: readonly {
+        title: string;
+        items: readonly {
+          question: string;
+          answer: string;
+        }[];
+      }[];
+    };
+    footer: {
+      description: string;
+      productLabel: string;
+      workflowLabel: string;
+      resourcesLabel: string;
+      commitmentsLabel: string;
+      copyright: string;
+      badges: readonly string[];
+    };
   };
   resume: {
     profile: {

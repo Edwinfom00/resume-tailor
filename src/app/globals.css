@@ -23,6 +23,7 @@
   --text-2xs: var(--rt-font-size-2xs);
   --text-2xs--line-height: var(--rt-line-height-normal);
   --font-sans: var(--rt-font-family-sans);
+  --font-display: var(--rt-font-family-display);
   --font-mono: var(--rt-font-family-mono);
   --radius-control: var(--rt-radius-md);
   --radius-card: var(--rt-radius-lg);
@@ -150,6 +151,16 @@ select {
   }
 }
 
+@keyframes rt-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @keyframes rt-section-highlight {
   0%,
   62% {
@@ -183,6 +194,15 @@ select {
 
 .rt-animate-breathe {
   animation: rt-breathe 1.8s var(--rt-easing-standard) infinite;
+}
+
+.rt-logo-marquee-track {
+  animation: rt-marquee var(--rt-duration-marquee) linear infinite;
+  width: max-content;
+}
+
+.rt-logo-marquee-track-reverse {
+  animation-direction: reverse;
 }
 
 .rt-sweep {
@@ -266,7 +286,8 @@ select {
 
   .rt-animate-breathe,
   .rt-sweep::after,
-  .rt-thinking-dot {
+  .rt-thinking-dot,
+  .rt-logo-marquee-track {
     animation: none;
   }
 

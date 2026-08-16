@@ -109,7 +109,11 @@ export function RecommendationSuggestion({
           <p className="text-2xs font-bold text-ink">
             {messages.proposedChangeLabel}
           </p>
-          <ul className="mt-1 space-y-1 text-2xs leading-relaxed text-ink-muted">
+          <ul
+            aria-label={messages.proposedChangeLabel}
+            tabIndex={0}
+            className="mt-1 max-h-(--rt-studio-suggestion-proposed-change-max-height) space-y-1 overflow-y-auto overscroll-contain text-2xs leading-relaxed text-ink-muted [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
             {suggestion.after.map((line) => (
               <li key={line}>{line}</li>
             ))}

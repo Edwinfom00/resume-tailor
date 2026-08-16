@@ -35,5 +35,12 @@ export const messages = {
     skills: {
       title: "Skills",
     },
+    languages: {
+      title: "Languages",
+      nativeLabel: "Native speaker",
+    },
+    interests: {
+      title: "Interests",
+    },
   },
 } satisfies Messages;

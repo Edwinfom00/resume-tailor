@@ -35,5 +35,12 @@ export const messages = {
     skills: {
       title: "Kenntnisse und Fähigkeiten",
     },
+    languages: {
+      title: "Sprachkenntnisse",
+      nativeLabel: "Muttersprache",
+    },
+    interests: {
+      title: "Interessen",
+    },
   },
 } satisfies Messages;

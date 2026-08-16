@@ -10,6 +10,8 @@ import {
 import { ResumeEducation } from "./sections/resume-education";
 import { ResumeExperience } from "./sections/resume-experience";
 import { ResumeHeader } from "./sections/resume-header";
+import { ResumeInterests } from "./sections/resume-interests";
+import { ResumeLanguages } from "./sections/resume-languages";
 import { ResumeProfile } from "./sections/resume-profile";
 import { ResumeProjects } from "./sections/resume-projects";
 import { ResumeSkills } from "./sections/resume-skills";
@@ -24,6 +26,8 @@ export function ResumePreviewDocument({
   resume,
 }: ResumePreviewDocumentProps) {
   const educationTitle = dictionary.resume.education?.title;
+  const interestsTitle = dictionary.resume.interests?.title;
+  const languages = dictionary.resume.languages;
   const skillsTitle = dictionary.resume.skills?.title;
   const blocks = useMemo<readonly ResumeDocumentBlock<ResumeData>[]>(
     () => [
@@ -81,8 +85,32 @@ export function ResumePreviewDocument({
             },
           ]
         : []),
+      ...(languages?.title
+        ? [
+            {
+              id: "languages",
+              render: (data: ResumeData) => (
+                <ResumeLanguages
+                  nativeLabel={languages.nativeLabel}
+                  resume={data}
+                  title={languages.title}
+                />
+              ),
+            },
+          ]
+        : []),
+      ...(interestsTitle
+        ? [
+            {
+              id: "interests",
+              render: (data: ResumeData) => (
+                <ResumeInterests resume={data} title={interestsTitle} />
+              ),
+            },
+          ]
+        : []),
     ],
-    [dictionary, educationTitle, skillsTitle],
+    [dictionary, educationTitle, interestsTitle, languages, skillsTitle],
   );
 
   return <ResumeDocument blocks={blocks} data={resume} />;

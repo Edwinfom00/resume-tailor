@@ -32,5 +32,12 @@ export type Messages = {
     skills: {
       title: string;
     };
+    languages: {
+      title: string;
+      nativeLabel: string;
+    };
+    interests: {
+      title: string;
+    };
   };
 };

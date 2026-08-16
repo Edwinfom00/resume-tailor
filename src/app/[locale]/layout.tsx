@@ -39,6 +39,11 @@ export async function generateMetadata({
   return {
     title: dictionary.metadata.title,
     description: dictionary.metadata.description,
+    icons: {
+      icon: [{ url: "/logo.png", type: "image/png" }],
+      shortcut: ["/logo.png"],
+      apple: [{ url: "/logo.png", type: "image/png" }],
+    },
     alternates: {
       canonical: `/${locale}`,
       languages: Object.fromEntries(

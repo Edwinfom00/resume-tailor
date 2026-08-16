@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a multilingual [Next.js](https://nextjs.org) application for tailoring resumes.
 
 ## Getting Started
 
@@ -16,7 +16,27 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application uses locale-prefixed routes:
+
+- `/en`
+- `/fr`
+- `/de`
+
+Requests without a locale are redirected to the saved preference or the browser's preferred supported language, with English as the fallback.
+
+## Internationalization
+
+Translations are grouped by feature namespace in `src/i18n/messages`. The `Messages` schema in `src/i18n/messages/types.ts` is the source of truth, and every locale must satisfy it at build time.
+
+Use the following conventions when adding translated content:
+
+- Add semantic keys to the relevant namespace in `Messages`.
+- Add the English source text in `en.ts`.
+- Add the matching French and German translations in `fr.ts` and `de.ts`.
+- Load dictionaries only in Server Components through `getDictionary(locale)`.
+- Keep locale-independent labels and routing behavior in `src/i18n`.
+
+The locale switcher preserves the current route and persists the selected locale in a cookie.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

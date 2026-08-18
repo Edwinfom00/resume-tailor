@@ -53,7 +53,7 @@ export function AiRecommendationsPanel({
   return (
     <aside
       aria-busy={isReanalyzing}
-      className={`relative flex min-h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-recommendations-width) flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:max-w-none! ${
+      className={`relative flex min-h-(--rt-studio-panel-min-height) w-full flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs ${
         isReanalyzing ? "rt-animate-float shadow-md" : ""
       }`}
     >

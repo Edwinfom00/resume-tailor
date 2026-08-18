@@ -62,7 +62,7 @@ export function JobOfferPanel({
   return (
     <aside
       aria-busy={isReanalyzing}
-      className={`relative flex h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs min-[1672px]:max-w-none! ${
+      className={`relative flex h-(--rt-studio-panel-min-height) w-full flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs ${
         isReanalyzing ? "rt-animate-float shadow-md" : ""
       }`}
     >

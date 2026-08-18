@@ -17,7 +17,7 @@ type StudioPageContentProps = Readonly<{
 }>;
 
 const workspaceGridClassName =
-  "grid flex-1 grid-cols-1 items-start gap-(--rt-studio-panel-gap) bg-canvas px-(--rt-space-6) py-(--rt-space-3) lg:grid-cols-[minmax(0,var(--rt-studio-sidebar-width))_minmax(0,var(--rt-studio-cv-panel-width))] min-[1672px]:grid-cols-[minmax(var(--rt-studio-sidebar-width),1fr)_minmax(var(--rt-studio-cv-panel-width),2fr)_minmax(var(--rt-studio-recommendations-width),1.4fr)]!";
+  "grid flex-1 grid-cols-1 items-start gap-(--rt-studio-panel-gap) bg-canvas px-(--rt-space-6) py-(--rt-space-3) lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.65fr)_minmax(0,1.1fr)]!";
 
 export function StudioPageContent({
   dictionary,
@@ -38,11 +38,9 @@ export function StudioPageContent({
   if (!workspace.isHydrated) {
     return (
       <main className={workspaceGridClassName} aria-busy="true">
-        <div className="h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-sidebar-width) rounded-xl border border-line-subtle bg-surface shadow-xs min-[1672px]:max-w-none!" />
-        <div className="h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-cv-panel-width) rounded-xl border border-line-subtle bg-surface shadow-xs min-[1672px]:max-w-none!" />
-        <div className="lg:col-span-2 min-[1672px]:col-span-1!">
-          <div className="h-(--rt-studio-panel-min-height) w-full max-w-(--rt-studio-recommendations-width) rounded-xl border border-line-subtle bg-surface shadow-xs min-[1672px]:max-w-none!" />
-        </div>
+        <div className="h-(--rt-studio-panel-min-height) w-full rounded-xl border border-line-subtle bg-surface shadow-xs" />
+        <div className="h-(--rt-studio-panel-min-height) w-full rounded-xl border border-line-subtle bg-surface shadow-xs" />
+        <div className="h-(--rt-studio-panel-min-height) w-full rounded-xl border border-line-subtle bg-surface shadow-xs" />
       </main>
     );
   }
@@ -82,16 +80,14 @@ export function StudioPageContent({
           messages={dictionary.studio.cv}
           resume={workspace.resume}
         />
-        <div className="lg:col-span-2 min-[1672px]:col-span-1!">
-          <AiRecommendationsPanel
-            hasAnalysis={Boolean(workspace.analysis)}
-            highImpactImprovements={workspace.highImpactImprovements}
-            isReanalyzing={workspace.isReanalyzing}
-            messages={dictionary.studio.recommendations}
-            recalculatingLabel={dictionary.workspaceHeader.recalculatingLabel}
-            recommendations={workspace.recommendations}
-          />
-        </div>
+        <AiRecommendationsPanel
+          hasAnalysis={Boolean(workspace.analysis)}
+          highImpactImprovements={workspace.highImpactImprovements}
+          isReanalyzing={workspace.isReanalyzing}
+          messages={dictionary.studio.recommendations}
+          recalculatingLabel={dictionary.workspaceHeader.recalculatingLabel}
+          recommendations={workspace.recommendations}
+        />
       </main>
       <StudioCopilot
         domainErrorMessages={dictionary.domainErrors}

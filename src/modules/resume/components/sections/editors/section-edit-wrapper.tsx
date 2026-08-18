@@ -23,6 +23,7 @@ export function SectionEditWrapper({
   if (isEditing) {
     return (
       <div
+        data-resume-section={sectionId}
         data-editing-section={sectionId}
         className="my-2 rounded-lg border border-brand bg-surface p-4 shadow-md transition-all duration-(--rt-duration-normal)"
       >
@@ -41,7 +42,7 @@ export function SectionEditWrapper({
           setIsEditing(true);
         }
       }}
-      className="group relative cursor-pointer rounded-md p-1.5 transition-all duration-(--rt-duration-fast) hover:bg-surface-brand/60 hover:ring-2 hover:ring-brand/40"
+      className="group relative cursor-pointer rounded-xs transition-all duration-(--rt-duration-fast) hover:outline hover:outline-2 hover:outline-brand/40"
     >
       <div className="pointer-events-none absolute -top-3 right-2 z-10 hidden items-center gap-1 rounded-pill bg-brand px-2.5 py-0.5 text-2xs font-semibold text-white shadow-xs group-hover:flex">
         <FiEdit2 aria-hidden="true" className="h-3 w-3" />
@@ -51,3 +52,4 @@ export function SectionEditWrapper({
     </div>
   );
 }
+

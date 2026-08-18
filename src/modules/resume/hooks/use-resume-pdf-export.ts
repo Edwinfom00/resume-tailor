@@ -8,7 +8,7 @@ export function useResumePdfExport() {
   const [error, setError] = useState<Error | null>(null);
   const isExportingRef = useRef(false);
 
-  const exportPdf = useCallback(async () => {
+  const exportPdf = useCallback(async (customFileName?: string) => {
     if (isExportingRef.current) {
       return;
     }
@@ -18,7 +18,7 @@ export function useResumePdfExport() {
     setIsExporting(true);
 
     try {
-      await exportResumePdf();
+      await exportResumePdf(customFileName);
     } catch (cause) {
       setError(
         cause instanceof Error

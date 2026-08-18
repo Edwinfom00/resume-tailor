@@ -1,3 +1,5 @@
+import { generateResumeExportFileName } from "./export-filename";
+
 const A4_WIDTH_MM = 210;
 const A4_HEIGHT_MM = 297;
 const RESUME_PAGE_SELECTOR = "[data-resume-page]";
@@ -227,7 +229,7 @@ function applyCanvasTextSpacingCompensation(documentClone: Document) {
 }
 
 export async function exportResumePdf(
-  fileName = "resume.pdf",
+  fileName = generateResumeExportFileName(),
 ): Promise<ResumePdfExportResult> {
   const capture = createCaptureScope();
 

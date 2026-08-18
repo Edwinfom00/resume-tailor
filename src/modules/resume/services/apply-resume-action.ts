@@ -119,6 +119,7 @@ export function applyResumeAction(
             email: action.email !== undefined ? collapseWhitespace(action.email) : resume.identity.contact.email,
             phone: action.phone !== undefined ? collapseWhitespace(action.phone) : resume.identity.contact.phone,
             location: action.location !== undefined ? action.location : resume.identity.contact.location,
+            links: action.links !== undefined ? action.links : resume.identity.contact.links,
           },
         },
       };
@@ -238,6 +239,23 @@ export function applyResumeAction(
         skills: removeSkillFromGroups(resume.skills, action.skillName),
       };
 
+    case "education.create":
+      return {
+        ...resume,
+        education: [
+          ...resume.education,
+          {
+            id: action.education.id ?? `edu-${Date.now()}`,
+            institution: action.education.institution,
+            credential: action.education.credential,
+            fieldOfStudy: action.education.fieldOfStudy,
+            location: action.education.location,
+            period: action.education.period,
+            highlights: action.education.highlights ?? [],
+          },
+        ],
+      };
+
     case "education.update":
       return {
         ...resume,
@@ -246,6 +264,12 @@ export function applyResumeAction(
             ? { ...education, ...action.changes, id: education.id }
             : education,
         ),
+      };
+
+    case "education.delete":
+      return {
+        ...resume,
+        education: resume.education.filter((edu) => edu.id !== action.itemId),
       };
 
     case "language.update":

@@ -458,6 +458,13 @@ export type Messages = {
       languageNameLabel: string;
       proficiencyLabel: string;
       interestNameLabel: string;
+      websiteLabel: string;
+      aiAssistantTitle: string;
+      aiPromptPlaceholder: string;
+      aiGenerateBtn: string;
+      aiPresetsTitle: string;
+      addBullet: string;
+      bulletCountHint: string;
     };
   };
 };

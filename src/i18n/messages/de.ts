@@ -700,6 +700,13 @@ export const messages = {
       languageNameLabel: "Sprache",
       proficiencyLabel: "Niveau",
       interestNameLabel: "Interesse / Hobby",
+      websiteLabel: "Webseite / Portfolio URL",
+      aiAssistantTitle: "KI-Abschnittsoptimierung",
+      aiPromptPlaceholder: "Beschreiben Sie Ihre Erfolge, Details oder Anweisungen zur Überarbeitung dieses Abschnitts...",
+      aiGenerateBtn: "Mit KI optimieren",
+      aiPresetsTitle: "Schnelle KI-Vorschläge",
+      addBullet: "Stichpunkt hinzufügen •",
+      bulletCountHint: "Zeilen / Stichpunkte",
     },
   },
 } satisfies Messages;

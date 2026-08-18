@@ -687,6 +687,13 @@ export const messages = {
       languageNameLabel: "Langue",
       proficiencyLabel: "Niveau de maîtrise",
       interestNameLabel: "Centre d'intérêt",
+      websiteLabel: "Site Web / Portfolio URL",
+      aiAssistantTitle: "Amélioration IA de la section",
+      aiPromptPlaceholder: "Décrivez vos réalisations, détails ou consignes pour réécrire cette section avec l'IA...",
+      aiGenerateBtn: "Générer avec l'IA",
+      aiPresetsTitle: "Suggestions rapides d'IA",
+      addBullet: "Ajouter une puce •",
+      bulletCountHint: "lignes / puces",
     },
   },
 } satisfies Messages;

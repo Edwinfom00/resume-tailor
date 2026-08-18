@@ -2,6 +2,7 @@ import type {
   ResumeEducation,
   ResumeExperience,
   ResumeLanguage,
+  ResumeLink,
   ResumeProject,
   ResumeSkill,
 } from "@/@types/resume-data";
@@ -70,10 +71,21 @@ export interface RemoveSkillAction {
   readonly skillName: string;
 }
 
+export interface CreateEducationAction {
+  readonly type: "education.create";
+  readonly education: Omit<ResumeEducation, "id"> & { readonly id?: string };
+  readonly position?: number;
+}
+
 export interface UpdateEducationAction {
   readonly type: "education.update";
   readonly itemId: string;
   readonly changes: Partial<Omit<ResumeEducation, "id">>;
+}
+
+export interface DeleteEducationAction {
+  readonly type: "education.delete";
+  readonly itemId: string;
 }
 
 export interface UpdateLanguageAction {
@@ -88,6 +100,7 @@ export interface UpdateHeaderAction {
   readonly headline?: string;
   readonly email?: string;
   readonly phone?: string;
+  readonly links?: readonly ResumeLink[];
   readonly location?: {
     readonly city?: string;
     readonly region?: string;
@@ -110,7 +123,9 @@ export type ResumeAction =
   | ReorderProjectAction
   | AddSkillAction
   | RemoveSkillAction
+  | CreateEducationAction
   | UpdateEducationAction
+  | DeleteEducationAction
   | UpdateLanguageAction;
 
 export const factCreatingActionTypes: ReadonlySet<ResumeActionType> = new Set([

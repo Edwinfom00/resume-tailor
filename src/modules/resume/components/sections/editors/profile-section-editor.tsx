@@ -6,6 +6,8 @@ import { HiMiniSparkles } from "react-icons/hi2";
 import type { ResumeData } from "@/@types/resume-data";
 import type { Messages } from "@/i18n/messages/types";
 import { useSessionStore } from "@/modules/session/state/session-store";
+import { SectionAiEnhanceDialog } from "./section-ai-enhance-dialog";
+import { SpaciousTextarea } from "./spacious-textarea";
 
 type ProfileSectionEditorProps = Readonly<{
   resume: ResumeData;
@@ -22,13 +24,12 @@ export function ProfileSectionEditor({
 }: ProfileSectionEditorProps) {
   const inlineEdit = dictionary.resume.inlineEdit;
   const applyAction = useSessionStore((state) => state.applyAction);
-  const sendCopilotMessage = useSessionStore((state) => state.sendCopilotMessage);
 
   const [summary, setSummary] = useState(resume.profile.summary);
   const [highlightsText, setHighlightsText] = useState(
     resume.profile.highlights.join("\n"),
   );
-  const [isAiEnhancing, setIsAiEnhancing] = useState(false);
+  const [isAiDialogOpen, setIsAiDialogOpen] = useState(false);
 
   const handleSave = async (event: FormEvent) => {
     event.preventDefault();
@@ -45,77 +46,73 @@ export function ProfileSectionEditor({
     onClose();
   };
 
-  const handleAiEnhance = async () => {
-    setIsAiEnhancing(true);
-    try {
-      await sendCopilotMessage(
-        "Optimize and tailor my professional profile summary to align with target job requirements.",
-        "profile",
-      );
-    } finally {
-      setIsAiEnhancing(false);
-    }
-  };
-
   return (
-    <form onSubmit={handleSave} className="space-y-4">
-      <div className="flex items-center justify-between border-b border-line-subtle pb-2">
-        <h3 className="text-sm font-bold text-ink">
-          {inlineEdit.editingSectionTitle}: {title}
-        </h3>
-        <button
-          type="button"
-          onClick={handleAiEnhance}
-          disabled={isAiEnhancing}
-          className="inline-flex h-(--rt-control-height-sm) items-center gap-1.5 rounded-md bg-surface-brand px-3 text-xs font-semibold text-brand transition-colors hover:bg-brand hover:text-white disabled:opacity-50"
-        >
-          <HiMiniSparkles aria-hidden="true" className="h-4 w-4" />
-          <span>{isAiEnhancing ? inlineEdit.aiEnhancing : inlineEdit.aiEnhance}</span>
-        </button>
-      </div>
+    <>
+      <form onSubmit={handleSave} className="space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line-subtle pb-3">
+          <div>
+            <h3 className="text-base font-bold text-ink">
+              {inlineEdit.editingSectionTitle}: <span className="text-brand">{title}</span>
+            </h3>
+            <p className="text-xs text-ink-muted">
+              Edit your professional bio and bullet point highlights
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsAiDialogOpen(true)}
+            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white shadow-xs"
+          >
+            <HiMiniSparkles aria-hidden="true" className="h-4 w-4" />
+            <span>{inlineEdit.aiEnhance}</span>
+          </button>
+        </div>
 
-      <div>
-        <label className="block text-2xs font-semibold text-ink-muted">
-          {inlineEdit.summaryLabel}
-        </label>
-        <textarea
-          rows={5}
+        <SpaciousTextarea
+          label={inlineEdit.summaryLabel}
           value={summary}
-          onChange={(e) => setSummary(e.target.value)}
-          className="mt-1 w-full resize-y rounded-md border border-line-subtle bg-canvas p-2 text-xs text-ink outline-none focus:border-brand"
+          onChange={setSummary}
+          dictionary={dictionary}
+          rows={5}
+          placeholder="Briefly describe your career background, expertise, and value proposition..."
           required
         />
-      </div>
 
-      <div>
-        <label className="block text-2xs font-semibold text-ink-muted">
-          {inlineEdit.highlightsLabel}
-        </label>
-        <textarea
-          rows={3}
+        <SpaciousTextarea
+          label={inlineEdit.highlightsLabel}
           value={highlightsText}
-          onChange={(e) => setHighlightsText(e.target.value)}
-          className="mt-1 w-full resize-y rounded-md border border-line-subtle bg-canvas p-2 text-xs text-ink outline-none focus:border-brand"
+          onChange={setHighlightsText}
+          dictionary={dictionary}
+          rows={4}
+          placeholder="• Proven experience building scalable platforms&#10;• Deep expertise in full-stack architecture"
         />
-      </div>
 
-      <div className="flex items-center justify-end gap-2 border-t border-line-subtle pt-3">
-        <button
-          type="button"
-          onClick={onClose}
-          className="inline-flex h-(--rt-control-height-sm) items-center gap-1 rounded-md border border-line-subtle px-3 text-xs font-semibold text-ink-muted hover:bg-surface-subtle"
-        >
-          <FiX aria-hidden="true" className="h-3.5 w-3.5" />
-          <span>{inlineEdit.cancel}</span>
-        </button>
-        <button
-          type="submit"
-          className="inline-flex h-(--rt-control-height-sm) items-center gap-1 rounded-md bg-brand px-3 text-xs font-semibold text-white hover:bg-brand-hover"
-        >
-          <FiCheck aria-hidden="true" className="h-3.5 w-3.5" />
-          <span>{inlineEdit.saveChanges}</span>
-        </button>
-      </div>
-    </form>
+        <div className="sticky bottom-0 z-10 -mx-1 -mb-1 mt-4 flex items-center justify-end gap-2.5 border-t border-line-subtle bg-surface/95 px-2 py-3 backdrop-blur-xs">
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-line-subtle px-4 text-xs font-semibold text-ink-muted hover:bg-surface-subtle transition-colors"
+          >
+            <FiX aria-hidden="true" className="h-4 w-4" />
+            <span>{inlineEdit.cancel}</span>
+          </button>
+          <button
+            type="submit"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white shadow-brand hover:bg-brand-hover transition-all"
+          >
+            <FiCheck aria-hidden="true" className="h-4 w-4" />
+            <span>{inlineEdit.saveChanges}</span>
+          </button>
+        </div>
+      </form>
+
+      <SectionAiEnhanceDialog
+        isOpen={isAiDialogOpen}
+        sectionId="profile"
+        sectionTitle={title}
+        dictionary={dictionary}
+        onClose={() => setIsAiDialogOpen(false)}
+      />
+    </>
   );
 }

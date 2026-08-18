@@ -678,6 +678,13 @@ export const messages = {
       languageNameLabel: "Language",
       proficiencyLabel: "Proficiency Level",
       interestNameLabel: "Interest / Hobby",
+      websiteLabel: "Website / Portfolio URL",
+      aiAssistantTitle: "AI Section Enhancement",
+      aiPromptPlaceholder: "Describe your accomplishments, details, or how you'd like AI to rewrite this section...",
+      aiGenerateBtn: "Enhance with AI",
+      aiPresetsTitle: "Quick AI Suggestions",
+      addBullet: "Add Bullet •",
+      bulletCountHint: "lines / bullet points",
     },
   },
 } satisfies Messages;

@@ -88,8 +88,8 @@ export function SectionAiEnhanceDialog({
         promptText.trim(),
       ].filter(Boolean);
 
-      const finalPrompt = parts.length > 0 
-        ? parts.join(" ") 
+      const finalPrompt = parts.length > 0
+        ? parts.join(" ")
         : `Refine and optimize my ${sectionTitle} section for high impact.`;
 
       const targetSection: AnalysisSectionId | undefined =
@@ -143,11 +143,10 @@ export function SectionAiEnhanceDialog({
                     key={preset}
                     type="button"
                     onClick={() => handleSelectPreset(preset)}
-                    className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                      isSelected
+                    className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-all ${isSelected
                         ? "bg-brand text-white"
                         : "bg-surface-subtle text-ink-muted hover:bg-surface-brand hover:text-brand border border-line-subtle"
-                    }`}
+                      }`}
                   >
                     <HiMiniSparkles className="h-3 w-3" />
                     <span>{preset}</span>
@@ -167,7 +166,7 @@ export function SectionAiEnhanceDialog({
             value={promptText}
             onChange={(e) => setPromptText(e.target.value)}
             placeholder={inlineEdit.aiPromptPlaceholder}
-            className="w-full resize-none rounded-xl border border-line-subtle bg-canvas p-3 text-xs text-ink placeholder:text-ink-muted focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all"
+            className="w-full resize-none rounded-md border border-line-subtle bg-canvas p-3 text-xs text-ink placeholder:text-ink-muted focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all"
           />
         </div>
 
@@ -176,7 +175,7 @@ export function SectionAiEnhanceDialog({
             type="button"
             onClick={onClose}
             disabled={isSubmitting}
-            className="inline-flex h-9 items-center justify-center rounded-xl border border-line-subtle px-4 text-xs font-semibold text-ink-muted hover:bg-surface-subtle transition-colors disabled:opacity-50"
+            className="inline-flex h-9 items-center justify-center rounded-md border border-line-subtle px-4 text-xs font-semibold text-ink-muted hover:bg-surface-subtle transition-colors disabled:opacity-50"
           >
             {inlineEdit.cancel}
           </button>
@@ -184,7 +183,7 @@ export function SectionAiEnhanceDialog({
             type="button"
             onClick={handleGenerate}
             disabled={isSubmitting}
-            className="inline-flex h-9 items-center justify-center gap-2 rounded-xl bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all disabled:opacity-50"
+            className="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all disabled:opacity-50"
           >
             <HiMiniSparkles className="h-4 w-4" />
             <span>{isSubmitting ? inlineEdit.aiEnhancing : inlineEdit.aiGenerateBtn}</span>

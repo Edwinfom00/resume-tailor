@@ -53,9 +53,8 @@ export function AiRecommendationsPanel({
   return (
     <aside
       aria-busy={isReanalyzing}
-      className={`relative flex min-h-(--rt-studio-panel-min-height) w-full flex-col rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs ${
-        isReanalyzing ? "rt-animate-float shadow-md" : ""
-      }`}
+      className={`relative flex min-h-(--rt-studio-panel-min-height) w-full flex-col rounded-md border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs ${isReanalyzing ? "rt-animate-float shadow-md" : ""
+        }`}
     >
       <div className="flex items-center justify-between">
         <h1 className="flex items-center gap-(--rt-space-3) text-lg font-bold tracking-tight text-ink">
@@ -159,7 +158,7 @@ export function AiRecommendationsPanel({
         </div>
       )}
       {isReanalyzing ? (
-        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-surface/65 backdrop-blur-[1px]">
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-md bg-surface/65 backdrop-blur-[1px]">
           <span
             role="status"
             aria-label={recalculatingLabel}

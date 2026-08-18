@@ -40,7 +40,7 @@ export function UploadActionPanel({
     stageLabel ?? blockedReason ?? messages.analyzeDescription;
 
   return (
-    <section className="rounded-xl border border-line-subtle bg-surface p-(--rt-space-4) shadow-xs">
+    <section className="rounded-md border border-line-subtle bg-surface p-(--rt-space-4) shadow-xs">
       <div className="grid grid-cols-1 gap-(--rt-space-3) sm:grid-cols-2 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,0.8fr)]">
         <button
           type="button"

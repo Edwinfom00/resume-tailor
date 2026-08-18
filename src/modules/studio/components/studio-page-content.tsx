@@ -38,9 +38,9 @@ export function StudioPageContent({
   if (!workspace.isHydrated) {
     return (
       <main className={workspaceGridClassName} aria-busy="true">
-        <div className="h-(--rt-studio-panel-min-height) w-full rounded-xl border border-line-subtle bg-surface shadow-xs" />
-        <div className="h-(--rt-studio-panel-min-height) w-full rounded-xl border border-line-subtle bg-surface shadow-xs" />
-        <div className="h-(--rt-studio-panel-min-height) w-full rounded-xl border border-line-subtle bg-surface shadow-xs" />
+        <div className="h-(--rt-studio-panel-min-height) w-full rounded-md border border-line-subtle bg-surface shadow-xs" />
+        <div className="h-(--rt-studio-panel-min-height) w-full rounded-md border border-line-subtle bg-surface shadow-xs" />
+        <div className="h-(--rt-studio-panel-min-height) w-full rounded-md border border-line-subtle bg-surface shadow-xs" />
       </main>
     );
   }
@@ -48,7 +48,7 @@ export function StudioPageContent({
   if (!workspace.resume) {
     return (
       <main className="flex flex-1 items-center justify-center bg-canvas px-(--rt-space-6) py-(--rt-space-8)">
-        <section className="rt-animate-rise w-full max-w-md rounded-xl border border-line-subtle bg-surface p-(--rt-space-8) text-center shadow-xs">
+        <section className="rt-animate-rise w-full max-w-md rounded-md border border-line-subtle bg-surface p-(--rt-space-8) text-center shadow-xs">
           <h1 className="text-lg font-bold tracking-tight text-ink">
             {dictionary.studio.emptyTitle}
           </h1>

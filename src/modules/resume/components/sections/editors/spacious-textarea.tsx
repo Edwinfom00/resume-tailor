@@ -83,7 +83,7 @@ export function SpaciousTextarea({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         required={required}
-        className="w-full resize-y rounded-xl border border-line-subtle bg-canvas p-3.5 text-xs sm:text-sm text-ink leading-relaxed placeholder:text-ink-muted focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all"
+        className="w-full resize-y rounded-md border border-line-subtle bg-canvas p-3.5 text-xs sm:text-sm text-ink leading-relaxed placeholder:text-ink-muted focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all"
         {...rest}
       />
     </div>

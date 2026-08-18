@@ -63,7 +63,7 @@ export function JobOfferPanel({
         : messages.urlHint;
 
   return (
-    <section className="rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
+    <section className="rounded-md border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
       <div className="flex items-center gap-(--rt-space-3)">
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-sm font-bold text-white shadow-brand">
           {messages.stepLabel}
@@ -148,7 +148,7 @@ export function JobOfferPanel({
       </div>
 
       {preview ? (
-        <div className="rt-animate-rise mt-(--rt-space-4) rounded-xl border border-line-subtle bg-canvas p-(--rt-space-4) shadow-xs">
+        <div className="rt-animate-rise mt-(--rt-space-4) rounded-md border border-line-subtle bg-canvas p-(--rt-space-4) shadow-xs">
           <div className="flex items-center justify-between gap-(--rt-space-3)">
             <h3 className="text-sm font-bold text-ink">{messages.previewLabel}</h3>
             <span className="inline-flex items-center gap-1 rounded-pill bg-success-50 px-(--rt-space-2) py-0.5 text-xs font-medium text-positive">

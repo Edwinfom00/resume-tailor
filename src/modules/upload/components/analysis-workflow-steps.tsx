@@ -22,7 +22,7 @@ export function AnalysisWorkflowSteps({ messages }: AnalysisWorkflowStepsProps) 
   ];
 
   return (
-    <section className="rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
+    <section className="rounded-md border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
       <ol className="grid grid-cols-1 gap-(--rt-space-4) md:grid-cols-[minmax(0,1fr)_var(--rt-workflow-connector-width)_minmax(0,1fr)_var(--rt-workflow-connector-width)_minmax(0,1fr)] md:gap-0">
         {steps.map((step, index) => (
           <Fragment key={step.title}>

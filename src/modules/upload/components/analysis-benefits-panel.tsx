@@ -48,7 +48,7 @@ export function AnalysisBenefitsPanel({ messages }: AnalysisBenefitsPanelProps) 
   ];
 
   return (
-    <aside className="rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
+    <aside className="rounded-md border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
       <div className="flex items-center gap-(--rt-space-3)">
         <HiSparkles aria-hidden="true" className="h-6 w-6 text-brand" />
         <h2 className="text-lg font-bold tracking-tight text-ink">{messages.heading}</h2>

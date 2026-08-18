@@ -41,11 +41,10 @@ function RequirementStatus({
       )}
       <span className="min-w-0 flex-1 text-sm text-ink-muted">{requirement.name}</span>
       <span
-        className={`rounded-pill px-(--rt-space-2) py-0.5 text-xs font-medium ${
-          isMatched
+        className={`rounded-pill px-(--rt-space-2) py-0.5 text-xs font-medium ${isMatched
             ? "bg-success-50 text-positive"
             : "bg-caution-subtle text-caution"
-        }`}
+          }`}
       >
         {isMatched ? messages.matchedLabel : messages.missingLabel}
       </span>
@@ -62,9 +61,8 @@ export function JobOfferPanel({
   return (
     <aside
       aria-busy={isReanalyzing}
-      className={`relative flex h-(--rt-studio-panel-min-height) w-full flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs ${
-        isReanalyzing ? "rt-animate-float shadow-md" : ""
-      }`}
+      className={`relative flex h-(--rt-studio-panel-min-height) w-full flex-col overflow-hidden rounded-md border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs ${isReanalyzing ? "rt-animate-float shadow-md" : ""
+        }`}
     >
       <div className="flex shrink-0 items-center justify-between border-b border-line-subtle pb-(--rt-space-4)">
         <h1 className="flex items-center gap-(--rt-space-3) text-lg font-bold tracking-tight text-ink">
@@ -186,7 +184,7 @@ export function JobOfferPanel({
         </div>
       )}
       {isReanalyzing ? (
-        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-surface/65 backdrop-blur-[1px]">
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-md bg-surface/65 backdrop-blur-[1px]">
           <span
             role="status"
             aria-label={recalculatingLabel}

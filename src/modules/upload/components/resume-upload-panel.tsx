@@ -44,7 +44,7 @@ export function ResumeUploadPanel({
 
   return (
     <div className="w-full">
-      <div className="rounded-xl border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
+      <div className="rounded-md border border-line-subtle bg-surface p-(--rt-space-5) shadow-xs">
         <div className="flex items-center gap-(--rt-space-3)">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-sm font-bold text-white shadow-brand">
             {messages.stepLabel}
@@ -76,18 +76,16 @@ export function ResumeUploadPanel({
           onClick={chooseFile}
           onKeyDown={handleDropzoneKeyDown}
           {...dropzoneHandlers}
-          className={`mt-(--rt-space-6) flex min-h-(--rt-upload-dropzone-min-height) flex-col items-center justify-center rounded-lg border border-dashed px-(--rt-space-6) text-center transition-colors duration-(--rt-duration-fast) ${
-            isParsing
+          className={`mt-(--rt-space-6) flex min-h-(--rt-upload-dropzone-min-height) flex-col items-center justify-center rounded-lg border border-dashed px-(--rt-space-6) text-center transition-colors duration-(--rt-duration-fast) ${isParsing
               ? "cursor-progress border-brand bg-surface-brand"
               : isDragging
                 ? "cursor-pointer border-brand bg-surface-brand"
                 : "cursor-pointer border-brand-line bg-surface"
-          }`}
+            }`}
         >
           <span
-            className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-brand text-brand ${
-              isParsing ? "rt-animate-breathe" : ""
-            }`}
+            className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-brand text-brand ${isParsing ? "rt-animate-breathe" : ""
+              }`}
           >
             {isParsing ? (
               <FiLoader aria-hidden="true" className="h-8 w-8 animate-spin" />

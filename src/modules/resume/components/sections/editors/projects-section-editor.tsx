@@ -144,7 +144,7 @@ export function ProjectsSectionEditor({
           <button
             type="button"
             onClick={() => setIsAiDialogOpen(true)}
-            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white"
+            className="inline-flex h-9 items-center gap-2 rounded-md bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white"
           >
             <HiMiniSparkles aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.aiEnhance}</span>
@@ -191,7 +191,7 @@ export function ProjectsSectionEditor({
                       type="text"
                       value={item.name}
                       onChange={(e) => updateItem(index, { name: e.target.value })}
-                      className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
+                      className="w-full rounded-md border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                       required
                     />
                   </div>
@@ -204,7 +204,7 @@ export function ProjectsSectionEditor({
                       type="text"
                       value={item.role}
                       onChange={(e) => updateItem(index, { role: e.target.value })}
-                      className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
+                      className="w-full rounded-md border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                     />
                   </div>
                 </div>
@@ -217,7 +217,7 @@ export function ProjectsSectionEditor({
                     type="text"
                     value={item.description}
                     onChange={(e) => updateItem(index, { description: e.target.value })}
-                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
+                    className="w-full rounded-md border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                     required
                   />
                 </div>
@@ -231,7 +231,7 @@ export function ProjectsSectionEditor({
                     value={item.technologiesText}
                     onChange={(e) => updateItem(index, { technologiesText: e.target.value })}
                     placeholder="Next.js, TypeScript, TailwindCSS, Prisma"
-                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
+                    className="w-full rounded-md border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                   />
                   {techList.length > 0 ? (
                     <div className="flex flex-wrap gap-1.5 pt-1">
@@ -273,14 +273,14 @@ export function ProjectsSectionEditor({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-line-subtle px-4 text-xs font-semibold text-ink-muted hover:bg-surface-subtle transition-colors"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-md border border-line-subtle px-4 text-xs font-semibold text-ink-muted hover:bg-surface-subtle transition-colors"
           >
             <FiX aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.cancel}</span>
           </button>
           <button
             type="submit"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-md bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all"
           >
             <FiCheck aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.saveChanges}</span>

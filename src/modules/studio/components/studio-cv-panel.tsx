@@ -83,7 +83,7 @@ export function StudioCvPanel({
   return (
     <section
       id="studio-cv-panel"
-      className="flex h-(--rt-studio-panel-min-height) w-full min-w-0 flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface shadow-xs"
+      className="flex h-(--rt-studio-panel-min-height) w-full min-w-0 flex-col overflow-hidden rounded-md border border-line-subtle bg-surface shadow-xs"
     >
       <div className="flex min-h-(--rt-control-height-lg) items-center gap-(--rt-space-4) border-b border-line-subtle px-(--rt-space-5)">
         <h1 className="mr-auto text-lg font-bold tracking-tight text-ink">
@@ -103,11 +103,10 @@ export function StudioCvPanel({
                 type="button"
                 aria-current={isActive ? "page" : undefined}
                 onClick={() => activateSection(section)}
-                className={`relative h-full text-sm font-medium transition-colors duration-(--rt-duration-fast) after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-center after:bg-brand after:transition-transform after:duration-(--rt-duration-normal) after:ease-(--rt-easing-emphasized) ${
-                  isActive
+                className={`relative h-full text-sm font-medium transition-colors duration-(--rt-duration-fast) after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-center after:bg-brand after:transition-transform after:duration-(--rt-duration-normal) after:ease-(--rt-easing-emphasized) ${isActive
                     ? "text-brand after:scale-x-100"
                     : "text-ink-muted after:scale-x-0 hover:text-ink"
-                }`}
+                  }`}
               >
                 {label}
               </button>
@@ -118,11 +117,10 @@ export function StudioCvPanel({
           type="button"
           aria-label={messages.toggleGuidesLabel}
           onClick={() => setIsGuideVisible((currentValue) => !currentValue)}
-          className={`rounded-md p-(--rt-space-2) transition-colors duration-(--rt-duration-fast) ${
-            isGuideVisible
+          className={`rounded-md p-(--rt-space-2) transition-colors duration-(--rt-duration-fast) ${isGuideVisible
               ? "bg-surface-brand text-brand"
               : "text-ink-muted hover:bg-surface-brand hover:text-brand"
-          }`}
+            }`}
         >
           <FiSliders aria-hidden="true" className="h-4 w-4" />
         </button>
@@ -131,9 +129,8 @@ export function StudioCvPanel({
       <div
         ref={canvasRef}
         onClick={(event) => selectFromEvent(event.target)}
-        className={`scrollbar-hidden relative flex min-h-0 flex-1 items-start justify-center overflow-auto p-(--rt-space-6) transition-colors duration-(--rt-duration-normal) ${
-          isDarkCanvas ? "bg-ink" : "bg-canvas"
-        }`}
+        className={`scrollbar-hidden relative flex min-h-0 flex-1 items-start justify-center overflow-auto p-(--rt-space-6) transition-colors duration-(--rt-duration-normal) ${isDarkCanvas ? "bg-ink" : "bg-canvas"
+          }`}
       >
         {resume ? (
           <div style={previewPageSize} className="relative shrink-0">
@@ -142,11 +139,10 @@ export function StudioCvPanel({
                 transform: `scale(${previewScale})`,
                 transformOrigin: "top left",
               }}
-              className={`w-max [&>section]:min-h-0 [&>section]:overflow-visible [&>section]:p-0 ${
-                isGuideVisible
+              className={`w-max [&>section]:min-h-0 [&>section]:overflow-visible [&>section]:p-0 ${isGuideVisible
                   ? "**:data-resume-page:outline **:data-resume-page:outline-dashed **:data-resume-page:outline-brand"
                   : ""
-              }`}
+                }`}
             >
               <ResumePreviewDocument dictionary={dictionary} resume={resume} />
             </div>

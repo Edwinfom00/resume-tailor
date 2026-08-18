@@ -127,7 +127,7 @@ export function StudioCopilot({
   }
 
   return (
-    <aside className="rt-animate-slide-in-end fixed top-[calc(var(--rt-workspace-header-height)+var(--rt-space-3))] right-(--rt-space-6) bottom-(--rt-space-6) z-30 flex w-[calc(100vw-var(--rt-space-8))] max-w-xl flex-col overflow-hidden rounded-xl border border-line-subtle bg-surface shadow-lg">
+    <aside className="rt-animate-slide-in-end fixed top-[calc(var(--rt-workspace-header-height)+var(--rt-space-3))] right-(--rt-space-6) bottom-(--rt-space-6) z-30 flex w-[calc(100vw-var(--rt-space-8))] max-w-xl flex-col overflow-hidden rounded-md border border-line-subtle bg-surface shadow-lg">
       <div className="flex items-center justify-between px-(--rt-space-5) pt-(--rt-space-4)">
         <h2 className="flex items-center gap-(--rt-space-3) text-lg font-bold tracking-tight text-ink">
           <HiMiniSparkles aria-hidden="true" className="h-5 w-5 text-brand" />
@@ -147,9 +147,8 @@ export function StudioCopilot({
         <p className="text-xs text-ink-muted">{messages.workingWithLabel}</p>
         <p className="mt-(--rt-space-1) flex items-center gap-(--rt-space-2) text-sm font-bold text-ink">
           <span
-            className={`h-2 w-2 rounded-pill ${
-              copilot.jobTitle ? "bg-positive" : "bg-ink-subtle"
-            }`}
+            className={`h-2 w-2 rounded-pill ${copilot.jobTitle ? "bg-positive" : "bg-ink-subtle"
+              }`}
           />
           {copilot.jobTitle ? (
             <>
@@ -186,11 +185,10 @@ export function StudioCopilot({
           type="button"
           aria-current={isChatActive ? "page" : undefined}
           onClick={() => setActiveTab("chat")}
-          className={`relative h-(--rt-control-height-sm) text-xs font-semibold after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand after:transition-transform after:duration-(--rt-duration-normal) ${
-            isChatActive
+          className={`relative h-(--rt-control-height-sm) text-xs font-semibold after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand after:transition-transform after:duration-(--rt-duration-normal) ${isChatActive
               ? "text-brand after:scale-x-100"
               : "text-ink-muted after:scale-x-0"
-          }`}
+            }`}
         >
           {messages.chatLabel}
         </button>
@@ -198,11 +196,10 @@ export function StudioCopilot({
           type="button"
           aria-current={!isChatActive ? "page" : undefined}
           onClick={() => setActiveTab("actions")}
-          className={`relative h-(--rt-control-height-sm) text-xs font-semibold after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand after:transition-transform after:duration-(--rt-duration-normal) ${
-            !isChatActive
+          className={`relative h-(--rt-control-height-sm) text-xs font-semibold after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand after:transition-transform after:duration-(--rt-duration-normal) ${!isChatActive
               ? "text-brand after:scale-x-100"
               : "text-ink-muted after:scale-x-0"
-          }`}
+            }`}
         >
           {messages.actionsLabel}
           <span className="ml-(--rt-space-2) rounded-full bg-brand px-1.5 py-0.5 text-white">

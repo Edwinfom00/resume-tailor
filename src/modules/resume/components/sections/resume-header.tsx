@@ -1,12 +1,18 @@
+"use client";
+
 import { Fragment } from "react";
 import type {
   ResumeData,
   ResumeLink,
   ResumeLocation,
 } from "@/@types/resume-data";
+import type { Messages } from "@/i18n/messages/types";
+import { HeaderSectionEditor } from "./editors/header-section-editor";
+import { SectionEditWrapper } from "./editors/section-edit-wrapper";
 
 type ResumeHeaderProps = Readonly<{
   resume: ResumeData;
+  dictionary?: Messages;
 }>;
 
 type ContactItem = Readonly<{
@@ -37,15 +43,15 @@ function getContactItems(resume: ResumeData): readonly ContactItem[] {
   return [
     locationLabel
       ? {
-        id: "location",
-        label: locationLabel,
-      }
+          id: "location",
+          label: locationLabel,
+        }
       : undefined,
     contact.location?.remote && contact.location.remoteStatus
       ? {
-        id: "remote-status",
-        label: contact.location.remoteStatus,
-      }
+          id: "remote-status",
+          label: contact.location.remoteStatus,
+        }
       : undefined,
     contact.phone
       ? {
@@ -60,18 +66,18 @@ function getContactItems(resume: ResumeData): readonly ContactItem[] {
     },
     website
       ? {
-        id: "website",
-        label: website.label,
-        href: website.url,
-      }
+          id: "website",
+          label: website.label,
+          href: website.url,
+        }
       : undefined,
   ].filter((item): item is ContactItem => Boolean(item));
 }
 
-export function ResumeHeader({ resume }: ResumeHeaderProps) {
+export function ResumeHeader({ resume, dictionary }: ResumeHeaderProps) {
   const contactItems = getContactItems(resume);
 
-  return (
+  const content = (
     <header>
       <h1 className="m-0 font-bold tracking-normal text-(--rt-color-resume-heading) [font-size:var(--rt-font-size-resume-name)] leading-(--rt-line-height-resume-name)">
         {resume.identity.name}
@@ -101,5 +107,25 @@ export function ResumeHeader({ resume }: ResumeHeaderProps) {
         ))}
       </address>
     </header>
+  );
+
+  if (!dictionary) {
+    return content;
+  }
+
+  return (
+    <SectionEditWrapper
+      sectionId="header"
+      dictionary={dictionary}
+      editor={({ onClose }) => (
+        <HeaderSectionEditor
+          resume={resume}
+          dictionary={dictionary}
+          onClose={onClose}
+        />
+      )}
+    >
+      {content}
+    </SectionEditWrapper>
   );
 }

@@ -1,9 +1,15 @@
+"use client";
+
 import type { ResumeData, ResumeSkillGroup } from "@/@types/resume-data";
+import type { Messages } from "@/i18n/messages/types";
+import { SkillsSectionEditor } from "./editors/skills-section-editor";
+import { SectionEditWrapper } from "./editors/section-edit-wrapper";
 import { ResumeSectionHeading } from "./resume-section-heading";
 
 type ResumeSkillsProps = Readonly<{
   resume: ResumeData;
   title: string;
+  dictionary?: Messages;
 }>;
 
 type ResumeSkillGroupProps = Readonly<{
@@ -19,8 +25,8 @@ function ResumeSkillGroupItem({ group }: ResumeSkillGroupProps) {
   );
 }
 
-export function ResumeSkills({ resume, title }: ResumeSkillsProps) {
-  return (
+export function ResumeSkills({ resume, title, dictionary }: ResumeSkillsProps) {
+  const content = (
     <section data-resume-section="skills">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-1">
@@ -29,5 +35,26 @@ export function ResumeSkills({ resume, title }: ResumeSkillsProps) {
         ))}
       </div>
     </section>
+  );
+
+  if (!dictionary) {
+    return content;
+  }
+
+  return (
+    <SectionEditWrapper
+      sectionId="skills"
+      dictionary={dictionary}
+      editor={({ onClose }) => (
+        <SkillsSectionEditor
+          resume={resume}
+          dictionary={dictionary}
+          title={title}
+          onClose={onClose}
+        />
+      )}
+    >
+      {content}
+    </SectionEditWrapper>
   );
 }

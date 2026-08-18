@@ -107,6 +107,22 @@ export function applyResumeAction(
   action: ResumeAction,
 ): ResumeData {
   switch (action.type) {
+    case "header.update":
+      return {
+        ...resume,
+        identity: {
+          ...resume.identity,
+          name: action.name !== undefined ? collapseWhitespace(action.name) : resume.identity.name,
+          headline: action.headline !== undefined ? collapseWhitespace(action.headline) : resume.identity.headline,
+          contact: {
+            ...resume.identity.contact,
+            email: action.email !== undefined ? collapseWhitespace(action.email) : resume.identity.contact.email,
+            phone: action.phone !== undefined ? collapseWhitespace(action.phone) : resume.identity.contact.phone,
+            location: action.location !== undefined ? action.location : resume.identity.contact.location,
+          },
+        },
+      };
+
     case "profile.update":
       return {
         ...resume,

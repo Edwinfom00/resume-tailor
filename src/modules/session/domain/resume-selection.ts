@@ -28,6 +28,9 @@ export function selectionForAction(
   action: ResumeAction,
 ): ResumeSelection | undefined {
   switch (action.type) {
+    case "header.update":
+      return undefined;
+
     case "profile.update":
       return { section: "profile" };
 

@@ -82,7 +82,23 @@ export interface UpdateLanguageAction {
   readonly changes: Partial<ResumeLanguage>;
 }
 
+export interface UpdateHeaderAction {
+  readonly type: "header.update";
+  readonly name?: string;
+  readonly headline?: string;
+  readonly email?: string;
+  readonly phone?: string;
+  readonly location?: {
+    readonly city?: string;
+    readonly region?: string;
+    readonly country?: string;
+    readonly remote?: boolean;
+    readonly remoteStatus?: string;
+  };
+}
+
 export type ResumeAction =
+  | UpdateHeaderAction
   | UpdateProfileAction
   | CreateExperienceAction
   | UpdateExperienceAction

@@ -1,4 +1,9 @@
+"use client";
+
 import type { ResumeData, ResumeExperience } from "@/@types/resume-data";
+import type { Messages } from "@/i18n/messages/types";
+import { ExperienceSectionEditor } from "./editors/experience-section-editor";
+import { SectionEditWrapper } from "./editors/section-edit-wrapper";
 import {
   formatResumeDateRange,
   formatResumeLocation,
@@ -9,6 +14,7 @@ type ResumeExperienceProps = Readonly<{
   resume: ResumeData;
   title: string;
   presentLabel: string;
+  dictionary?: Messages;
 }>;
 
 type ResumeExperienceItemProps = Readonly<{
@@ -53,8 +59,9 @@ export function ResumeExperience({
   resume,
   title,
   presentLabel,
+  dictionary,
 }: ResumeExperienceProps) {
-  return (
+  const content = (
     <section data-resume-section="experience">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-(--rt-resume-entry-gap)">
@@ -67,5 +74,26 @@ export function ResumeExperience({
         ))}
       </div>
     </section>
+  );
+
+  if (!dictionary) {
+    return content;
+  }
+
+  return (
+    <SectionEditWrapper
+      sectionId="experience"
+      dictionary={dictionary}
+      editor={({ onClose }) => (
+        <ExperienceSectionEditor
+          resume={resume}
+          dictionary={dictionary}
+          title={title}
+          onClose={onClose}
+        />
+      )}
+    >
+      {content}
+    </SectionEditWrapper>
   );
 }

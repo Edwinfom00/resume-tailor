@@ -33,7 +33,7 @@ export function ResumePreviewDocument({
     () => [
       {
         id: "header",
-        render: (data) => <ResumeHeader resume={data} />,
+        render: (data) => <ResumeHeader resume={data} dictionary={dictionary} />,
       },
       {
         id: "profile",
@@ -41,6 +41,7 @@ export function ResumePreviewDocument({
           <ResumeProfile
             resume={data}
             title={dictionary.resume.profile.title}
+            dictionary={dictionary}
           />
         ),
       },
@@ -51,6 +52,7 @@ export function ResumePreviewDocument({
             presentLabel={dictionary.resume.experience.presentLabel}
             resume={data}
             title={dictionary.resume.experience.title}
+            dictionary={dictionary}
           />
         ),
       },
@@ -62,6 +64,7 @@ export function ResumePreviewDocument({
             roleLabel={dictionary.resume.projects.roleLabel}
             technologiesLabel={dictionary.resume.projects.technologiesLabel}
             title={dictionary.resume.projects.title}
+            dictionary={dictionary}
           />
         ),
       },
@@ -70,7 +73,11 @@ export function ResumePreviewDocument({
             {
               id: "education",
               render: (data: ResumeData) => (
-                <ResumeEducation resume={data} title={educationTitle} />
+                <ResumeEducation
+                  resume={data}
+                  title={educationTitle}
+                  dictionary={dictionary}
+                />
               ),
             },
           ]
@@ -80,7 +87,11 @@ export function ResumePreviewDocument({
             {
               id: "skills",
               render: (data: ResumeData) => (
-                <ResumeSkills resume={data} title={skillsTitle} />
+                <ResumeSkills
+                  resume={data}
+                  title={skillsTitle}
+                  dictionary={dictionary}
+                />
               ),
             },
           ]
@@ -94,6 +105,7 @@ export function ResumePreviewDocument({
                   nativeLabel={languages.nativeLabel}
                   resume={data}
                   title={languages.title}
+                  dictionary={dictionary}
                 />
               ),
             },
@@ -104,7 +116,11 @@ export function ResumePreviewDocument({
             {
               id: "interests",
               render: (data: ResumeData) => (
-                <ResumeInterests resume={data} title={interestsTitle} />
+                <ResumeInterests
+                  resume={data}
+                  title={interestsTitle}
+                  dictionary={dictionary}
+                />
               ),
             },
           ]

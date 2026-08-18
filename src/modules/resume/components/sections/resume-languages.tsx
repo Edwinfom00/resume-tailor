@@ -1,10 +1,16 @@
+"use client";
+
 import type { ResumeData, ResumeLanguage } from "@/@types/resume-data";
+import type { Messages } from "@/i18n/messages/types";
+import { LanguagesSectionEditor } from "./editors/languages-section-editor";
+import { SectionEditWrapper } from "./editors/section-edit-wrapper";
 import { ResumeSectionHeading } from "./resume-section-heading";
 
 type ResumeLanguagesProps = Readonly<{
   resume: ResumeData;
   title: string;
   nativeLabel: string;
+  dictionary?: Messages;
 }>;
 
 type ResumeLanguageItemProps = Readonly<{
@@ -32,9 +38,10 @@ export function ResumeLanguages({
   resume,
   title,
   nativeLabel,
+  dictionary,
 }: ResumeLanguagesProps) {
-  return (
-    <section>
+  const content = (
+    <section data-resume-section="languages">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-1">
         {resume.languages.map((language) => (
@@ -46,5 +53,26 @@ export function ResumeLanguages({
         ))}
       </div>
     </section>
+  );
+
+  if (!dictionary) {
+    return content;
+  }
+
+  return (
+    <SectionEditWrapper
+      sectionId="languages"
+      dictionary={dictionary}
+      editor={({ onClose }) => (
+        <LanguagesSectionEditor
+          resume={resume}
+          dictionary={dictionary}
+          title={title}
+          onClose={onClose}
+        />
+      )}
+    >
+      {content}
+    </SectionEditWrapper>
   );
 }

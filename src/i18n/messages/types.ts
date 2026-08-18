@@ -427,5 +427,37 @@ export type Messages = {
     interests: {
       title: string;
     };
+    inlineEdit: {
+      doubleClickHint: string;
+      editingSectionTitle: string;
+      saveChanges: string;
+      cancel: string;
+      aiEnhance: string;
+      aiEnhancing: string;
+      addItem: string;
+      removeItem: string;
+      nameLabel: string;
+      headlineLabel: string;
+      emailLabel: string;
+      phoneLabel: string;
+      locationLabel: string;
+      summaryLabel: string;
+      highlightsLabel: string;
+      employerLabel: string;
+      roleLabel: string;
+      datesLabel: string;
+      achievementsLabel: string;
+      projectNameLabel: string;
+      descriptionLabel: string;
+      technologiesLabel: string;
+      groupNameLabel: string;
+      skillsLabel: string;
+      institutionLabel: string;
+      credentialLabel: string;
+      fieldOfStudyLabel: string;
+      languageNameLabel: string;
+      proficiencyLabel: string;
+      interestNameLabel: string;
+    };
   };
 };

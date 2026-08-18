@@ -1,4 +1,9 @@
+"use client";
+
 import type { ResumeData, ResumeEducation } from "@/@types/resume-data";
+import type { Messages } from "@/i18n/messages/types";
+import { EducationSectionEditor } from "./editors/education-section-editor";
+import { SectionEditWrapper } from "./editors/section-edit-wrapper";
 import {
   formatResumeDateRange,
   formatResumeLocation,
@@ -8,6 +13,7 @@ import { ResumeSectionHeading } from "./resume-section-heading";
 type ResumeEducationProps = Readonly<{
   resume: ResumeData;
   title: string;
+  dictionary?: Messages;
 }>;
 
 type ResumeEducationItemProps = Readonly<{
@@ -52,9 +58,9 @@ function ResumeEducationItem({ education }: ResumeEducationItemProps) {
   );
 }
 
-export function ResumeEducation({ resume, title }: ResumeEducationProps) {
-  return (
-    <section>
+export function ResumeEducation({ resume, title, dictionary }: ResumeEducationProps) {
+  const content = (
+    <section data-resume-section="education">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-(--rt-resume-entry-gap)">
         {resume.education.map((education) => (
@@ -62,5 +68,26 @@ export function ResumeEducation({ resume, title }: ResumeEducationProps) {
         ))}
       </div>
     </section>
+  );
+
+  if (!dictionary) {
+    return content;
+  }
+
+  return (
+    <SectionEditWrapper
+      sectionId="education"
+      dictionary={dictionary}
+      editor={({ onClose }) => (
+        <EducationSectionEditor
+          resume={resume}
+          dictionary={dictionary}
+          title={title}
+          onClose={onClose}
+        />
+      )}
+    >
+      {content}
+    </SectionEditWrapper>
   );
 }

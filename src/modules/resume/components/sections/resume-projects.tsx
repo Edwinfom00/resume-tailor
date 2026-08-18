@@ -1,4 +1,9 @@
+"use client";
+
 import type { ResumeData, ResumeProject } from "@/@types/resume-data";
+import type { Messages } from "@/i18n/messages/types";
+import { ProjectsSectionEditor } from "./editors/projects-section-editor";
+import { SectionEditWrapper } from "./editors/section-edit-wrapper";
 import { formatResumeDateRange } from "./resume-formatters";
 import { ResumeSectionHeading } from "./resume-section-heading";
 
@@ -7,6 +12,7 @@ type ResumeProjectsProps = Readonly<{
   title: string;
   roleLabel: string;
   technologiesLabel: string;
+  dictionary?: Messages;
 }>;
 
 type ResumeProjectItemProps = Readonly<{
@@ -57,8 +63,9 @@ export function ResumeProjects({
   title,
   roleLabel,
   technologiesLabel,
+  dictionary,
 }: ResumeProjectsProps) {
-  return (
+  const content = (
     <section data-resume-section="projects">
       <ResumeSectionHeading>{title}</ResumeSectionHeading>
       <div className="mt-3 space-y-(--rt-resume-entry-gap)">
@@ -72,5 +79,26 @@ export function ResumeProjects({
         ))}
       </div>
     </section>
+  );
+
+  if (!dictionary) {
+    return content;
+  }
+
+  return (
+    <SectionEditWrapper
+      sectionId="projects"
+      dictionary={dictionary}
+      editor={({ onClose }) => (
+        <ProjectsSectionEditor
+          resume={resume}
+          dictionary={dictionary}
+          title={title}
+          onClose={onClose}
+        />
+      )}
+    >
+      {content}
+    </SectionEditWrapper>
   );
 }

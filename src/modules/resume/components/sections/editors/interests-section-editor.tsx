@@ -66,7 +66,7 @@ export function InterestsSectionEditor({
           <button
             type="button"
             onClick={() => setIsAiDialogOpen(true)}
-            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white shadow-xs"
+            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white"
           >
             <HiMiniSparkles aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.aiEnhance}</span>
@@ -84,7 +84,7 @@ export function InterestsSectionEditor({
               value={interestsText}
               onChange={(e) => setInterestsText(e.target.value)}
               placeholder="Open Source, Chess, Continuous Integration, Photography"
-              className="w-full rounded-xl border border-line-subtle bg-canvas pl-10 pr-3.5 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+              className="w-full rounded-xl border border-line-subtle bg-canvas pl-10 pr-3.5 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
               required
             />
           </div>
@@ -102,7 +102,7 @@ export function InterestsSectionEditor({
           ) : null}
         </div>
 
-        <div className="flex items-center justify-end gap-2.5 border-t border-line-subtle pt-4">
+        <div className="flex items-center justify-end gap-2.5 border-t border-line-subtle pt-4 mt-4">
           <button
             type="button"
             onClick={onClose}
@@ -113,7 +113,7 @@ export function InterestsSectionEditor({
           </button>
           <button
             type="submit"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white shadow-brand hover:bg-brand-hover transition-all"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all"
           >
             <FiCheck aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.saveChanges}</span>

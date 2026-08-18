@@ -25,7 +25,7 @@ export function SectionEditWrapper({
       <div
         data-resume-section={sectionId}
         data-editing-section={sectionId}
-        className="my-4 rounded-2xl border-2 border-brand/60 bg-surface p-5 sm:p-6 shadow-lg shadow-brand/10 ring-4 ring-brand/10 transition-all duration-200"
+        className="my-4 rounded-2xl border-2 border-brand/60 bg-surface p-5 sm:p-6 transition-all duration-200"
       >
         {editor({ onClose: () => setIsEditing(false) })}
       </div>
@@ -44,7 +44,7 @@ export function SectionEditWrapper({
       }}
       className="group relative cursor-pointer rounded-lg transition-all duration-150 hover:ring-2 hover:ring-brand/40 hover:bg-brand/5"
     >
-      <div className="pointer-events-none absolute -top-3.5 right-3 z-10 hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1 text-2xs font-semibold text-white shadow-sm transition-all group-hover:flex animate-in fade-in zoom-in-90 duration-150">
+      <div className="pointer-events-none absolute -top-3.5 right-3 z-10 hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1 text-2xs font-semibold text-white transition-all group-hover:flex animate-in fade-in zoom-in-90 duration-150">
         <FiEdit2 aria-hidden="true" className="h-3 w-3" />
         <span>{inlineEdit.doubleClickHint}</span>
       </div>

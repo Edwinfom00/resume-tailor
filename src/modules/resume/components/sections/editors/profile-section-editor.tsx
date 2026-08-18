@@ -61,7 +61,7 @@ export function ProfileSectionEditor({
           <button
             type="button"
             onClick={() => setIsAiDialogOpen(true)}
-            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white shadow-xs"
+            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white"
           >
             <HiMiniSparkles aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.aiEnhance}</span>
@@ -87,7 +87,7 @@ export function ProfileSectionEditor({
           placeholder="• Proven experience building scalable platforms&#10;• Deep expertise in full-stack architecture"
         />
 
-        <div className="sticky bottom-0 z-10 -mx-1 -mb-1 mt-4 flex items-center justify-end gap-2.5 border-t border-line-subtle bg-surface/95 px-2 py-3 backdrop-blur-xs">
+        <div className="flex items-center justify-end gap-2.5 border-t border-line-subtle pt-4 mt-4">
           <button
             type="button"
             onClick={onClose}
@@ -98,7 +98,7 @@ export function ProfileSectionEditor({
           </button>
           <button
             type="submit"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white shadow-brand hover:bg-brand-hover transition-all"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all"
           >
             <FiCheck aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.saveChanges}</span>

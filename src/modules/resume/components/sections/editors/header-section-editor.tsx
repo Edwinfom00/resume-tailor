@@ -82,7 +82,7 @@ export function HeaderSectionEditor({
           <button
             type="button"
             onClick={() => setIsAiDialogOpen(true)}
-            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white shadow-xs"
+            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white"
           >
             <HiMiniSparkles aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.aiEnhance}</span>
@@ -100,7 +100,7 @@ export function HeaderSectionEditor({
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                 required
               />
             </div>
@@ -114,7 +114,7 @@ export function HeaderSectionEditor({
               type="text"
               value={headline}
               onChange={(e) => setHeadline(e.target.value)}
-              className="w-full rounded-xl border border-line-subtle bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+              className="w-full rounded-xl border border-line-subtle bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
               required
             />
           </div>
@@ -129,7 +129,7 @@ export function HeaderSectionEditor({
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                 required
               />
             </div>
@@ -145,7 +145,7 @@ export function HeaderSectionEditor({
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
               />
             </div>
           </div>
@@ -160,7 +160,7 @@ export function HeaderSectionEditor({
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
               />
             </div>
           </div>
@@ -173,7 +173,7 @@ export function HeaderSectionEditor({
               type="text"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="w-full rounded-xl border border-line-subtle bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+              className="w-full rounded-xl border border-line-subtle bg-canvas px-3.5 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
             />
           </div>
 
@@ -188,13 +188,13 @@ export function HeaderSectionEditor({
                 placeholder="https://www.yourdomain.dev"
                 value={websiteUrl}
                 onChange={(e) => setWebsiteUrl(e.target.value)}
-                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                className="w-full rounded-xl border border-line-subtle bg-canvas pl-9 pr-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
               />
             </div>
           </div>
         </div>
 
-        <div className="sticky bottom-0 z-10 -mx-1 -mb-1 mt-4 flex items-center justify-end gap-2.5 border-t border-line-subtle bg-surface/95 px-2 py-3 backdrop-blur-xs">
+        <div className="flex items-center justify-end gap-2.5 border-t border-line-subtle pt-4 mt-4">
           <button
             type="button"
             onClick={onClose}
@@ -205,7 +205,7 @@ export function HeaderSectionEditor({
           </button>
           <button
             type="submit"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white shadow-brand hover:bg-brand-hover transition-all"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all"
           >
             <FiCheck aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.saveChanges}</span>

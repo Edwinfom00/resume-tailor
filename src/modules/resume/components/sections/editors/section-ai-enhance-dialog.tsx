@@ -106,7 +106,7 @@ export function SectionAiEnhanceDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-900/40 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="relative w-full max-w-lg rounded-2xl border border-line-subtle bg-surface p-6 shadow-xl space-y-5 animate-in zoom-in-95 duration-150">
+      <div className="relative w-full max-w-lg rounded-2xl border border-line-subtle bg-surface p-6 space-y-5 animate-in zoom-in-95 duration-150">
         <div className="flex items-center justify-between border-b border-line-subtle pb-3">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-brand text-brand">
@@ -145,7 +145,7 @@ export function SectionAiEnhanceDialog({
                     onClick={() => handleSelectPreset(preset)}
                     className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-all ${
                       isSelected
-                        ? "bg-brand text-white shadow-2xs"
+                        ? "bg-brand text-white"
                         : "bg-surface-subtle text-ink-muted hover:bg-surface-brand hover:text-brand border border-line-subtle"
                     }`}
                   >
@@ -184,7 +184,7 @@ export function SectionAiEnhanceDialog({
             type="button"
             onClick={handleGenerate}
             disabled={isSubmitting}
-            className="inline-flex h-9 items-center justify-center gap-2 rounded-xl bg-brand px-5 text-xs font-semibold text-white shadow-brand hover:bg-brand-hover transition-all disabled:opacity-50"
+            className="inline-flex h-9 items-center justify-center gap-2 rounded-xl bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all disabled:opacity-50"
           >
             <HiMiniSparkles className="h-4 w-4" />
             <span>{isSubmitting ? inlineEdit.aiEnhancing : inlineEdit.aiGenerateBtn}</span>

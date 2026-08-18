@@ -146,18 +146,18 @@ export function EducationSectionEditor({
           <button
             type="button"
             onClick={() => setIsAiDialogOpen(true)}
-            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white shadow-xs"
+            className="inline-flex h-9 items-center gap-2 rounded-xl bg-surface-brand px-4 text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white"
           >
             <HiMiniSparkles aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.aiEnhance}</span>
           </button>
         </div>
 
-        <div className="max-h-[500px] space-y-4 overflow-y-auto pr-1.5 scrollbar-thin">
+        <div className="space-y-4">
           {items.map((item, index) => (
             <div
               key={item.id}
-              className="rounded-2xl border border-line-subtle bg-surface-subtle/60 p-4 sm:p-5 space-y-4 shadow-2xs hover:border-brand/30 transition-all"
+              className="rounded-2xl border border-line-subtle bg-surface-subtle/60 p-4 sm:p-5 space-y-4 hover:border-brand/30 transition-all"
             >
               <div className="flex items-center justify-between border-b border-line-subtle/80 pb-2.5">
                 <div className="flex items-center gap-2">
@@ -189,7 +189,7 @@ export function EducationSectionEditor({
                     type="text"
                     value={item.institution}
                     onChange={(e) => updateItem(index, { institution: e.target.value })}
-                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                     required
                   />
                 </div>
@@ -202,7 +202,7 @@ export function EducationSectionEditor({
                     type="text"
                     value={item.credential}
                     onChange={(e) => updateItem(index, { credential: e.target.value })}
-                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                     required
                   />
                 </div>
@@ -215,7 +215,7 @@ export function EducationSectionEditor({
                     type="text"
                     value={item.fieldOfStudy}
                     onChange={(e) => updateItem(index, { fieldOfStudy: e.target.value })}
-                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                   />
                 </div>
 
@@ -227,7 +227,7 @@ export function EducationSectionEditor({
                     type="number"
                     value={item.startYear}
                     onChange={(e) => updateItem(index, { startYear: Number(e.target.value) })}
-                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all shadow-2xs"
+                    className="w-full rounded-xl border border-line-subtle bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all"
                     required
                   />
                 </div>
@@ -248,13 +248,13 @@ export function EducationSectionEditor({
         <button
           type="button"
           onClick={addItem}
-          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-brand/40 bg-surface-brand/50 text-xs font-bold text-brand transition-all hover:bg-brand hover:text-white hover:border-brand shadow-2xs"
+          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-brand/40 bg-surface-brand/50 text-xs font-bold text-brand transition-all hover:bg-brand hover:text-white hover:border-brand"
         >
           <FiPlus aria-hidden="true" className="h-4 w-4" />
           <span>{inlineEdit.addItem}</span>
         </button>
 
-        <div className="flex items-center justify-end gap-2.5 border-t border-line-subtle pt-4">
+        <div className="flex items-center justify-end gap-2.5 border-t border-line-subtle pt-4 mt-4">
           <button
             type="button"
             onClick={onClose}
@@ -265,7 +265,7 @@ export function EducationSectionEditor({
           </button>
           <button
             type="submit"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white shadow-brand hover:bg-brand-hover transition-all"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-brand px-5 text-xs font-semibold text-white hover:bg-brand-hover transition-all"
           >
             <FiCheck aria-hidden="true" className="h-4 w-4" />
             <span>{inlineEdit.saveChanges}</span>

@@ -73,6 +73,7 @@ interface SessionActions {
   setJobUrl: (url: string) => void;
   setJobDescription: (description: string) => void;
   extractJob: () => Promise<void>;
+  clearJob: () => void;
 
   runAnalysis: () => Promise<void>;
 
@@ -410,6 +411,14 @@ export const useSessionStore = create<SessionStore>()(
           updatedAt: now(),
         }));
       },
+
+      clearJob: () =>
+        set({
+          job: initialJobSlice,
+          analysis: initialAnalysisSlice,
+          suggestions: [],
+          updatedAt: now(),
+        }),
 
       runAnalysis: async () => {
         const state = get();

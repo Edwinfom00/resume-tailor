@@ -31,6 +31,12 @@ export const messages = {
     undoLabel: "Undo last change",
     redoLabel: "Redo last change",
     exportLabel: "Export PDF",
+    analyzeAnotherJobLabel: "Analyze another job",
+    analyzeAnotherJobConfirmTitle: "Analyze another job offer?",
+    analyzeAnotherJobConfirmDescription:
+      "Analyzing a new job will reset your current job offer, match score, and AI recommendations. Your uploaded resume will remain saved.",
+    analyzeAnotherJobConfirmAction: "Analyze new job offer",
+    analyzeAnotherJobCancelAction: "Cancel",
   },
   upload: {
     dashboardLabel: "Dashboard",

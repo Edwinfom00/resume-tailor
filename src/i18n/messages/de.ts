@@ -31,6 +31,12 @@ export const messages = {
     undoLabel: "Letzte Änderung rückgängig machen",
     redoLabel: "Letzte Änderung wiederherstellen",
     exportLabel: "PDF exportieren",
+    analyzeAnotherJobLabel: "Andere Stelle analysieren",
+    analyzeAnotherJobConfirmTitle: "Neues Stellenangebot analysieren?",
+    analyzeAnotherJobConfirmDescription:
+      "Diese Aktion setzt das aktuelle Stellenangebot, den Match-Score und die KI-Empfehlungen zurück. Ihr hochgeladener Lebenslauf bleibt erhalten.",
+    analyzeAnotherJobConfirmAction: "Neues Angebot analysieren",
+    analyzeAnotherJobCancelAction: "Abbrechen",
   },
   upload: {
     dashboardLabel: "Dashboard",

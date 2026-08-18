@@ -38,6 +38,11 @@ export type Messages = {
     undoLabel: string;
     redoLabel: string;
     exportLabel: string;
+    analyzeAnotherJobLabel: string;
+    analyzeAnotherJobConfirmTitle: string;
+    analyzeAnotherJobConfirmDescription: string;
+    analyzeAnotherJobConfirmAction: string;
+    analyzeAnotherJobCancelAction: string;
   };
   upload: {
     dashboardLabel: string;

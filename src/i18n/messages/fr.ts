@@ -31,6 +31,12 @@ export const messages = {
     undoLabel: "Annuler la dernière modification",
     redoLabel: "Rétablir la dernière modification",
     exportLabel: "Exporter en PDF",
+    analyzeAnotherJobLabel: "Analyser un autre poste",
+    analyzeAnotherJobConfirmTitle: "Analyser une autre offre d’emploi ?",
+    analyzeAnotherJobConfirmDescription:
+      "Cette action réinitialisera l’offre d’emploi actuelle, le score de correspondance et les recommandations IA. Votre CV importé sera conservé.",
+    analyzeAnotherJobConfirmAction: "Analyser une nouvelle offre",
+    analyzeAnotherJobCancelAction: "Annuler",
   },
   upload: {
     dashboardLabel: "Tableau de bord",
